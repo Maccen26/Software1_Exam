@@ -1,4 +1,7 @@
-# Design and Patterens used for the Project
+# Design and Patterens
 
-1. SOLID Principles 
+## Design:
+SOLID Principles 
+
+## Patterens:
 2. Patterens???
