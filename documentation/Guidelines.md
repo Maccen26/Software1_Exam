@@ -8,7 +8,7 @@ This is a guideline for developing documentation, code and workflow for writing 
 ### Steps:
 
 1. Check ongoing status and tasks at Trello. \
-    LINK?
+https://trello.com/invite/b/68063137ea9cf26ad42a94a5/ATTI37a44d8ade575feca3edcaaafbfcf9ec1043741A/softwareexam
 
 2. Create cucumber scanrios or feature file. 
 
