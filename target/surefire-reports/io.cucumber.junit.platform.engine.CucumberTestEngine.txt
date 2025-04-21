@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: io.cucumber.junit.platform.engine.CucumberTestEngine
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.072 s <<< FAILURE! -- in io.cucumber.junit.platform.engine.CucumberTestEngine
-Testing Cucumber and BDD development.Testing Cucumber and BDD development - Printing Hello World -- Time elapsed: 0.037 s <<< ERROR!
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.080 s <<< FAILURE! -- in io.cucumber.junit.platform.engine.CucumberTestEngine
+Testing Cucumber and BDD development.Testing Cucumber and BDD development - Printing Hello World -- Time elapsed: 0.039 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'a text "Hello World"' and 1 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -12,8 +12,8 @@ public void aText(String string) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
 }
-@Then("the text is returned")
-public void theTextIsReturned() {
+@Then("the text {string} is returned")
+public void theTextIsReturned(String string) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
 }
@@ -30,7 +30,7 @@ public void theTextIsReturned() {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
 
-Register worked hours on Activity.Register worked hours on Activity - Developer register allowed time on a activity -- Time elapsed: 0.007 s <<< ERROR!
+Register worked hours on Activity.Register worked hours on Activity - Developer register allowed time on a activity -- Time elapsed: 0.008 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'A project with the number 20251 is contained in the app' and 7 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
@@ -146,7 +146,7 @@ public void anErrorMessageIsGivenToTheDeveloper(String string) {
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
 
-Register worked hours on Activity.Register worked hours on Activity - Developer try to register time on a Activity that doesn't exists -- Time elapsed: 0.004 s <<< ERROR!
+Register worked hours on Activity.Register worked hours on Activity - Developer try to register time on a Activity that doesn't exists -- Time elapsed: 0.005 s <<< ERROR!
 io.cucumber.junit.platform.engine.UndefinedStepException: 
 The step 'A project with the number 20251 is contained in the app' and 6 other step(s) are undefined.
 You can implement these steps using the snippet(s) below:
