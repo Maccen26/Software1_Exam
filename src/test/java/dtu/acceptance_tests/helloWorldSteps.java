@@ -1,8 +1,9 @@
-package dtu.example;
+package dtu.acceptance_tests;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import dtu.example.Example;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
