@@ -35,7 +35,7 @@
 						<index>true</index>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>dtu.library.gui/MainScreen</mainClass>
+							<mainClass>dtu.ui/MainScreen</mainClass>
 							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
 					</archive>
