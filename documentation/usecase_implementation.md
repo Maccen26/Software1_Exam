@@ -11,9 +11,9 @@ This document contains a overview of which order the use cases from rapport 1 sh
 
 # Dependent use cases
 These use cases are dependent on each other in decreasing order: 
-1. addProject 
-2. addActivity 
-3. addDeveloperToActivity 
+1. createProject (Lukas)
+2. addActivity (Johan)
+3. addDeveloperToActivity (Thomas)
 
 
 # Independent usecases given a use case
