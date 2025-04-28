@@ -3,7 +3,7 @@
 # Rapport 1
 
 ## Glossary (Johan)
-- [] Explain Regular Activity 
+- [x] Explain Regular Activity 
 
 
 ## Class Diagram (Thomas)
