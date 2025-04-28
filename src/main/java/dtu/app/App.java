@@ -8,6 +8,7 @@ import dtu.domain.*;
 public class App {
     private ArrayList<Project> projects = new ArrayList<Project>();
     private ArrayList<Developer> developers = new ArrayList<Developer>();
+    private String loggedInDeveloper;
     
     public App(ArrayList<Project> projects, ArrayList<Developer> developers) {
         // Initialise the projects and developers lists
@@ -17,5 +18,30 @@ public class App {
         // Add huba
         Developer huba = new Developer("huba");
         developers.add(huba);
+    }
+
+    public void addDeveloper(Developer developer) {
+        // Add a developer to the app
+        this.developers.add(developer);
+    }
+
+    public void login(Developer developer) {
+        // Log in a developer
+        this.loggedInDeveloper = developer.getInitials();
+    }
+
+    public void addProject(Project project) {
+        // Add a project to the app
+        this.projects.add(project);
+    }
+
+    public Project getProject(String projectNumber) {
+        // Get a project by its number
+        for (Project project : projects) {
+            if (project.getProjectNumber().equals(projectNumber)) {
+                return project;
+            }
+        }
+        return null;
     }
 }

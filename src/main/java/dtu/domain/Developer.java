@@ -11,4 +11,9 @@ public class Developer {
         this.initials = initials;
         this.assignedActivities = new ArrayList<Activity>();
     }
+
+    public String getInitials() {
+        // Get the initials of the developer
+        return initials;
+    }
 }
