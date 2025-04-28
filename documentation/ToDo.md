@@ -31,3 +31,18 @@
 ## Name missing Sequence Diagrams (Thomas )
 - []
 
+
+# Rapport 2 
+
+- [ ] right name
+- [ ] Name of 1 person per section 
+- [ ] Contains URL to GitHub
+
+
+# Code base 
+- [ ] Maven Project 
+- [ ] ZIP file (project_xx.zip)
+- [ ] Author comments on every class and method 
+- [ ] "huba" is added as a developer 
+- [ ] It can be imported and run in Eclipse
+- [ ] README file with intructions on how to run the program (take from the report)
