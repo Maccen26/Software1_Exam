@@ -1,0 +1,28 @@
+@startuml
+
+left to right direction
+
+actor "Project Manager" as PM
+
+
+
+
+rectangle "Project Management" {
+  usecase "create Project" as createProject
+  usecase "add Activity to a Project" as addActivity
+  usecase "delete Actiti" as UC2
+  usecase "Update Task Status" as UC4
+  
+  UC1 -[hidden]right- UC3
+  UC2 -[hidden]right- UC4
+  UC1 -[hidden]down- UC2
+  UC3 -[hidden]down- UC4
+}
+
+PM --> UC1
+PM --> UC3
+PM --> UC2
+UC4 <-- TM
+UC3 <-- TM
+
+@enduml
