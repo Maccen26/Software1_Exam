@@ -1,7 +1,9 @@
-package dtu;
+package dtu.app;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dtu.domain.*;
 
 public class App {
     private ArrayList<Project> projects = new ArrayList<Project>();
