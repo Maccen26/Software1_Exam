@@ -1,4 +1,4 @@
-package dtu;
+package dtu.domain;
 
 import java.util.ArrayList;
 import java.util.List;
