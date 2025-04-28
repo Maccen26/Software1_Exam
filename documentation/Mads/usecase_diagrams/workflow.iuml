@@ -3,11 +3,9 @@
 left to right direction
 
 actor "Project Manager" as PM
+actor "Developer" as DV 
 
-
-
-
-rectangle "Project Management" {
+rectangle "Workflow Management" {
   usecase "create Project" as createProject 
   usecase "mark a Project finished" as markProject
   usecase "add Activity to a Project" as addActivity
