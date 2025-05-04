@@ -64,4 +64,25 @@ public class editActivitySteps {
         // Check if the activity has the budgetted time
         assertTrue(activity.getTimeBudget() == int1);
     }
+
+    @When("{string} edits the start week of {string} to {int} in {int}")
+    public void editsTheStartWeekOfToIn(String string, String string2, Integer int1, Integer int2) {
+        // Edit the start week of the activity
+        int[] weekPlan = activity.getWeekPlan();
+        weekPlan[0] = int1;
+        activity.setWeekPlan(weekPlan);
+    }
+    @When("{string} edits the end week of {string} to {int} in {int}")
+    public void editsTheEndWeekOfToIn(String string, String string2, Integer int1, Integer int2) {
+        // Edit the end week of the activity
+        int[] weekPlan = activity.getWeekPlan();
+        weekPlan[1] = int1;
+        activity.setWeekPlan(weekPlan);
+    }
+    @Then("{string} has the start week {int} and end week {int} in {int}")
+    public void hasTheStartWeekAndEndWeekIn(String string, Integer int1, Integer int2, Integer int3) {
+        // Check if the activity has the start week and end week
+        int[] weekPlan = activity.getWeekPlan();
+        assertTrue(weekPlan[0] == int1 && weekPlan[1] == int2);
+    }
 }
