@@ -6,13 +6,13 @@ public class Developer {
     private String initials;
     private ArrayList <Activity> assignedActivities;
 
-    public Developer(String initials) {
+    public Developer(String initials) { // Lukas
         // Initialise the developer initials
         this.initials = initials;
         this.assignedActivities = new ArrayList<Activity>();
     }
 
-    public String getInitials() {
+    public String getInitials() { // Lukas
         // Get the initials of the developer
         return initials;
     }

@@ -11,7 +11,7 @@ public class Activity {
     private int[] weekPlan = new int [2];
     private int[] yearPlan = new int [2];
 
-    public Activity(String name, String assignedProject, ArrayList<Developer> assignedDevelopers, int TimeBudget, int[] weekPlan, int[] yearPlan) {
+    public Activity(String name, String assignedProject, ArrayList<Developer> assignedDevelopers, int TimeBudget, int[] weekPlan, int[] yearPlan) { // Lukas
         // Initialise the activity name, project, assigned developers, status, time budget, week plan and year plan
         this.name = name;
         this.project = assignedProject;

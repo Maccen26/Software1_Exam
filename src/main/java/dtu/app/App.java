@@ -1,7 +1,6 @@
 package dtu.app;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dtu.domain.*;
 
@@ -9,8 +8,9 @@ public class App {
     private ArrayList<Project> projects = new ArrayList<Project>();
     private ArrayList<Developer> developers = new ArrayList<Developer>();
     private String loggedInDeveloper;
+    private int projectNumber = 1;
     
-    public App(ArrayList<Project> projects, ArrayList<Developer> developers) {
+    public App(ArrayList<Project> projects, ArrayList<Developer> developers) { // Lukas
         // Initialise the projects and developers lists
         this.projects = projects;
         this.developers = developers;
@@ -20,22 +20,24 @@ public class App {
         developers.add(huba);
     }
 
-    public void addDeveloper(Developer developer) {
+    public void addDeveloper(Developer developer) { // Lukas
         // Add a developer to the app
         this.developers.add(developer);
     }
 
-    public void login(Developer developer) {
+    public void login(Developer developer) { // Lukas
         // Log in a developer
         this.loggedInDeveloper = developer.getInitials();
     }
 
-    public void addProject(Project project) {
+    public void createProject() { // Lukas
         // Add a project to the app
-        this.projects.add(project);
+        Project newProject = new Project("2025" + projectNumber);
+        this.projects.add(newProject);
+        projectNumber++;
     }
 
-    public boolean hasDeveloper(String initials) {
+    public boolean hasDeveloper(String initials) { // Lukas
         // Check if a developer exists in the app
         for (Developer developer : developers) {
             if (developer.getInitials().equals(initials)) {
@@ -45,7 +47,7 @@ public class App {
         return false;
     }
 
-    public Project getProject(String projectNumber) {
+    public Project getProject(String projectNumber) { // Lukas
         // Get a project by its number
         for (Project project : projects) {
             if (project.getProjectNumber().equals(projectNumber)) {

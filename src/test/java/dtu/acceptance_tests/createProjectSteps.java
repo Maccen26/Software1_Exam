@@ -36,22 +36,21 @@ public class createProjectSteps {
         app.login(dev);
     }
 
-    @When("the developer {string} creates a project with the name {string}")
-    public void theDeveloperCreatesAProjectWithTheName(String string, String string2) {
+    @When("the developer {string} creates a project")
+    public void theDeveloperCreatesAProjectWithTheName(String string) {
         // Create a project
-        project = new Project(string2);
-        app.addProject(project);
+        app.createProject();
     }
 
-    @Then("the project with the name {string} exists in the app")
+    @Then("the project with the number {string} exists in the app")
     public void theProjectWithTheNameExistsInTheApp(String string) {
         // Check if the project exists in the app
         assertTrue(app.getProject(string) != null);
     }
 
-    @Then("the error message {string} is given")
-    public void theErrorMessageIsGiven(String string) {
+    @Then("the project with the number {string} and {string} exists in the app")
+    public void theErrorMessageIsGiven(String string, String string2) {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertTrue(app.getProject(string) != null && app.getProject(string2) != null);
     }
 }
