@@ -28,4 +28,18 @@ public class Project {
         }
         return null;
     }
+
+    public String getReport() { // Lukas
+        if (this.activities.isEmpty()) {
+            return projectNumber + ", no activities";
+        }
+        // Get the report for the project
+        String report = "";
+        for (Activity activity : activities) {
+            String status = activity.getStatus();
+            report += activity.getName() + status + "\n";
+
+        }
+        return report;
+    }
 }

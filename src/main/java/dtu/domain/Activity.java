@@ -57,4 +57,9 @@ public class Activity {
         // Get the year plan for the activity
         return yearPlan;
     }
+
+    public String getStatus(){ // Lukas
+        // Get the status of the activity
+        return status;
+    }
 }
