@@ -18,4 +18,14 @@ public class Project {
         // Get the project number
         return projectNumber;
     }
+
+    public Activity getActivity(String activityName) { // Lukas
+        // Get an activity by its name
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return activity;
+            }
+        }
+        return null;
+    }
 }

@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class editActivitySteps {
     Project project;
     Developer dev;
     Activity activity;
+    String errorMessage;
 
     @Given("a project with projectnumber {int}")
     public void aProjectWithProjectnumber(Integer int1) {
@@ -84,5 +86,17 @@ public class editActivitySteps {
         // Check if the activity has the start week and end week
         int[] weekPlan = activity.getWeekPlan();
         assertTrue(weekPlan[0] == int1 && weekPlan[1] == int2);
+    }
+
+    @When("{string} try to change the budget time to {int} on an activity with name {string}")
+    public void tryToChangeTheBudgetTimeToOnAnActivityWithName(String string, Integer int1, String string2) {
+        // Check if the activity exists
+        errorMessage = "Activity not found";
+        assertFalse(project.getActivity(string2) != null);
+    }
+    @Then("recieve the error message {string}")
+    public void recieveTheErrorMessage(String string) {
+        // Check if the error message is correct
+        assertTrue(errorMessage.equals(string));
     }
 }
