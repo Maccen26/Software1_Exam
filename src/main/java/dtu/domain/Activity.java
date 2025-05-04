@@ -21,4 +21,40 @@ public class Activity {
         this.weekPlan = weekPlan;
         this.yearPlan = yearPlan;
     }
+
+    public void setName(String name) { // Lukas
+        // Set the name of the activity
+        this.name = name;
+    }
+    public String getName() { // Lukas
+        // Get the name of the activity
+        return name;
+    }
+
+    public void setTimeBudget(int TimeBudget) { // Lukas
+        // Set the time budget for the activity
+        this.TimeBudget = TimeBudget;
+    }
+    public int getTimeBudget() { // Lukas
+        // Get the time budget for the activity
+        return TimeBudget;
+    }
+
+    public void setWeekPlan(int[] weekPlan) { // Lukas
+        // Set the week plan for the activity
+        this.weekPlan = weekPlan;
+    }
+    public int[] getWeekPlan() { // Lukas
+        // Get the week plan for the activity
+        return weekPlan;
+    }
+
+    public void setYearPlan(int[] yearPlan) { // Lukas
+        // Set the year plan for the activity
+        this.yearPlan = yearPlan;
+    }
+    public int[] getYearPlan() { // Lukas
+        // Get the year plan for the activity
+        return yearPlan;
+    }
 }
