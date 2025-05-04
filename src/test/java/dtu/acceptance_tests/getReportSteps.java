@@ -59,4 +59,11 @@ public class getReportSteps {
         // Register the hours for the activity
         // dev.registerHours(activity, int1);
     }
+
+    @Given("the activity is finished")
+    public void theActivityIsFinished() {
+        ////////// UNFINISHED /////////
+        // Set the status of the activity to finished
+        // activity.finish();
+    }
 }
