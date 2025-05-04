@@ -57,6 +57,7 @@ public class editActivitySteps {
 
     @When("{string} edits the budgetted time of {string} to {int} hours")
     public void editsTheBudgettedTimeOfToHours(String string, String string2, Integer int1) {
+        errorMessage = "Does not have permission to edit";
         // Edit the budgetted time of the activity
         activity.setTimeBudget(int1);
     }
