@@ -6,7 +6,7 @@ public class LoginFrame extends Ui{
 	private JFrame loginFrame;
     private String initials;
 
-	public LoginFrame(){
+	public LoginFrame(){ // Lukas
 		loginFrame = new JFrame("Login");
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginFrame.setSize(300, 300);
@@ -19,6 +19,7 @@ public class LoginFrame extends Ui{
             System.out.println("Logged in with initials: " + initials);
             if (app.hasDeveloper(initials)) {
                 System.out.println("Developer exists");
+                createProjectFrame.show();
                 loginFrame.setVisible(false);
             } else {
                 System.out.println("Developer does not exist");
@@ -35,11 +36,11 @@ public class LoginFrame extends Ui{
         loginFrame.setVisible(true);
 	}
 	
-	public void show(){
+	public void show(){ // Lukas
 		loginFrame.setVisible(true);	
 	}
 
-    public void hide(){
+    public void hide(){ // Lukas
         loginFrame.setVisible(false);
     }
 }
