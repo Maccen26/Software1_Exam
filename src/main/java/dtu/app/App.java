@@ -35,6 +35,16 @@ public class App {
         this.projects.add(project);
     }
 
+    public boolean hasDeveloper(String initials) {
+        // Check if a developer exists in the app
+        for (Developer developer : developers) {
+            if (developer.getInitials().equals(initials)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Project getProject(String projectNumber) {
         // Get a project by its number
         for (Project project : projects) {
