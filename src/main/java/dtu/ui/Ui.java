@@ -12,9 +12,12 @@ public class Ui {
     protected static LoginFrame loginFrame = new LoginFrame();
     protected static CreateProjectFrame createProjectFrame = new CreateProjectFrame();
     protected static EditActivityFrame editActivityFrame = new EditActivityFrame();
+    protected static GetReportFrame getReportFrame = new GetReportFrame();
     
     public static void main(String[] args) { // Lukas
         loginFrame.show();
         editActivityFrame.show();
+        createProjectFrame.show();
+        getReportFrame.show();
     }
 }

@@ -20,7 +20,7 @@ public class getReportSteps {
     public void aProjectWithProjectnumber(String string) {
         app.createProject();
     }
-    
+
     @Given("{string} is projectleader for project {string}")
     public void isProjectleaderForProject(String string, String string2) {
         ////////// UNFINISHED /////////

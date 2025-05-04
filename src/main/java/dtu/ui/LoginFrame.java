@@ -19,7 +19,6 @@ public class LoginFrame extends Ui{
             System.out.println("Logged in with initials: " + initials);
             if (app.hasDeveloper(initials)) {
                 System.out.println("Developer exists");
-                createProjectFrame.show();
                 loginFrame.setVisible(false);
             } else {
                 System.out.println("Developer does not exist");
