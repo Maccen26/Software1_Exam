@@ -63,13 +63,12 @@ public class Activity {
         return status;
     }
 
-    public void addDeveloper(Developer developer) throws Exception // Mads
+    public void addDeveloper(Developer developer) // Mads + Johan
     {   
-        if (this.assignedDevelopers.contains(developer)) 
-        {
-            throw new Exception("Developer is already added to the activity");
+        if (!this.assignedDevelopers.contains(developer)) {
+            assignedDevelopers.add(developer);
+            developer.addActivity(this);
         }
-        assignedDevelopers.add(developer);
-        developer.addActivity(this);
+
     }
 }

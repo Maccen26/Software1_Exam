@@ -60,7 +60,7 @@ public class Project {
         return report;
     }
 
-    public void addActivity(
+    public void addActivity( //Johan
             Developer requester,
             String name, 
             int[] weekPlan, 
@@ -69,7 +69,7 @@ public class Project {
 
         // ---- Basic validation ----
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
-            throw new ErrorMessage("Developer is not project leader");
+            throw new ErrorMessage("Developer is not projectleader");
         }
 
         if (containsActivityName(name)) {
@@ -89,7 +89,7 @@ public class Project {
         activities.add(newActivity);
     }
 
-    public Boolean containsActivityName(String name) {
+    public Boolean containsActivityName(String name) { //Johan
         for (Activity activity : activities) {
             if (activity.getName().equals(name)) {
                 return true;
