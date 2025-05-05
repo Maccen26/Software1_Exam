@@ -2,14 +2,15 @@ package dtu.ui;
 
 import javax.swing.*;
 
-import dtu.domain.Project;
+import dtu.app.*;
+import dtu.domain.*;
 
 public class GetReportFrame extends Ui{
     private JFrame getReportFrame;
 
     
 
-    public GetReportFrame() { // Lukas
+    public GetReportFrame(App app) { // Lukas
         app.createProject();
 
         getReportFrame = new JFrame("Get Report");
