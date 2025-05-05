@@ -49,7 +49,7 @@ public class getReportSteps {
         // Create an activity
         // project.addActivity(string, int2, int3, int4, int5, int6);
         // activity = project.getActivity(string);
-        activity = new Activity(string, project.getProjectNumber(), new ArrayList<Developer>(), int5, new int[]{int1, int2}, new int[]{int3, int4});
+        activity = new Activity(string, project.getProjectNumber(), new int[]{int1, int2}, new int[]{int3, int4});
     
     }
 

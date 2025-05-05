@@ -1,5 +1,6 @@
 package dtu.acceptance_tests;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -45,7 +46,8 @@ public class activityOverviewSteps { //Mads
         yearplan[0] = 2025; 
         yearplan[1] = 2025; 
 
-        //project.addActivity("Activty1", projectNumber, weekplan, yearplan);  //WAITING FOR JOHAN TO IMPLEMENT
+        //Developer developer = this.app.getDeveloper("defaultDeveloper"); // Replace "defaultDeveloper" with an appropriate developer initials
+        project.addActivity(this.developer, "Activity1", weekplan, yearplan);  
 
 
         if (project.getActivity(activityName) == null){
@@ -54,16 +56,19 @@ public class activityOverviewSteps { //Mads
         }
     }
     @Given("{string} is working on the activity {string} in the project {string}") //Mads
-    public void developer_is_working_on_activity(String developerInitials, String activityName, String projectNumber){
+    public void developer_is_working_on_activity(String developerInitials, String activityName, String projectNumber) throws Exception{
         this.developer = this.app.getDeveloper(developerInitials); 
         Activity activity = this.app.getActivity(activityName, projectNumber); 
         activity.addDeveloper(this.developer); 
     }
 
+
+
     @When("the developer {string} get an overview of all activities for the project {string}")
     public void developer_get_an_overview_of_actvities(String developerInitials, String projectNumber)
     {
-        
+        //TODO: Write this class to the end
+        throw new PendingException("Finished this method");
     }
 
 

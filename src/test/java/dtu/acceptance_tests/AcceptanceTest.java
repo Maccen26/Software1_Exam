@@ -14,5 +14,6 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 		, features = "use_cases"
 		)
 public class AcceptanceTest {
+	
 
 }

@@ -65,7 +65,7 @@ public class Project {
             String name, 
             int[] weekPlan, 
             int[] yearPlan)
-            throws ErrorMessage {
+            throws Exception {
 
         // ---- Basic validation ----
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
@@ -85,7 +85,7 @@ public class Project {
             this.projectNumber,
             weekPlanCopy,
             yearPlanCopy);
-
+        newActivity.addDeveloper(requester);
         activities.add(newActivity);
     }
 

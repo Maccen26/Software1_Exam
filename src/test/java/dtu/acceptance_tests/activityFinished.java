@@ -16,25 +16,25 @@ public class activityFinished {
     Activity activity;
     Developer developer;
 
-    @Given("{string} with status {string}")
+    // @Given("{string} with status {string}")
 
-    @Given("{string} with status: {string}, startweek: {int}")
+    // @Given("{string} with status: {string}, startweek: {int}")
 
-    @Given("developer with name {string} is in app")
+    // @Given("developer with name {string} is in app")
 
-    @Given("{string} is logged in")
+    // @Given("{string} is logged in")
 
-    @Given("{string} is assigned to {string}")
+    // @Given("{string} is assigned to {string}")
 
-    @When("{string} change status for {string} to finished")
+    // @When("{string} change status for {string} to finished")
 
-    @Then("status change succed")
+    // @Then("status change succed")
 
-    @When("{string} change status for {string}")
+    // @When("{string} change status for {string}")
 
-    @Then("gets errormessage {string}")
+    // @Then("gets errormessage {string}")
 
-    @Then("status for {string} not changed")
+    // @Then("status for {string} not changed")
 
-    @When("{string} change status for {string} in week {int} to finished")
+    // @When("{string} change status for {string} in week {int} to finished")
 }

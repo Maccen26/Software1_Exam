@@ -33,7 +33,7 @@ public class editActivitySteps {
         // Create an activity
         // project.addActivity(string, int2, int3, int4, int5, int6);
         // activity = project.getActivity(string);
-        activity = new Activity(string, project.getProjectNumber(), new ArrayList<Developer>(), int6, new int[]{int2, int3}, new int[]{int4, int5});
+        activity = new Activity(string, project.getProjectNumber(), new int[]{int2, int3}, new int[]{int4, int5});
     }
 
     @Given("a developer with the name {string} is contained in the app")
