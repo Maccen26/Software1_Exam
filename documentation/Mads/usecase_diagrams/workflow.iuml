@@ -6,24 +6,32 @@ actor "Project Manager" as PM
 actor "Developer" as DV 
 
 rectangle "Workflow Management" {
-  usecase "create Project" as createProject 
-  usecase "mark a Project finished" as markProject
-  usecase "add Activity to a Project" as addActivity
-  usecase "delete Activity from a Project" as deleteActivity
-  usecase "create a report about the Project" as createReport
-  usecase "add Projectleader to Project" as addProjectLeader
-  
-  createProject -[hidden]right- addActivity
-  markProject -[hidden]right- deleteActivity
+  usecase "change time for Activity" as changeActivityTime 
+  usecase "Set time for Regular Activity" as sTfRA
+  usecase "Add Developer to Project" as aDtP
+  usecase "Delete Developer from Project" as dDtP
+  usecase "Register time on Activity" as rToA 
+  usecase "Set Activity to Finished" as sAtF
+  usecase "Get Activity Overview" as gAO
+
+  sTfRA .up.> changeActivityTime: <<include>>
+
+  rToA-[hidden]right->sTfRA
+  sTfRA-[hidden]right->sAtF
+  gAO-[hidden]right->rToA
 
 }
 
-PM --> createProject
-PM --> markProject
-PM --> addActivity
-PM --> deleteActivity 
-PM --> createReport
-PM --> addProjectLeader
+PM --> changeActivityTime 
+PM --> aDtP
+PM -> dDtP
+
+DV -up-> sTfRA 
+DV -up-> rToA 
+DV -up->sAtF
+DV -up-> gAO
+
+
 
 
 @enduml
