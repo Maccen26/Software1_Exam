@@ -60,13 +60,10 @@ public class activityOverviewSteps { //Mads
         activity.addDeveloper(this.developer); 
     }
 
-    @When("the developer {string} get an overview of activities")
-    public void developer_get_an_overview_of_actvities()
+    @When("the developer {string} get an overview of all activities for the project {string}")
+    public void developer_get_an_overview_of_actvities(String developerInitials, String projectNumber)
     {
-        //this.developer.getActivityOverv
-
-
-
+        
     }
 
 
