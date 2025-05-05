@@ -59,4 +59,16 @@ public class App {
         }
         return null;
     }
+
+    public Developer getDeveloper(String developerInitials) //Mads
+    {
+        for (Developer developer: this.developers) 
+        {
+            if (developer.getInitials().equals(developerInitials)) 
+            {
+                return developer;
+            }
+        }
+        return null;
+    }
 }
