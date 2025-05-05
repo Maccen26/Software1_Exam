@@ -14,7 +14,7 @@ import dtu.domain.*;
 
 // Lukas
 public class editActivitySteps {
-    App app = new App(new ArrayList<Project>(), new ArrayList<Developer>());
+    App app = new App();
     Project project;
     Developer dev;
     Activity activity;

@@ -18,7 +18,7 @@ import dtu.domain.Activity;
 public class createProjectSteps {
     ArrayList<Project> projects = new ArrayList<Project>();
     ArrayList<Developer> developers = new ArrayList<Developer>();
-    App app = new App(projects, developers);
+    App app = new App();
     Project project;
     Developer dev;
 
