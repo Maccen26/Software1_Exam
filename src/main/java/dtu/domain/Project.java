@@ -52,8 +52,7 @@ public class Project {
             Developer requester,
             String name, 
             int[] weekPlan, 
-            int[] yearPlan, 
-            ArrayList<Developer> assignedDevelopers) 
+            int[] yearPlan
             throws ErrorMessage {
 
         // ---- Basic validation ----
@@ -79,22 +78,13 @@ public class Project {
             throw new ErrorMessage("Year plan must contain exactly two integers: {startYear, endYear}");
         }
 
-
-        // ---- Defensive copies & safe defaults ----
-        ArrayList<Developer> devs = (assignedDevelopers == null)
-            ? new ArrayList<>() 
-            : new ArrayList<>(assignedDevelopers); // shallow copy is fine here
-
         int[] weekPlanCopy = weekPlan.clone();
         int[] yearPlanCopy = yearPlan.clone();
-        int timeBudget = 0;
 
         // ---- Create and register the activity ----
         Activity newActivity = new Activity(
             name,
             this.projectNumber,
-            devs,
-            timeBudget,
             weekPlanCopy,
             yearPlanCopy);
 
