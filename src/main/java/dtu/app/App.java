@@ -71,4 +71,16 @@ public class App {
         }
         return null;
     }
+
+    public Activity getActivity(String activityName, String projectNumber2) //MADS
+    {
+        Project project = this.getProject(projectNumber2); 
+        if (project == null)
+        {
+            return null;
+        }
+        Activity activity = project.getActivity(activityName); 
+
+        return activity;
+    }
 }

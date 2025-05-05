@@ -8,7 +8,7 @@ import dtu.app.*;
 import dtu.domain.*;
 
 public class Ui {
-    protected App app = new App(new ArrayList<Project>(), new ArrayList<Developer>());
+    protected App app = new App();
     protected static LoginFrame loginFrame = new LoginFrame();
     protected static CreateProjectFrame createProjectFrame = new CreateProjectFrame();
     protected static EditActivityFrame editActivityFrame = new EditActivityFrame();
