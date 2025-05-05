@@ -10,7 +10,7 @@ Feature: Activity Overview
         And "thfa" is logged in
 
     Scenario: Developer has active or scheduled activities
-        Given "thfa" is working on the activity "Activity1" in the project 20251
+        Given "thfa" is working on the activity "Activity1" in the project "20251"
         When the developer get a overview of activities
         Then he should see the following activities: "Activity1"  
 

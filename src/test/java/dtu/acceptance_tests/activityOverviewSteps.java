@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import static org.junit.Assert.assertTrue;
 
 import dtu.app.App;
+import dtu.domain.Activity;
 import dtu.domain.Developer;
 import dtu.domain.Project;
 
@@ -37,6 +38,15 @@ public class activityOverviewSteps { //Mads
             throw new Exception("Activity with the name '" + activityName + "' does not exist in the app.");
         }
     }
+    @Given("{string} is working on the activity {string} in the project {string}")
+    public void developer_is_working_on_activity(String developerInitials, String activityName, String projectNumber){
+        Developer developer = this.app.getDeveloper(developerInitials); 
+        //Activity activity = new Activity(activityName, projectNumber, 0, null, null);
+        //developer.addActivity()
+
+    }
+
+
 
 
 
