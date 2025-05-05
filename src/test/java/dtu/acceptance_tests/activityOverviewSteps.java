@@ -7,6 +7,8 @@ import io.cucumber.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import dtu.app.App;
 import dtu.domain.Activity;
 import dtu.domain.Developer;
@@ -17,9 +19,12 @@ import dtu.domain.Project;
 public class activityOverviewSteps { //Mads 
 
     App app = new App(); 
+    Developer developer;
+
     
     public activityOverviewSteps() {
         this.app.createProject();
+        
     }
 
 
@@ -30,21 +35,40 @@ public class activityOverviewSteps { //Mads
             throw new Exception("Project with the given number"+ projectNumber +"does not exist in the app.");
         }
     }
-    @And("the activity with the name {string} is connected to the project with the number {string}")
+    @And("the activity with the name {string} is connected to the project with the number {string}") // Mads
     public void activity_with_name_exists(String activityName, String projectNumber) throws Exception {
         Project project = this.app.getProject(projectNumber); 
+        int[] weekplan = new int[2];
+        weekplan[0] = 10; 
+        weekplan[1] = 12; 
+        int[] yearplan = new int[2]; 
+        yearplan[0] = 2025; 
+        yearplan[1] = 2025; 
+
+        //project.addActivity("Activty1", projectNumber, weekplan, yearplan);  //WAITING FOR JOHAN TO IMPLEMENT
+
+
         if (project.getActivity(activityName) == null){
             assertTrue(false);
             throw new Exception("Activity with the name '" + activityName + "' does not exist in the app.");
         }
     }
-    @Given("{string} is working on the activity {string} in the project {string}")
+    @Given("{string} is working on the activity {string} in the project {string}") //Mads
     public void developer_is_working_on_activity(String developerInitials, String activityName, String projectNumber){
-        Developer developer = this.app.getDeveloper(developerInitials); 
-        //Activity activity = new Activity(activityName, projectNumber, 0, null, null);
-        //developer.addActivity()
+        this.developer = this.app.getDeveloper(developerInitials); 
+        Activity activity = this.app.getActivity(activityName, projectNumber); 
+        activity.addDeveloper(this.developer); 
+    }
+
+    @When("the developer {string} get an overview of activities")
+    public void developer_get_an_overview_of_actvities()
+    {
+        //this.developer.getActivityOverv
+
+
 
     }
+
 
 
 

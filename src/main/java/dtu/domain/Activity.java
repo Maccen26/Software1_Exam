@@ -3,9 +3,9 @@ package dtu.domain;
 import java.util.ArrayList;
 
 public class Activity {
-    private String name; //must
-    private String project; //Must
-    private ArrayList<Developer> assignedDevelopers; //Not 
+    private String name; 
+    private String project; 
+    private ArrayList<Developer> assignedDevelopers; 
     private String status; 
     private int TimeBudget;
     private int[] weekPlan = new int [2];
@@ -63,8 +63,9 @@ public class Activity {
         return status;
     }
 
-    public void addDeveloper(Developer developer) // MAds
+    public void addDeveloper(Developer developer) // Mads
     {
-        
+        this.assignedDevelopers.add(developer);
+
     }
 }
