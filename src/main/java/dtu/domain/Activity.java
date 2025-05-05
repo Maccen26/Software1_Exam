@@ -64,7 +64,11 @@ public class Activity {
     }
 
     public void addDeveloper(Developer developer) // Mads
-    {
+    {   
+        if (!this.assignedDevelopers.contains(developer)) {
+            // If the developer is not already assigned to the activity, add them
+            assignedDevelopers.add(developer);
+        }
         this.assignedDevelopers.add(developer);
 
     }
