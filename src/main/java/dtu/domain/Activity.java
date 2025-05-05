@@ -63,13 +63,12 @@ public class Activity {
         return status;
     }
 
-    public void addDeveloper(Developer developer) // Mads
+    public void addDeveloper(Developer developer) // Mads + Johan
     {   
         if (!this.assignedDevelopers.contains(developer)) {
-            // If the developer is not already assigned to the activity, add them
             assignedDevelopers.add(developer);
+            developer.addActivity(this);
         }
-        this.assignedDevelopers.add(developer);
 
     }
 }
