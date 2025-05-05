@@ -23,7 +23,7 @@ public class ProjectFinished {
     }
 
     @Given("status for project {string} is {string}")
-    public boolean StatusForProjectIs(String projectNumber, String status){
+    public void StatusForProjectIs(String projectNumber, String status){
 
     }
 
@@ -38,7 +38,7 @@ public class ProjectFinished {
     }
 
     @Given("{string} has status project leader for project {string}")
-    public boolean HasStatusProjectLeaderForProject(String developer, String ProjectNumber){
+    public void HasStatusProjectLeaderForProject(String developer, String ProjectNumber){
    
     }
 
@@ -63,12 +63,12 @@ public class ProjectFinished {
     }
 
     @Then("gets errormessage {string}")
-    public String GetsErrormessage(String string){
+    public void GetsErrormessage(String string){
         ErrorMessage.errormessage(string)
     }
 
     @Then("status for project not changed")
-    public boolean StatusforProjectNotChanged(){
+    public void StatusforProjectNotChanged(){
 
     }
      
