@@ -65,7 +65,7 @@ public class Activity {
 
     public void addDeveloper(Developer developer) // Mads
     {
-        this.assignedDevelopers.add(developer);
+        this.assignedDevelopers.add(developer); 
 
     }
 }
