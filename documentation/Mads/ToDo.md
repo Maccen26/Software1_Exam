@@ -1,4 +1,6 @@
 # To Do Next Steps: 
 
-- [] Finish workflow use case diagram 
-- [] 
+- [x] Finish workflow use case diagram 
+- [] put usecases into report 
+- [] Implement Activity Overview code
+- [] Implement Time Recording Activity 

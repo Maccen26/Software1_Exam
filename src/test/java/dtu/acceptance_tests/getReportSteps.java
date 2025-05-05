@@ -13,7 +13,7 @@ import dtu.domain.*;
 
 // Lukas
 public class getReportSteps {
-    App app = new App(new ArrayList<Project>(), new ArrayList<Developer>());
+    App app = new App();
     String report;
     Project project;
     Activity activity;
