@@ -3,21 +3,21 @@ package dtu.domain;
 import java.util.ArrayList;
 
 public class Activity {
-    private String name;
-    private String project;
-    private ArrayList<Developer> assignedDevelopers;
-    private String status;
+    private String name; 
+    private String project; 
+    private ArrayList<Developer> assignedDevelopers; 
+    private String status; 
     private int TimeBudget;
     private int[] weekPlan = new int [2];
     private int[] yearPlan = new int [2];
 
-    public Activity(String name, String assignedProject, ArrayList<Developer> assignedDevelopers, int TimeBudget, int[] weekPlan, int[] yearPlan) { // Lukas
+    public Activity(String name, String assignedProject, int[] weekPlan, int[] yearPlan) { // Lukas
         // Initialise the activity name, project, assigned developers, status, time budget, week plan and year plan
         this.name = name;
         this.project = assignedProject;
-        this.assignedDevelopers = assignedDevelopers;
+        this.assignedDevelopers = new ArrayList<Developer>();
         this.status = "Not started";
-        this.TimeBudget = TimeBudget;
+        this.TimeBudget = 0;
         this.weekPlan = weekPlan;
         this.yearPlan = yearPlan;
     }
@@ -61,5 +61,14 @@ public class Activity {
     public String getStatus(){ // Lukas
         // Get the status of the activity
         return status;
+    }
+
+    public void addDeveloper(Developer developer) // Mads + Johan
+    {   
+        if (!this.assignedDevelopers.contains(developer)) {
+            assignedDevelopers.add(developer);
+            developer.addActivity(this);
+        }
+
     }
 }

@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import dtu.domain.*;
 
 public class App {
-    private ArrayList<Project> projects = new ArrayList<Project>();
-    private ArrayList<Developer> developers = new ArrayList<Developer>();
+    private ArrayList<Project> projects;     //= new ArrayList<Project>();
+    private ArrayList<Developer> developers; //= new ArrayList<Developer>();
     private String loggedInDeveloper;
-    private int projectNumber = 1;
+    private int projectNumber; // = 1;
     
-    public App(ArrayList<Project> projects, ArrayList<Developer> developers) { // Lukas
+    public App() { // Lukas
         // Initialise the projects and developers lists
-        this.projects = projects;
-        this.developers = developers;
+        this.projects = new ArrayList<Project>();
+        this.developers = new ArrayList<Developer>();
 
-        // Add huba
+        // Add huba 
         Developer huba = new Developer("huba");
         developers.add(huba);
+
+        //Add projectnumber for test
+        this.projectNumber = 1;
     }
 
     public void addDeveloper(Developer developer) { // Lukas
@@ -55,5 +58,29 @@ public class App {
             }
         }
         return null;
+    }
+
+    public Developer getDeveloper(String developerInitials) //Mads
+    {
+        for (Developer developer: this.developers) 
+        {
+            if (developer.getInitials().equals(developerInitials)) 
+            {
+                return developer;
+            }
+        }
+        return null;
+    }
+
+    public Activity getActivity(String activityName, String projectNumber2) //MADS
+    {
+        Project project = this.getProject(projectNumber2); 
+        if (project == null)
+        {
+            return null;
+        }
+        Activity activity = project.getActivity(activityName); 
+
+        return activity;
     }
 }

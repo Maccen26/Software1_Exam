@@ -1,17 +1,34 @@
 package dtu.domain;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import io.cucumber.java.hu.De;
 
 public class Project {
     private String projectNumber;
     private String projectLeader;
     private ArrayList<Activity> activities;
+    private String status;
 
     public Project(String projectNumber) { // Lukas
         // Initialise the project number and project leader
         this.projectNumber = projectNumber;
         this.projectLeader = null;
         this.activities = new ArrayList<Activity>();
+        this.status = "Not started";
+    }
+
+    public void assignProjectLeader(Developer requester, Developer newLeader)
+            throws ErrorMessage {
+        // If there already is a leader, only they can change it:
+        if (this.projectLeader != null
+            && !requester.getInitials().equals(this.projectLeader)) {
+            throw new ErrorMessage("Only the current project leader can reassign the project leader");
+        }
+
+        // At this point either there was no leader, or the requester *is* the leader:
+        this.projectLeader = newLeader.getInitials();
     }
 
     public String getProjectNumber() { // Lukas
@@ -42,4 +59,43 @@ public class Project {
         }
         return report;
     }
+
+    public void addActivity( //Johan
+            Developer requester,
+            String name, 
+            int[] weekPlan, 
+            int[] yearPlan)
+            throws ErrorMessage {
+
+        // ---- Basic validation ----
+        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
+
+        if (containsActivityName(name)) {
+            throw new ErrorMessage("Activity title already exists");
+        }
+
+        int[] weekPlanCopy = weekPlan.clone();
+        int[] yearPlanCopy = yearPlan.clone();
+
+        // ---- Create and register the activity ----
+        Activity newActivity = new Activity(
+            name,
+            this.projectNumber,
+            weekPlanCopy,
+            yearPlanCopy);
+
+        activities.add(newActivity);
+    }
+
+    public Boolean containsActivityName(String name) { //Johan
+        for (Activity activity : activities) {
+            if (activity.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

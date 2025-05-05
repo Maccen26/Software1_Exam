@@ -21,7 +21,7 @@ Feature: Finish project
         Then status change succeed
         
     Scenario: Project leader can't change status due to activities where status isn't finished
-        And "activity2" with status "ongoing" has been added to project 20251
+        And "activity2" with status "ongoing" has been added to project "20251"
         When "thfa" change status for project to finished
         Then gets errormessage "Still ongoing activities, status change failed"
         And status for project not changed

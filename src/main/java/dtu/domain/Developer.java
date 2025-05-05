@@ -1,6 +1,8 @@
 package dtu.domain;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 
 public class Developer {
     private String initials;
@@ -15,5 +17,17 @@ public class Developer {
     public String getInitials() { // Lukas
         // Get the initials of the developer
         return initials;
+    }
+
+    public void addActivity(Activity activity) { // Johan
+        // Add an activity to the developer's assigned activities
+        if (!assignedActivities.contains(activity)) {
+            assignedActivities.add(activity);
+        }
+    }
+
+    public List<Activity> getAssignedActivities() { // Johan
+        // Get the list of assigned activities for the developer
+        return Collections.unmodifiableList(assignedActivities);
     }
 }
