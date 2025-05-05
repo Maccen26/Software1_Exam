@@ -17,6 +17,18 @@ public class Project {
         this.activities = new ArrayList<Activity>();
     }
 
+    public void assignProjectLeader(Developer requester, Developer newLeader)
+            throws ErrorMessage {
+        // If there already is a leader, only they can change it:
+        if (this.projectLeader != null
+            && !requester.getInitials().equals(this.projectLeader)) {
+            throw new ErrorMessage("Only the current project leader can reassign the project leader");
+        }
+
+        // At this point either there was no leader, or the requester *is* the leader:
+        this.projectLeader = newLeader.getInitials();
+    }
+
     public String getProjectNumber() { // Lukas
         // Get the project number
         return projectNumber;
@@ -50,30 +62,16 @@ public class Project {
             Developer requester,
             String name, 
             int[] weekPlan, 
-            int[] yearPlan
+            int[] yearPlan)
             throws ErrorMessage {
 
         // ---- Basic validation ----
-        Objects.requireNonNull(requester, "Caller must not be null");
-
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
             throw new ErrorMessage("Developer is not project leader");
         }
 
-        Objects.requireNonNull(name, "Activity name must not be null");
-
-        if (name.trim().isEmpty()) {
-            throw new ErrorMessage("Activity name must not be blank");
-        }
-
         if (containsActivityName(name)) {
             throw new ErrorMessage("Activity title already exists");
-        }
-        if (weekPlan == null || weekPlan.length != 2) {
-            throw new ErrorMessage("Week plan must contain exactly two integers: {startWeek, endWeek}");
-        }
-        if (yearPlan == null || yearPlan.length != 2) {
-            throw new ErrorMessage("Year plan must contain exactly two integers: {startYear, endYear}");
         }
 
         int[] weekPlanCopy = weekPlan.clone();
