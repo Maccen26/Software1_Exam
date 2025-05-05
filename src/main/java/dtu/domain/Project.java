@@ -69,7 +69,7 @@ public class Project {
 
         // ---- Basic validation ----
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
-            throw new ErrorMessage("Developer is not project leader");
+            throw new ErrorMessage("Developer is not projectleader");
         }
 
         if (containsActivityName(name)) {
