@@ -16,4 +16,9 @@ public class Developer {
         // Get the initials of the developer
         return initials;
     }
+
+    public void addActivity(Activity activity) { // Johan
+        // Add an activity to the developer's assigned activities
+        this.assignedActivities.add(activity);
+    }
 }
