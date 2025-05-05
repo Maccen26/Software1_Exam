@@ -9,12 +9,14 @@ public class Project {
     private String projectNumber;
     private String projectLeader;
     private ArrayList<Activity> activities;
+    private String status;
 
     public Project(String projectNumber) { // Lukas
         // Initialise the project number and project leader
         this.projectNumber = projectNumber;
         this.projectLeader = null;
         this.activities = new ArrayList<Activity>();
+        this.status = "Not started";
     }
 
     public void assignProjectLeader(Developer requester, Developer newLeader)
