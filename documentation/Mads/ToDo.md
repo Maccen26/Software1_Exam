@@ -1,4 +1,4 @@
-# To Do Next Steps 
+# To Do Next Steps: 
 
-- [ ] Fix Use case diagrams 
-- [ ] put both detailed use case into git 
+- [] Finish workflow use case diagram 
+- [] 
