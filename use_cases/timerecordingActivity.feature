@@ -1,3 +1,4 @@
+#Mads HH
 Feature: Register worked hours on Activity
     Description: Let a developer register worked hours on a activity. 
     The developer should also be able to register when the person is not assigned
