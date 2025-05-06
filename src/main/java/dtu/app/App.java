@@ -23,7 +23,20 @@ public class App {
         Developer mahh = new Developer("mahh");
         developers.add(mahh);
 
-        //Add projectnumber for test
+        // Add test projects
+        Project project0 = new Project("20250");
+        projects.add(project0);
+        
+        // Add test activities
+        try{
+            project0.assignProjectLeader(thfa, thfa);
+            project0.addActivity(thfa, "Activity1", new int[]{1, 2}, new int[]{2025, 2025});
+        }
+        catch (ErrorMessage e){
+            System.out.println(e.getMessage());
+        }
+
+        // Set current project number
         this.projectNumber = 1;
     }
 
@@ -100,8 +113,15 @@ public class App {
         {
             return null;
         }
-        Activity activity = project.getActivity(activityName); 
 
-        return activity;
+        Activity activity;
+        try{
+            activity = project.getActivity(activityName);
+            return activity;
+        } catch (ErrorMessage e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }

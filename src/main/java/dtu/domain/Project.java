@@ -36,14 +36,19 @@ public class Project {
         return projectNumber;
     }
 
-    public Activity getActivity(String activityName) { // Lukas
+    public String getProjectLeader() { // Lukas
+        // Get the project leader
+        return projectLeader;
+    }
+
+    public Activity getActivity(String activityName) throws ErrorMessage{ // Lukas
         // Get an activity by its name
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
                 return activity;
             }
         }
-        return null;
+        throw new ErrorMessage("Activity not found");
     }
 
     public String getReport(Developer dev) throws ErrorMessage{ // Lukas
@@ -87,7 +92,7 @@ public class Project {
         // ---- Create and register the activity ----
         Activity newActivity = new Activity(
             name,
-            this.projectNumber,
+            this,
             weekPlanCopy,
             yearPlanCopy);
         newActivity.addDeveloper(requester);

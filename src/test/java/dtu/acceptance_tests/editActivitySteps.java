@@ -15,26 +15,10 @@ import dtu.domain.*;
 // Lukas
 public class editActivitySteps {
     App app = new App();
-    Project project;
-    Developer dev;
+    Project project = app.getProject("20250");
     Activity activity;
+    Developer dev;
     String errorMessage;
-
-    @Given("a project with projectnumber {int}")
-    public void aProjectWithProjectnumber(Integer int1) {
-        // Create a project
-        app.createProject();
-        project = app.getProject("20251");
-    }
-
-    @Given("the project {int} has an activity with name: {string}, start week: {int}, start year: {int}, end week: {int}, end year: {int} and budgetted time: {int} hours")
-    public void theProjectHasAnActivityWithNameStartWeekStartYearEndWeekEndYearAndBudgettedTimeHours(Integer int1, String string, Integer int2, Integer int3, Integer int4, Integer int5, Integer int6) {
-        ///////// UNFINISHED /////////
-        // Create an activity
-        // project.addActivity(string, int2, int3, int4, int5, int6);
-        // activity = project.getActivity(string);
-        activity = new Activity(string, project.getProjectNumber(), new int[]{int2, int3}, new int[]{int4, int5});
-    }
 
     @Given("a developer with the name {string} is contained in the app")
     public void aDeveloperWithTheNameIsContainedInTheApp(String string) {
@@ -45,21 +29,33 @@ public class editActivitySteps {
 
     @Given("{string} is logged in")
     public void isLoggedIn(String string) {
-        app.login(dev);
-    }
-
-    @Given("{string} is projectleader for project {int}")
-    public void isProjectleaderForProject(String string, Integer int1) {
-        ////////// UNFINISHED /////////
-        // Set the project leader for the project
-        // app.getProject("20251").setProjectLeader(string);
+        try {
+            // Log in the developer
+            app.login(dev);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+            System.out.println(e.getMessage());
+        }
     }
 
     @When("{string} edits the budgetted time of {string} to {int} hours")
     public void editsTheBudgettedTimeOfToHours(String string, String string2, Integer int1) {
-        errorMessage = "Does not have permission to edit";
-        // Edit the budgetted time of the activity
-        activity.setTimeBudget(int1);
+        try{
+            activity = app.getProject("20250").getActivity(string2);
+        } catch (ErrorMessage e) {
+            errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+            System.out.println(string);
+            return;
+        }
+        
+        try{
+            activity.setTimeBudget(app.getDeveloper(string), int1);
+        }
+        catch (ErrorMessage e) {
+            errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+        }
     }
 
     @Then("{string} has the budgetted time {int} hours")
@@ -70,17 +66,41 @@ public class editActivitySteps {
 
     @When("{string} edits the start week of {string} to {int} in {int}")
     public void editsTheStartWeekOfToIn(String string, String string2, Integer int1, Integer int2) {
+        try{
+            activity = app.getProject("20250").getActivity(string2);
+        } catch (ErrorMessage e) {
+            errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+        }
+
         // Edit the start week of the activity
         int[] weekPlan = activity.getWeekPlan();
         weekPlan[0] = int1;
-        activity.setWeekPlan(weekPlan);
+        try{
+            activity.setWeekPlan(app.getDeveloper(string), weekPlan);
+        } catch (ErrorMessage e) {
+            errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+        }
     }
     @When("{string} edits the end week of {string} to {int} in {int}")
     public void editsTheEndWeekOfToIn(String string, String string2, Integer int1, Integer int2) {
+        try{
+            activity = app.getProject("20250").getActivity(string2);
+        } catch (ErrorMessage e) {
+            errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+        }
+
         // Edit the end week of the activity
         int[] weekPlan = activity.getWeekPlan();
         weekPlan[1] = int1;
-        activity.setWeekPlan(weekPlan);
+        try{
+            activity.setWeekPlan(app.getDeveloper(string), weekPlan);
+        } catch (ErrorMessage e) {
+            errorMessage = e.getMessage();
+            System.out.println(errorMessage);
+        }
     }
     @Then("{string} has the start week {int} and end week {int} in {int}")
     public void hasTheStartWeekAndEndWeekIn(String string, Integer int1, Integer int2, Integer int3) {
@@ -89,15 +109,11 @@ public class editActivitySteps {
         assertTrue(weekPlan[0] == int1 && weekPlan[1] == int2);
     }
 
-    @When("{string} try to change the budget time to {int} on an activity with name {string}")
-    public void tryToChangeTheBudgetTimeToOnAnActivityWithName(String string, Integer int1, String string2) {
-        // Check if the activity exists
-        errorMessage = "Activity not found";
-        assertFalse(project.getActivity(string2) != null);
-    }
     @Then("recieve the error message {string}")
     public void recieveTheErrorMessage(String string) {
         // Check if the error message is correct
+        System.out.println("\nRecieved: " + errorMessage + " " + string + "\n");
+        System.out.println(errorMessage.equals(string));
         assertTrue(errorMessage.equals(string));
     }
 }
