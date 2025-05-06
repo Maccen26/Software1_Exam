@@ -28,14 +28,31 @@ public class App {
         this.developers.add(developer);
     }
 
-    public void login(Developer developer) { // Lukas
+    public void login(Developer developer) throws ErrorMessage{ // Lukas
         // Log in a developer
+        if (!hasDeveloper(developer.getInitials())) {
+            throw new ErrorMessage("Developer does not exist");
+        }
+        if (this.loggedInDeveloper != null) {
+            throw new ErrorMessage("Another developer is already logged in");
+        }
         this.loggedInDeveloper = developer.getInitials();
     }
 
     public void createProject() { // Lukas
         // Add a project to the app
         Project newProject = new Project("2025" + projectNumber);
+        this.projects.add(newProject);
+        projectNumber++;
+    }
+    public void createProject(Developer projectLeader) { // Lukas
+        // Add a project to the app
+        Project newProject = new Project("2025" + projectNumber);
+        try {
+            newProject.assignProjectLeader(projectLeader, projectLeader);
+        } catch (ErrorMessage e) {
+            System.out.println(e.getMessage());
+        }
         this.projects.add(newProject);
         projectNumber++;
     }

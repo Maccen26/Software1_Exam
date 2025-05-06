@@ -33,7 +33,11 @@ public class createProjectSteps {
     @Given("the developer {string} is logged into the App")
     public void theDeveloperIsLoggedIntoTheApp(String string) {
         // Log in the developer
-        app.login(dev);
+        try {
+            app.login(dev);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @When("the developer {string} creates a project")
@@ -53,5 +57,4 @@ public class createProjectSteps {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(app.getProject(string) != null && app.getProject(string2) != null);
     }
-    
 }
