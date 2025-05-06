@@ -46,15 +46,20 @@ public class Project {
         return null;
     }
 
-    public String getReport() { // Lukas
+    public String getReport(Developer dev) throws ErrorMessage{ // Lukas
+        if (!dev.getInitials().equals(this.projectLeader)) {
+            throw new ErrorMessage("Only the project leader can get the report");
+        }
+
         if (this.activities.isEmpty()) {
             return projectNumber + ", no activities";
         }
+
         // Get the report for the project
-        String report = "";
+        String report = projectNumber + ": " + status + "\n";
         for (Activity activity : activities) {
             String status = activity.getStatus();
-            report += activity.getName() + status + "\n";
+            report += activity.getName() + ": " + status + "\n";
 
         }
         return report;
@@ -65,7 +70,7 @@ public class Project {
             String name, 
             int[] weekPlan, 
             int[] yearPlan)
-            throws Exception {
+            throws ErrorMessage {
 
         // ---- Basic validation ----
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {

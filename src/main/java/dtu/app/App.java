@@ -15,9 +15,13 @@ public class App {
         this.projects = new ArrayList<Project>();
         this.developers = new ArrayList<Developer>();
 
-        // Add huba 
+        // Add test developers 
         Developer huba = new Developer("huba");
         developers.add(huba);
+        Developer thfa = new Developer("thfa");
+        developers.add(thfa);
+        Developer mahh = new Developer("mahh");
+        developers.add(mahh);
 
         //Add projectnumber for test
         this.projectNumber = 1;
@@ -33,9 +37,9 @@ public class App {
         if (!hasDeveloper(developer.getInitials())) {
             throw new ErrorMessage("Developer does not exist");
         }
-        if (this.loggedInDeveloper != null) {
-            throw new ErrorMessage("Another developer is already logged in");
-        }
+        // if (this.loggedInDeveloper != null) {
+        //     throw new ErrorMessage("Another developer is already logged in");
+        // }
         this.loggedInDeveloper = developer.getInitials();
     }
 
