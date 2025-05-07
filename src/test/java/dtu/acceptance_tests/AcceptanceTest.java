@@ -11,7 +11,8 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 		plugin = "summary"
 		, monochrome = true
 		, snippets = SnippetType.CAMELCASE
-		, features = "use_cases"
+		, features = "use_cases", 
+		glue = {"dtu.acceptance_tests"}
 		)
 public class AcceptanceTest {
 	
