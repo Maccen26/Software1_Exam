@@ -18,11 +18,15 @@ import dtu.domain.Activity;
 public class createProjectSteps {
     ArrayList<Project> projects = new ArrayList<Project>();
     ArrayList<Developer> developers = new ArrayList<Developer>();
-    App app = new App();
-    Project project;
+    App app;/// = new App();
+    Project Project;// project;
     Developer dev;
+//
+    public createProjectSteps(App app)
+    {
+        this.app = app; 
 
-
+    }
     @Given("the App contains a developer with the initials {string}")
     public void theAppContainsADeveloperWithTheInitials(String string) {
         // Add the developer to the app

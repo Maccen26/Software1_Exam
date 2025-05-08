@@ -13,22 +13,26 @@ import java.util.ArrayList;
 import dtu.app.App;
 import dtu.domain.Activity;
 import dtu.domain.Developer;
+import dtu.domain.ErrorMessage;
 import dtu.domain.Project;
 
 
 
 public class activityOverviewSteps { //Mads 
 
-    App app = new App(); 
-    Developer developer;
+   // App app = new App(); 
+   // Developer developer;
 
     
-    public activityOverviewSteps() {
+    private App app;
+    private Developer developer;
+
+    public activityOverviewSteps(App app) {
+        this.app = app;
         this.app.createProject();
-        
     }
 
-
+//BACKGROUND
     @Given("A project with the number {string} is contained in the app") //Mads
     public void a_project_with_the_number_is_contained_in_the_app(String projectNumber) throws Exception {
         if (app.getProject(projectNumber) == null) {
@@ -36,6 +40,7 @@ public class activityOverviewSteps { //Mads
             throw new Exception("Project with the given number"+ projectNumber +"does not exist in the app.");
         }
     }
+
     @And("the activity with the name {string} is connected to the project with the number {string}") // Mads
     public void activity_with_name_exists(String activityName, String projectNumber) throws Exception {
         Project project = this.app.getProject(projectNumber); 
@@ -55,6 +60,29 @@ public class activityOverviewSteps { //Mads
             throw new Exception("Activity with the name '" + activityName + "' does not exist in the app.");
         }
     }
+    @And("the activity with the name {string} is connected to the project {string} and developer {string}")
+    public void theActivityWithTheNameIsConnectedToTheProjectAndDeveloper(String activityName, String projectNumber, String developerInitials) throws ErrorMessage 
+    {
+    
+        Project project = this.app.getProject(projectNumber); 
+        Developer developer = this.app.getDeveloper(developerInitials);
+
+
+        int[] weekplan = new int[2];
+        weekplan[0] = 10; 
+        weekplan[1] = 12; 
+        int[] yearplan = new int[2]; 
+        yearplan[0] = 2025; 
+        yearplan[1] = 2025; 
+
+        
+        project.addActivity(developer, activityName, weekplan, yearplan);
+
+
+    }
+        
+
+
     @Given("{string} is working on the activity {string} in the project {string}") //Mads
     public void developer_is_working_on_activity(String developerInitials, String activityName, String projectNumber) throws Exception{
         this.developer = this.app.getDeveloper(developerInitials); 
