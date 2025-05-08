@@ -27,7 +27,7 @@ public class getReportSteps {
     }
 
     @Given("{string} is projectleader for project {string}")
-    public void isProjectleaderForProject(String string, String string2) {
+    public void isProjectleaderForProject(String string, String string2) throws Exception {
         // Set the project leader for the project
         try {
             app.getProject(string2).assignProjectLeader(app.getDeveloper(string), app.getDeveloper(string));
@@ -38,7 +38,7 @@ public class getReportSteps {
     }
 
     @When("{string} gets the report for project {string}")
-    public void triesToGetTheReportForProject(String string, String string2) {
+    public void triesToGetTheReportForProject(String string, String string2) throws Exception {
         // Get the report for the project
         try {
             report = app.getProject(string2).getReport(app.getDeveloper(string));
@@ -76,7 +76,7 @@ public class getReportSteps {
     }
 
     @Given("project {string} has an activity with name: {string}, start week: {int}, start year: {int}, end week: {int}, end year: {int} and budgetted time: {int} hours")
-    public void projectHasAnActivityWithNameStartWeekStartYearEndWeekEndYearAndBudgettedTimeHours(String string, String string2, Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) {
+    public void projectHasAnActivityWithNameStartWeekStartYearEndWeekEndYearAndBudgettedTimeHours(String string, String string2, Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) throws Exception {
         // Create an activity
         try {
             app.getProject(string).addActivity(app.getDeveloper("thfa"), string2, new int[] {int1, int2}, new int[] {int3, int4});

@@ -1,5 +1,7 @@
 package dtu.app;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
@@ -87,7 +89,7 @@ public class App {
         return false;
     }
 
-    public Project getProject(String projectNumber) { // Lukas
+    public Project getProject(String projectNumber){ // Lukas
         // Get a project by its number
         for (Project project : projects) {
             if (project.getProjectNumber().equals(projectNumber)) {
@@ -95,9 +97,10 @@ public class App {
             }
         }
         return null;
+        //throw new Exception("Project not contained in the app");
     }
 
-    public Developer getDeveloper(String developerInitials) //Mads
+    public Developer getDeveloper(String developerInitials) throws Exception //Mads
     {
         for (Developer developer: this.developers) 
         {
@@ -106,16 +109,13 @@ public class App {
                 return developer;
             }
         }
-        return null;
+
+        throw new Exception("Developer not contained in app");
     }
 
-    public Activity getActivity(String activityName, String projectNumber2) //MADS
+    public Activity getActivity(String activityName, String projectNumber2) throws Exception //MADS
     {
         Project project = this.getProject(projectNumber2); 
-        if (project == null)
-        {
-            return null;
-        }
 
         Activity activity;
         try{
@@ -128,12 +128,27 @@ public class App {
         return null;
     }
 
-    public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws ErrorMessage 
+    public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
     {
         Project project = getProject(projectNumber2); 
         Developer developer = getDeveloper(this.loggedInDeveloper);
         project.addActivity(developer, activityName, weekplan, yearplan);
 
     }
+
+    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception {
+        Project project = getProject(projectNumber2); 
+        Developer developer = getDeveloper(developerInitials);
+        if (developer == null)
+        {
+            throw new Exception("D");
+        }
+        project.addDeveloperToActivity(activityName, developer); 
+    }
+
+    public ArrayList<Activity> getActivitesInProject(String developerInitials) throws Exception { //Mads
+        Developer developer = getDeveloper(developerInitials);
+        return developer.getAssignedActivities();
+}
 
 }

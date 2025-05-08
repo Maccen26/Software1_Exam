@@ -36,6 +36,7 @@ public class Activity {
         return name;
     }
 
+
     public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage { // Lukas
         // Check if the developer is the project leader
         if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
@@ -90,5 +91,23 @@ public class Activity {
             developer.addActivity(this);
         }
 
+    }
+
+
+    public boolean hasDeveloper(Developer developer) {
+        boolean hasDeveloper = false; 
+
+        for (Developer dev: getAssignedDeveloper())
+        {
+            if (dev.getInitials().equals(developer.getInitials()))
+            {
+                hasDeveloper = true;
+            }
+        }
+        return hasDeveloper;
+    }
+
+    private ArrayList<Developer> getAssignedDeveloper() {
+        return this.assignedDevelopers;
     }
 }

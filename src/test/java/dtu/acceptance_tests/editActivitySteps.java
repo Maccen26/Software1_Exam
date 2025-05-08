@@ -39,7 +39,7 @@ public class editActivitySteps {
     }
 
     @When("{string} edits the budgetted time of {string} to {int} hours")
-    public void editsTheBudgettedTimeOfToHours(String string, String string2, Integer int1) {
+    public void editsTheBudgettedTimeOfToHours(String string, String string2, Integer int1) throws Exception {
         try{
             activity = app.getProject("20250").getActivity(string2);
         } catch (ErrorMessage e) {
@@ -65,7 +65,7 @@ public class editActivitySteps {
     }
 
     @When("{string} edits the start week of {string} to {int} in {int}")
-    public void editsTheStartWeekOfToIn(String string, String string2, Integer int1, Integer int2) {
+    public void editsTheStartWeekOfToIn(String string, String string2, Integer int1, Integer int2) throws Exception {
         try{
             activity = app.getProject("20250").getActivity(string2);
         } catch (ErrorMessage e) {
@@ -84,7 +84,7 @@ public class editActivitySteps {
         }
     }
     @When("{string} edits the end week of {string} to {int} in {int}")
-    public void editsTheEndWeekOfToIn(String string, String string2, Integer int1, Integer int2) {
+    public void editsTheEndWeekOfToIn(String string, String string2, Integer int1, Integer int2) throws Exception {
         try{
             activity = app.getProject("20250").getActivity(string2);
         } catch (ErrorMessage e) {

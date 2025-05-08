@@ -51,13 +51,13 @@ public class createProjectSteps {
     }
 
     @Then("the project with the number {string} exists in the app")
-    public void theProjectWithTheNameExistsInTheApp(String string) {
+    public void theProjectWithTheNameExistsInTheApp(String string) throws Exception {
         // Check if the project exists in the app
         assertTrue(app.getProject(string) != null);
     }
 
     @Then("the project with the number {string} and {string} exists in the app")
-    public void theErrorMessageIsGiven(String string, String string2) {
+    public void theErrorMessageIsGiven(String string, String string2) throws Exception {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(app.getProject(string) != null && app.getProject(string2) != null);
     }

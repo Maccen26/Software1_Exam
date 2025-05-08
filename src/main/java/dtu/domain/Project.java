@@ -30,6 +30,11 @@ public class Project {
         // At this point either there was no leader, or the requester *is* the leader:
         this.projectLeader = newLeader.getInitials();
     }
+    public ArrayList<Activity> getAllActivities() //MAds
+        {
+            return activities;
+
+        }
 
     public String getProjectNumber() { // Lukas
         // Get the project number
@@ -106,6 +111,27 @@ public class Project {
             }
         }
         return false;
+    }
+
+    public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage {
+        Activity activity = getActivity(activityName); 
+        developer.addActivity(activity);
+        activity.addDeveloper(developer);
+    }
+
+    public ArrayList<Activity> getActivitiesForDeveloper(Developer developer) {
+
+        ArrayList<Activity> activityList = new ArrayList<Activity>(); 
+
+        for (Activity activity: getAllActivities())
+        {
+            if (activity.hasDeveloper(developer))
+            {
+                activityList.add(activity);
+            }
+
+        }
+        return activityList;
     }
 
 }
