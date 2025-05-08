@@ -2,5 +2,9 @@
 
 - [x] Finish workflow use case diagram 
 - [] put usecases into report 
-- [] Implement Activity Overview code
+- [x] Implement Activity Overview code
+- [] Implement Activty OVerview Button
+- [] Create 1 white box test
+- [] Create design by contract
 - [] Implement Time Recording Activity 
+- [] Impelement Time Recording Button
