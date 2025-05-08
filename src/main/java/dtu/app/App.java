@@ -22,8 +22,8 @@ public class App {
     
         
         // Add test developers 
-        //Developer huba = new Developer("huba");
-        //developers.add(huba);
+        Developer huba = new Developer("huba");
+        developers.add(huba);
         //Developer thfa = new Developer("thfa");
         //developers.add(thfa);
         //Developer mahh = new Developer("mahh");
