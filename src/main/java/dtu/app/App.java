@@ -136,13 +136,9 @@ public class App {
 
     }
 
-    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception {
+    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception { //Mads
         Project project = getProject(projectNumber2); 
         Developer developer = getDeveloper(developerInitials);
-        if (developer == null)
-        {
-            throw new Exception("D");
-        }
         project.addDeveloperToActivity(activityName, developer); 
     }
 

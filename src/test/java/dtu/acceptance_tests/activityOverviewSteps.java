@@ -30,6 +30,7 @@ public class activityOverviewSteps { //Mads
         this.activityList = activityList;
     }
 
+//DEVELOPER has Activie or Schesculed activies
     @Given("{string} is only working on the activity {string} in the project {string}")
     public void isOnlyWorkingOnTheActivityInTheProject(String developerInitials, String activityName, String projectNumber) throws Exception {
         this.app.addDeveloperToActivity(projectNumber, activityName, developerInitials); 
@@ -43,6 +44,7 @@ public class activityOverviewSteps { //Mads
     @Then("he should see the following activities: {string}")
     public void heShouldSeeTheFollowingActivities(String string) {
         // Write code here that turns the phrase above into concrete actions
+
         assertEquals(1, activityList.size());
         assertEquals(string, activityList.get(0).getName());
     }

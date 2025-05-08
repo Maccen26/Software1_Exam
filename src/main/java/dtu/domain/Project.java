@@ -115,7 +115,6 @@ public class Project {
 
     public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage {
         Activity activity = getActivity(activityName); 
-        developer.addActivity(activity);
         activity.addDeveloper(developer);
     }
 

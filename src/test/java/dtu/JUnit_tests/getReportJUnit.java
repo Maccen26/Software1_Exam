@@ -8,7 +8,7 @@ import dtu.domain.*;
 
 public class getReportJUnit {
     @Test
-    public void testA() {
+    public void testA() throws Exception {
         App app = new App();
         app.createProject();
         Developer mahh = new Developer("mahh");
