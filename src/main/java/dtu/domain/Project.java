@@ -100,7 +100,7 @@ public class Project {
             this,
             weekPlanCopy,
             yearPlanCopy);
-        newActivity.addDeveloper(requester);
+        //newActivity.addDeveloper(requester); //SKAL IKKE TILFØJE EN AKTIVITET TIL EN DEN SAMME BRUGER - SÅ KAN PROJEJTLEDEREN KUN TILFØJE AKTIVITETR TIL SIG SELV?
         activities.add(newActivity);
     }
 

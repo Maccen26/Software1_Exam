@@ -5,7 +5,7 @@ Feature: Activity Overview
 
     Background: A Developer, project and Activity exists in the App
         Given project "20251" and "20252" exists
-        And the developers "huba" "mahh" and "thfa" are contained in the app 
+        And the developers "huba" "mahh" and "thfa" is in the app 
         And "thfa" is logged into the app
         And the activity with name "Activity1", under project "20251" with startweek 10, endweek 15 and startyear 2025, endyear 2025
 
@@ -15,6 +15,6 @@ Feature: Activity Overview
         Then he should see the following activities: "Activity1"  
 
     Scenario: Developer has no active or scheduled activities
-        Given "thfa" is doesn't have any active or scheduled activities
+        Given "thfa" doesn't have any active or scheduled activities
         When "thfa" get a overview 
         Then no activites is shown

@@ -2,9 +2,7 @@ package dtu.acceptance_tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.nullable;
 
-import javax.naming.OperationNotSupportedException;
 
 import dtu.app.App;
 import dtu.domain.Activity;
@@ -44,23 +42,26 @@ public class appSetupSteps { //Mads
 
 
 //Developer app setup
-    @Given("the developers {string} {string} and {string}") //Mads
+    @Given("the developers {string} {string} and {string} is in the app") //Mads
     public void theDevelopersAnd(String huba, String mahh, String thfa) throws Exception {//MAds
         // Write code here that turns the phrase above into concrete actions
-        if (this.app.getDeveloper(huba) == null)
+        try{
+            this.app.getDeveloper(huba);
+        } catch (Exception e) 
         {   
             this.app.addDeveloper(new Developer(huba));
         }
-
-        if (this.app.getDeveloper(mahh) == null)
-        {   
+        try{
+            this.app.getDeveloper(mahh);
+        } catch (Exception e){
             this.app.addDeveloper(new Developer(mahh));
         }
-
-        if (this.app.getDeveloper(thfa) == null)
-        {   
+        try {
+            this.app.getDeveloper(thfa);
+        }catch (Exception e){
             this.app.addDeveloper(new Developer(thfa));
         }
+
     }
     @Then("the developers {string} {string} and {string} are contained in the app") //Mads 
     public void theDevelopersAndAreContainedInTheApp(String string, String string2, String string3) throws Exception {

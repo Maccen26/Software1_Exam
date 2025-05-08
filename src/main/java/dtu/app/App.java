@@ -19,27 +19,28 @@ public class App {
         // Initialise the projects and developers lists
         this.projects = new ArrayList<Project>();
         this.developers = new ArrayList<Developer>();
-
-        // Add test developers 
-        Developer huba = new Developer("huba");
-        developers.add(huba);
-        Developer thfa = new Developer("thfa");
-        developers.add(thfa);
-        Developer mahh = new Developer("mahh");
-        developers.add(mahh);
-
-        // Add test projects
-        Project project0 = new Project("20250");
-        projects.add(project0);
+    
         
-        // Add test activities
-        try{
-            project0.assignProjectLeader(thfa, thfa);
-            project0.addActivity(thfa, "Activity1", new int[]{1, 2}, new int[]{2025, 2025});
-        }
-        catch (ErrorMessage e){
-            System.out.println(e.getMessage());
-        }
+        // Add test developers 
+        //Developer huba = new Developer("huba");
+        //developers.add(huba);
+        //Developer thfa = new Developer("thfa");
+        //developers.add(thfa);
+        //Developer mahh = new Developer("mahh");
+        //developers.add(mahh);
+//
+        //// Add test projects
+        //Project project0 = new Project("20250");
+        //projects.add(project0);
+        //
+        //// Add test activities
+        //try{
+        //    project0.assignProjectLeader(thfa, thfa);
+        //    project0.addActivity(thfa, "Activity1", new int[]{1, 2}, new int[]{2025, 2025});
+        //}
+        //catch (ErrorMessage e){
+        //    System.out.println(e.getMessage());
+        //}
 
         // Set current project number
         this.projectNumber = 1;
@@ -142,9 +143,8 @@ public class App {
         project.addDeveloperToActivity(activityName, developer); 
     }
 
-    public ArrayList<Activity> getActivitesInProject(String developerInitials) throws Exception { //Mads
+    public ArrayList<Activity> getActivites(String developerInitials) throws Exception { //Mads
         Developer developer = getDeveloper(developerInitials);
         return developer.getAssignedActivities();
-}
-
+    }
 }
