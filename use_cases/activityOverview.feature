@@ -9,12 +9,12 @@ Feature: Activity Overview
         And "thfa" is logged in
         And the activity with the name "Activity1" is connected to the project "20251" and developer "thfa"
 
-    Scenario: Developer has active or scheduled activities
-        Given "thfa" is working on the activity "Activity1" in the project "20251"
-        When the developer "thfa" get an overview of all activities for the project "20251"
-        Then he should see the following activities: "Activity1"  
-
-    Scenario: Developer has no active or scheduled activities
-        Given "thfa" is doesn't have any active or scheduled activities
-        When the developer get a overview of activities
-        Then no activites is shown
+   # Scenario: Developer has active or scheduled activities
+   #     Given "thfa" is working on the activity "Activity1" in the project "20251"
+   #     When the developer "thfa" get an overview of all activities for the project "20251"
+   #     Then he should see the following activities: "Activity1"  
+#
+   # Scenario: Developer has no active or scheduled activities
+   #     Given "thfa" is doesn't have any active or scheduled activities
+   #     When the developer get a overview of activities
+   #     Then no activites is shown

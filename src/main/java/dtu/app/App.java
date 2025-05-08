@@ -2,7 +2,10 @@ package dtu.app;
 
 import java.util.ArrayList;
 
+import javax.naming.OperationNotSupportedException;
+
 import dtu.domain.*;
+import io.cucumber.java.PendingException;
 
 public class App {
     private ArrayList<Project> projects;     //= new ArrayList<Project>();
@@ -124,4 +127,13 @@ public class App {
 
         return null;
     }
+
+    public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws ErrorMessage 
+    {
+        Project project = getProject(projectNumber2); 
+        Developer developer = getDeveloper(this.loggedInDeveloper);
+        project.addActivity(developer, activityName, weekplan, yearplan);
+
+    }
+
 }

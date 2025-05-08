@@ -1,11 +1,16 @@
 package dtu.acceptance_tests;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.nullable;
+
+import javax.naming.OperationNotSupportedException;
 
 import dtu.app.App;
 import dtu.domain.Activity;
 import dtu.domain.Developer;
+import dtu.domain.ErrorMessage;
+import dtu.domain.Project;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -66,22 +71,38 @@ public class appSetupSteps { //Mads
         assertFalse(this.app.getDeveloper(string3) == null);
     }
 
-   // @Given("the activity with name {string}, under project {string} with startweek {int}, endweek {int} and startyear {int}, endyear {int}")
-   // public void theActivityWithNameUnderProjectWithStartweekEndweekAndStartyearEndyear(String activityName, String projectNumber, Integer startweek, Integer endweeek, Integer startyear, Integer endyear) {
-   //     // Write code here that turns the phrase above into concrete actions
-   //     int[] weekplan = {startweek, endweeek}; 
-   //     int[] yearplan = {startyear, endyear};
-//
-   //     //Activity activity1 = new Activity(activityName, projectNumber, weekplan, yearplan);
-   //     //
-   //     //this.app.getProject(string2)
-   // }
-   // @Then("the activity {string} exist in the project {string}")
-   // public void theActivityExistInTheProject(String string, String string2) {
-   //     // Write code here that turns the phrase above into concrete actions
-   //     throw new io.cucumber.java.PendingException();
-   // }
-//
+    @Given("{string} is project leader on project {string}")
+    public void thfaIsProjectLeaderOnProject(String developerName, String projectNumber) throws ErrorMessage {
+        Project project = this.app.getProject(projectNumber); 
+        Developer developer = this.app.getDeveloper(developerName);
+
+        project.assignProjectLeader(developer, developer);
+
+        assertTrue(project.getProjectLeader().equals(developerName));
+    }
+
+   @Given("the activity with name {string}, under project {string} with startweek {int}, endweek {int} and startyear {int}, endyear {int}")
+   public void theActivityWithNameUnderProjectWithStartweekEndweekAndStartyearEndyear(String activityName, String projectNumber, Integer startweek, Integer endweeek, Integer startyear, Integer endyear) throws ErrorMessage {
+       // Write code here that turns the phrase above into concrete actions
+       int[] weekplan = {startweek, endweeek}; 
+       int[] yearplan = {startyear, endyear};
+
+       this.app.addActivity(projectNumber, activityName, yearplan, weekplan);
+   }
+   @Given("{string} is logged into the app")
+    public void isLoggedIntoTheApp(String developerInitials) throws ErrorMessage {
+        // Write code here that turns the phrase above into concrete actions
+        this.app.login(this.app.getDeveloper(developerInitials));
+    }
+
+
+     @Then("the activity {string} exist in the project {string}")
+     public void theActivityExistInTheProject(String activityName, String projectNumber) throws ErrorMessage {
+        Project project = app.getProject(projectNumber); 
+        
+        assertFalse(project.getActivity(activityName) == null);
+
+     }     
 
     
 }
