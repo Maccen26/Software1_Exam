@@ -10,8 +10,8 @@ import dtu.app.*;
 import dtu.domain.*;
 import dtu.ui.*;
 
-public class ManageProjectsFrame {
-    private JFrame manageProjectsFrame = new JFrame("Manage Projects");
+public class ProjectOverviewFrame {
+    private JFrame projectOverviewFrame = new JFrame("Manage Projects");
 
     ArrayList<Color> colors = new ArrayList<Color>();
     {
@@ -25,7 +25,7 @@ public class ManageProjectsFrame {
         colors.add(Color.ORANGE);
     }
 
-    private JPanel createProjectPanel(Project project){
+    private JPanel createProjectPanel(Project project, App app){
         JPanel projectPanel = new JPanel();
         projectPanel.setLayout(new BorderLayout());
         projectPanel.setPreferredSize(new Dimension(1000, 100));
@@ -42,19 +42,22 @@ public class ManageProjectsFrame {
 
         projectButton.addActionListener(e -> {
             System.out.println("Project " + project.getProjectNumber() + " clicked");
+            ManageProjectFrame manageProjectFrame = new ManageProjectFrame(app, project);
+            projectOverviewFrame.setVisible(false);
+            projectOverviewFrame.dispose();
         });
 
         projectPanel.add(projectButton, BorderLayout.CENTER);
         return projectPanel;
     }
 
-    public ManageProjectsFrame(App app) {
+    public ProjectOverviewFrame(App app) {
         // Set up the frame
-        manageProjectsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        manageProjectsFrame.setSize(1000, 700);
-        manageProjectsFrame.setLayout(new BorderLayout());
-        manageProjectsFrame.setLocationRelativeTo(null); // Center the frame on the screen
-        manageProjectsFrame.setResizable(false);
+        projectOverviewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        projectOverviewFrame.setSize(1000, 700);
+        projectOverviewFrame.setLayout(new BorderLayout());
+        projectOverviewFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        projectOverviewFrame.setResizable(false);
 
         // (1) Create your header panel however you like:
         JPanel header = new JPanel();
@@ -76,15 +79,15 @@ public class ManageProjectsFrame {
         dropdownContainer.setBounds(0, 80, 150, 50);
         dropdownContainer.setBackground(Color.LIGHT_GRAY);
         dropdownContainer.setVisible(false); // Initially hidden
-        manageProjectsFrame.add(dropdownContainer); // Add the container to the frame
+        projectOverviewFrame.add(dropdownContainer); // Add the container to the frame
 
         // Create the dropdown items
         JButton manageProjectsButton = new JButton("Activities");
         manageProjectsButton.addActionListener(e -> {
             System.out.println("Activities clicked");
             ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
-            manageProjectsFrame.setVisible(false);
-            manageProjectsFrame.dispose();
+            projectOverviewFrame.setVisible(false);
+            projectOverviewFrame.dispose();
             // Add your action here
         });
         manageProjectsButton.setBounds(0, 0, 150, 25);
@@ -93,8 +96,8 @@ public class ManageProjectsFrame {
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
             System.out.println("Logged out");
-            manageProjectsFrame.setVisible(false);
-            manageProjectsFrame.dispose();
+            projectOverviewFrame.setVisible(false);
+            projectOverviewFrame.dispose();
             LoginFrame loginFrame = new LoginFrame(app);
         });
         logoutButton.setBounds(0, 50, 150, 25);
@@ -138,20 +141,20 @@ public class ManageProjectsFrame {
         
         JLabel title = new JLabel("Projects");
         title.setForeground(Color.BLACK);
-        title.setFont(title.getFont().deriveFont(26f));
+        title.setFont(title.getFont().deriveFont(40f));
         title.setHorizontalAlignment(SwingConstants.CENTER);
         header.add(title);
 
-        JLabel temp = new JLabel("");
-        header.add(temp);
+        JLabel spacing = new JLabel("");
+        header.add(spacing);
 
         // (2) Add it to the top (NORTH) of the frame:
-        manageProjectsFrame.add(header, BorderLayout.NORTH);
+        projectOverviewFrame.add(header, BorderLayout.NORTH);
 
 
         // (3) Add your main content in CENTER:
         JPanel main = new JPanel();
-        manageProjectsFrame.add(main, BorderLayout.CENTER);
+        projectOverviewFrame.add(main, BorderLayout.CENTER);
 
         JPanel searchContainer = new JPanel();
         searchContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -207,11 +210,11 @@ public class ManageProjectsFrame {
             // if (project.getStatus().equals("Finished")) {
             //     continue;
             // }
-            JPanel projectPanel = createProjectPanel(project);
+            JPanel projectPanel = createProjectPanel(project, app);
             projectContainer.add(projectPanel);
         }
         main.add(projectContainer, BorderLayout.CENTER);
         
-        manageProjectsFrame.setVisible(true);
+        projectOverviewFrame.setVisible(true);
     }
 }
