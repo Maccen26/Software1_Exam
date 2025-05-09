@@ -21,7 +21,7 @@ public class Project {
         this.status = "Not started";
     }
 
-    public void assignProjectLeader(Developer requester, Developer newLeader)
+    public void assignProjectLeader(Developer requester, Developer newLeader) // Johan
             throws ErrorMessage {
         // If there already is a leader, only they can change it:
         if (this.projectLeader != null

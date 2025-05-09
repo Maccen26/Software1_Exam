@@ -25,7 +25,11 @@ public class addActivitySteps {
 
     @Given("the App contains a project with the project number {int}")
     public void theAppContainsAProjectWithTheProjectNumber(Integer projectNumber) {
-        app.createProject();
+        // Check if project already exists
+        if (app.getProject(projectNumber.toString()) == null) {
+            Project project = new Project(projectNumber.toString());
+            app.getProjects().add(project);  // Directly inject it
+        }
     }
 
     @Given("the developer {string} is the projectleader of project {int}")
