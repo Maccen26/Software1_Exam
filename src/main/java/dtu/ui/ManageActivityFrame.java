@@ -8,55 +8,16 @@ import java.awt.event.MouseEvent;
 import dtu.app.*;
 import dtu.domain.*;
 
-public class ManageProjectFrame {
-    private JFrame manageProjectFrame;
+public class ManageActivityFrame {
+    private JFrame manageActivityFrame;
 
-    private JButton activityButton(Activity activity, App app) {
-        // Create a button for the activity
-        JButton activityButton = new JButton();
-        activityButton.setPreferredSize(new Dimension(300, 60));
-        activityButton.setBorderPainted(false);
-        activityButton.setOpaque(true);
-        activityButton.setBackground(Color.LIGHT_GRAY);
-    
-        // Create a panel to hold the text and status label
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setOpaque(false); // Make the panel transparent
-    
-        // Add the activity name as a label
-        JLabel nameLabel = new JLabel(activity.getName() + ": " +
-            activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[0] + " - " +
-            activity.getWeekPlan()[1] + "/" + activity.getYearPlan()[1]);
-        nameLabel.setFont(nameLabel.getFont().deriveFont(16f)); // Set font size
-        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        contentPanel.add(nameLabel, BorderLayout.NORTH);
-    
-        // Add the status label
-        JLabel statusLabel = new JLabel(activity.getStatus());
-        statusLabel.setFont(statusLabel.getFont().deriveFont(14f)); // Set font size
-        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        contentPanel.add(statusLabel, BorderLayout.SOUTH);
-    
-        // Add the content panel to the button
-        activityButton.setLayout(new BorderLayout());
-        activityButton.add(contentPanel, BorderLayout.CENTER);
-    
-        // Add an action listener
-        activityButton.addActionListener(e -> {
-            System.out.println("Activity " + activity.getName() + " clicked");
-            ManageActivityFrame manageActivityFrame = new ManageActivityFrame(app, activity);
-            manageProjectFrame.setVisible(false);
-            manageProjectFrame.dispose();
-        });
-    
-        return activityButton;
-    }
+    public ManageActivityFrame(App app, Activity activity) {
+        Project project = activity.getProject();
 
-    public ManageProjectFrame(App app, Project project) {
         // Create the login frame
-        manageProjectFrame = new JFrame("Login");
-        manageProjectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        manageProjectFrame.setSize(1000, 700);
+        manageActivityFrame = new JFrame("Login");
+        manageActivityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        manageActivityFrame.setSize(1000, 700);
 
         // Header panel
         JPanel header = new JPanel();
@@ -76,15 +37,16 @@ public class ManageProjectFrame {
         dropdownContainer.setBounds(0, 80, 150, 75);
         dropdownContainer.setBackground(Color.LIGHT_GRAY);
         dropdownContainer.setVisible(false); // Initially hidden
-        manageProjectFrame.add(dropdownContainer); // Add the container to the frame
+        manageActivityFrame.add(dropdownContainer); // Add the container to the frame
 
         // Create the dropdown items
         JButton activityOverviewButton = new JButton("Activities");
         activityOverviewButton.addActionListener(e -> {
             System.out.println("Activities clicked");
             ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
-            manageProjectFrame.setVisible(false);
-            manageProjectFrame.dispose();
+            manageActivityFrame.setVisible(false);
+            manageActivityFrame.dispose();
+            // Add your action here
         });
         activityOverviewButton.setBounds(0, 0, 150, 25);
         dropdownContainer.add(activityOverviewButton);
@@ -93,8 +55,9 @@ public class ManageProjectFrame {
         projectOverviewButton.addActionListener(e -> {
             System.out.println("Projects clicked");
             ProjectOverviewFrame manageProjectsFrame = new ProjectOverviewFrame(app);
-            manageProjectFrame.setVisible(false);
-            manageProjectFrame.dispose();
+            manageActivityFrame.setVisible(false);
+            manageActivityFrame.dispose();
+            // Add your action here
         });
         projectOverviewButton.setBounds(0, 50, 150, 25);
         dropdownContainer.add(projectOverviewButton);
@@ -103,8 +66,8 @@ public class ManageProjectFrame {
         logoutButton.addActionListener(e -> {
             System.out.println("Logged out");
             LoginFrame loginFrame = new LoginFrame(app);
-            manageProjectFrame.setVisible(false);
-            manageProjectFrame.dispose();
+            manageActivityFrame.setVisible(false);
+            manageActivityFrame.dispose();
         });
         logoutButton.setBounds(0, 100, 150, 25);
         dropdownContainer.add(logoutButton);
@@ -145,12 +108,12 @@ public class ManageProjectFrame {
             }
         });
 
-        JLabel title = new JLabel("Project " + project.getProjectNumber());
+        JLabel title = new JLabel("Project " + project.getProjectNumber() + " - Activity: " + activity.getName());
         title.setForeground(Color.BLACK);
         title.setFont(title.getFont().deriveFont(40f));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        header.add(title);
-        manageProjectFrame.add(header, BorderLayout.NORTH);
+        header.add(title, BorderLayout.CENTER);
+        manageActivityFrame.add(header, BorderLayout.NORTH);
 
         JLabel addLabel = new JLabel();
         originalIcon = new ImageIcon(getClass().getResource("/dtu/icons/plusSign.png"));
@@ -160,33 +123,40 @@ public class ManageProjectFrame {
         header.add(addLabel, BorderLayout.EAST);
 
         JPanel addDropdownContainer = new JPanel();
-        addDropdownContainer.setLayout(new GridLayout(3, 1)); // 3 rows, 1 column
-        addDropdownContainer.setBounds(800, 80, 200, 75);
+        addDropdownContainer.setLayout(new GridLayout(4, 1)); // 3 rows, 1 column
+        addDropdownContainer.setBounds(850, 80, 150, 100);
         addDropdownContainer.setBackground(Color.LIGHT_GRAY);
         addDropdownContainer.setVisible(false); // Initially hidden
-        manageProjectFrame.add(addDropdownContainer); // Add the container to the frame
+        manageActivityFrame.add(addDropdownContainer); // Add the container to the frame
 
         // Create the dropdown items
-        JButton newActivity = new JButton("New activity");
-        newActivity.addActionListener(e -> {
-            System.out.println("New activity clicked");
+        JButton updateStatus = new JButton("Update Status");
+        updateStatus.addActionListener(e -> {
+            System.out.println("Update Status clicked");
         });
-        newActivity.setBounds(0, 0, 200, 25);
-        addDropdownContainer.add(newActivity);
+        updateStatus.setBounds(0, 0, 150, 25);
+        addDropdownContainer.add(updateStatus);
 
-        JButton assignProjectleader = new JButton("Assign projectleader");
-        assignProjectleader.addActionListener(e -> {
-            System.out.println("Assign Projectleader clicked");
+        JButton registerTime = new JButton("Register Time");
+        registerTime.addActionListener(e -> {
+            System.out.println("Register Time clicked");
         });
-        assignProjectleader.setBounds(0, 50, 200, 25);
-        addDropdownContainer.add(assignProjectleader);
+        registerTime.setBounds(0, 50, 150, 25);
+        addDropdownContainer.add(registerTime);
 
-        JButton generateReport = new JButton("Generate report");
-        generateReport.addActionListener(e -> {
-            System.out.println("Generate report clicked");
+        JButton addDeveloper = new JButton("Add developer");
+        addDeveloper.addActionListener(e -> {
+            System.out.println("Add Developer clicked");
         });
-        generateReport.setBounds(0, 100, 200, 25);
-        addDropdownContainer.add(generateReport);
+        addDeveloper.setBounds(0, 100, 150, 25);
+        addDropdownContainer.add(addDeveloper);
+
+        JButton removeDeveloper = new JButton("Remove developer");
+        removeDeveloper.addActionListener(e -> {
+            System.out.println("Remove Developer clicked");
+        });
+        removeDeveloper.setBounds(0, 150, 150, 25);
+        addDropdownContainer.add(removeDeveloper);
 
         // Add MouseListener to the label
         addLabel.addMouseListener(new MouseAdapter() {
@@ -227,24 +197,55 @@ public class ManageProjectFrame {
         // Main panel
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
-        manageProjectFrame.add(main, BorderLayout.CENTER);
+        manageActivityFrame.add(main, BorderLayout.CENTER);
+        main.setBackground(Color.WHITE);
 
-        // Create a container for activities
-        JPanel activityContainer = new JPanel();
-        activityContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20)); // Horizontal alignment with spacing
-        activityContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // Status panel
+        JPanel statusPanel = new JPanel(new GridLayout(2, 1));
+        statusPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(20, 20, 20, 20), // Outer padding
+            BorderFactory.createLineBorder(Color.GRAY, 1)    // Optional: Add a border for better visibility
+        ));
 
-        for (Activity activity : project.getActivities()) {
-            JButton activityButton = activityButton(activity, app);
-            activityContainer.add(activityButton);
+        JLabel statusTitle = new JLabel("Status");
+        statusTitle.setFont(statusTitle.getFont().deriveFont(40f));
+        statusTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        statusPanel.add(statusTitle);
+
+        JLabel statusLabel = new JLabel(activity.getStatus().toString());
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        statusLabel.setFont(statusLabel.getFont().deriveFont(20f));
+        statusPanel.add(statusLabel);
+        main.add(statusPanel, BorderLayout.NORTH);
+
+        // Developer panel
+        JPanel developerPanel = new JPanel();
+        developerPanel.setLayout(new BorderLayout()); // Use BorderLayout for better control
+        developerPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(20, 20, 300, 20), // Outer padding
+            BorderFactory.createLineBorder(Color.GRAY, 1)    // Optional: Add a border for better visibility
+        ));
+
+        JLabel developerTitle = new JLabel("Developers");
+        developerTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        developerTitle.setFont(developerTitle.getFont().deriveFont(40f));
+        developerPanel.add(developerTitle, BorderLayout.NORTH); // Add title to the top
+
+        JPanel developerListPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Dynamic rows
+        for (Developer developer : activity.getAssignedDevelopers()) {
+            JLabel developerLabel = new JLabel(developer.getInitials() + "  ");
+            developerLabel.setFont(developerLabel.getFont().deriveFont(20f));
+            developerListPanel.add(developerLabel);
         }
-        main.add(activityContainer, BorderLayout.CENTER);
+        developerPanel.add(developerListPanel, BorderLayout.CENTER); // Add list to the center
+
+        // Add the developer panel to the main panel
+        main.add(developerPanel, BorderLayout.CENTER);
 
         
-
         // Finalize frame
-        manageProjectFrame.setLocationRelativeTo(null); // Center the frame on the screen
-        manageProjectFrame.setResizable(false);
-        manageProjectFrame.setVisible(true);
+        manageActivityFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        manageActivityFrame.setResizable(false);
+        manageActivityFrame.setVisible(true);
     }
 }

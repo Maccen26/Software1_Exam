@@ -1,9 +1,10 @@
-package dtu.ui;
+package dtu.ui.frameInFrames;
 
 import javax.swing.*;
 
 import dtu.app.*;
 import dtu.domain.*;
+import dtu.ui.Ui;
 
 public class GetReportFrame extends Ui{
     private JFrame getReportFrame;
