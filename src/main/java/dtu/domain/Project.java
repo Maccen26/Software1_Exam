@@ -111,6 +111,25 @@ public class Project {
         activities.add(newActivity);
     }
 
+    public void removeActivity(//Johan
+            Developer requester,
+            String name)
+            throws ErrorMessage {
+
+        // ---- Basic validation ----
+        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
+
+        if (!containsActivityName(name)) {
+            throw new ErrorMessage("Activity title does not exist");
+        }
+
+        // ---- Remove the activity ----
+        Activity activityToRemove = getActivity(name);
+        activities.remove(activityToRemove);
+    }
+
     public Boolean containsActivityName(String name) { //Johan
         for (Activity activity : activities) {
             if (activity.getName().equals(name)) {
