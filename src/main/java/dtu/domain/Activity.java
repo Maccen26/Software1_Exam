@@ -89,6 +89,11 @@ public class Activity {
         return project;
     }
 
+    public ArrayList<Developer> getAssignedDevelopers() { // Lukas
+        // Get the assigned developers for the activity
+        return assignedDevelopers;
+    }
+
     public void addDeveloper(Developer developer) // Mads + Johan
     {   
         if (!this.assignedDevelopers.contains(developer)) {
