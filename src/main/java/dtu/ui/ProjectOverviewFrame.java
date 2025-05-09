@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import dtu.app.*;
 import dtu.domain.*;
 import dtu.ui.*;
+import dtu.ui.frameInFrames.*;
 
 public class ProjectOverviewFrame {
     private JFrame projectOverviewFrame = new JFrame("Manage Projects");
@@ -35,7 +36,7 @@ public class ProjectOverviewFrame {
         projectButton.setFont(projectButton.getFont().deriveFont(40f));
         projectButton.setHorizontalAlignment(SwingConstants.CENTER);
         String number = project.getProjectNumber();
-        int nr = Integer.parseInt(number.substring(number.length() - 1));
+        int nr = Integer.parseInt(number.substring(4, number.length()));
         projectButton.setBorderPainted(false);
         projectButton.setOpaque(true);
         projectButton.setBackground(colors.get(nr % colors.size()));
@@ -162,6 +163,15 @@ public class ProjectOverviewFrame {
         JButton createProject = new JButton("Create project");
         createProject.addActionListener(e -> {
             System.out.println("Create project clicked");
+            CreateProjectFrame createProjectFrame = new CreateProjectFrame(app);
+            
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            createProjectFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         createProject.setBounds(0, 0, 150, 25);
         addDropdownContainer.add(createProject);
@@ -257,14 +267,14 @@ public class ProjectOverviewFrame {
         main.add(searchContainer, BorderLayout.NORTH);
         
         // Create a container for projects
-        int projectCount = app.getProjects().size();
-        int rows = (int) Math.min(projectCount/3, 3);
-        JPanel projectContainer = new JPanel(new GridLayout(rows, 3, 20, 20));
+        double projectCount = app.getProjects().size();
+        int rows = (int) Math.ceil(projectCount / 3.0);
+        JPanel projectContainer = new JPanel(new GridLayout(rows, 4, 20, 20));
         projectContainer.setPreferredSize(new Dimension(1000, rows * 100));
         projectContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         int i = 0;
         for (Project project : app.getProjects()) {
-            if (i == 9){
+            if (i == 15){
                 break;
             }
             i++;
@@ -277,5 +287,10 @@ public class ProjectOverviewFrame {
         main.add(projectContainer, BorderLayout.CENTER);
         
         projectOverviewFrame.setVisible(true);
+    }
+    private void refreshFrame(App app) {
+        projectOverviewFrame.setVisible(false);
+        projectOverviewFrame.dispose();
+        new ProjectOverviewFrame(app);
     }
 }

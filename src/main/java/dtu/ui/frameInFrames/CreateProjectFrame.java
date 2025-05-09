@@ -3,33 +3,58 @@ package dtu.ui.frameInFrames;
 import javax.swing.*;
 
 import dtu.app.*;
-import dtu.domain.*;
-import dtu.ui.Ui;
 
-public class CreateProjectFrame extends Ui{
-    private JFrame createProjectFrame;
+public class CreateProjectFrame extends JFrame {
 
-    public CreateProjectFrame(App app) { // Lukas
-        createProjectFrame = new JFrame("Create Project");
-        createProjectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        createProjectFrame.setSize(300, 300);
-        createProjectFrame.setLayout(null);
-        createProjectFrame.setLocationRelativeTo(null); // Center the frame on the screen
-        createProjectFrame.setResizable(false);
+    public CreateProjectFrame(App app) {
+        // Set up the frame
+        setTitle("Create Project");
+        setSize(200, 300);
+        setLayout(null);
+        setLocationRelativeTo(null); // Center the frame on the screen
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ensure windowClosed is triggered
+
+        // Add components
+        JLabel projectLeader = new JLabel("Project Leader:");
+        projectLeader.setBounds(0, 20, 200, 25);
+        projectLeader.setHorizontalAlignment(SwingConstants.CENTER);
+        add(projectLeader);
+
+        JTextField projectLeaderField = new JTextField();
+        projectLeaderField.setBounds(60, 50, 80, 25);
+        add(projectLeaderField);
 
         JButton createButton = new JButton("Create Project");
-        createButton.setBounds(100, 100, 100, 30);
+        createButton.setBounds(50, 100, 100, 30);
         createButton.addActionListener(e -> {
-            app.createProject();
+            String projectLeaderName = projectLeaderField.getText();
+            if (projectLeaderName.isEmpty()) {
+                app.createProject();
+            } else {
+                try {
+                    app.createProject(app.getDeveloper(projectLeaderName));
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+            setVisible(false);
+            dispose();
             System.out.println("Created project");
         });
-        createProjectFrame.add(createButton);
-    }
+        add(createButton);
 
-    public void show() { // Lukas
-        createProjectFrame.setVisible(true);
-    }
-    public void hide() { // Lukas
-        createProjectFrame.setVisible(false);
+        JLabel note = new JLabel("Note: Project leader");
+        note.setBounds(0, 150, 200, 25);
+        note.setHorizontalAlignment(SwingConstants.CENTER);
+        add(note);
+
+        JLabel note2 = new JLabel("is not necessary");
+        note2.setBounds(0, 170, 200, 25);
+        note2.setHorizontalAlignment(SwingConstants.CENTER);
+        add(note2);
+
+        // Make the frame visible
+        setVisible(true);
     }
 }
