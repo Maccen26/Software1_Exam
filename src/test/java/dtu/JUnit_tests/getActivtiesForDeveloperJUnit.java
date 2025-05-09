@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import dtu.app.App;
 import dtu.domain.*;
-import dtu.domain.Developer;
-import dtu.domain.ErrorMessage;
 import io.cucumber.java.bs.A; 
 
 
