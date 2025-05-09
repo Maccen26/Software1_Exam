@@ -127,10 +127,11 @@ public class App {
 
     }
 
-    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception { //Mads
+    public void addDeveloperToActivity(String projectNumber2, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan
         Project project = getProject(projectNumber2); 
         Developer developer = getDeveloper(developerInitials);
-        project.addDeveloperToActivity(activityName, developer); 
+        Developer requester = getDeveloper(requesterInitails);
+        project.addDeveloperToActivity(activityName, requester, developer); 
     }
 
     public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
