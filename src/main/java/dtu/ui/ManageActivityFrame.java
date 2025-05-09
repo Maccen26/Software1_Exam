@@ -124,7 +124,7 @@ public class ManageActivityFrame {
 
         JPanel addDropdownContainer = new JPanel();
         addDropdownContainer.setLayout(new GridLayout(4, 1)); // 3 rows, 1 column
-        addDropdownContainer.setBounds(800, 80, 200, 75);
+        addDropdownContainer.setBounds(850, 80, 150, 100);
         addDropdownContainer.setBackground(Color.LIGHT_GRAY);
         addDropdownContainer.setVisible(false); // Initially hidden
         manageActivityFrame.add(addDropdownContainer); // Add the container to the frame

@@ -66,7 +66,7 @@ public class ActivityOverviewFrame extends JFrame {
         JPanel header = new JPanel();
         header.setBackground(Color.GRAY);
         header.setPreferredSize(new Dimension(1000, 80));   // height = 80px
-        header.setLayout(new GridLayout(1, 3)); // 1 row, 3 columns
+        header.setLayout(new BorderLayout()); // 1 row, 3 columns
 
         
         JLabel dropdownLabel = new JLabel("");
@@ -74,7 +74,7 @@ public class ActivityOverviewFrame extends JFrame {
         Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         dropdownLabel.setIcon(scaledIcon);
-        header.add(dropdownLabel);
+        header.add(dropdownLabel, BorderLayout.WEST); // Add the label to the right side of the header
 
         JPanel dropdownContainer = new JPanel();
         dropdownContainer.setLayout(new BorderLayout());
@@ -144,10 +144,7 @@ public class ActivityOverviewFrame extends JFrame {
         title.setForeground(Color.BLACK);
         title.setFont(title.getFont().deriveFont(40f));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        header.add(title);
-
-        JLabel spacing = new JLabel("");
-        header.add(spacing);
+        header.add(title, BorderLayout.CENTER);
 
         // (2) Add it to the top (NORTH) of the frame:
         activityOverviewFrame.add(header, BorderLayout.NORTH);

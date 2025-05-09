@@ -63,7 +63,7 @@ public class ProjectOverviewFrame {
         JPanel header = new JPanel();
         header.setBackground(Color.GRAY);
         header.setPreferredSize(new Dimension(1000, 80));   // height = 80px
-        header.setLayout(new GridLayout(1, 3)); // 1 row, 3 columns
+        header.setLayout(new BorderLayout()); // 1 row, 3 columns
 
         
         JLabel dropdownLabel = new JLabel("");
@@ -71,7 +71,7 @@ public class ProjectOverviewFrame {
         Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         dropdownLabel.setIcon(scaledIcon);
-        header.add(dropdownLabel);
+        header.add(dropdownLabel, BorderLayout.WEST);
 
         JPanel dropdownContainer = new JPanel();
         dropdownContainer.setLayout(new BorderLayout());
@@ -142,10 +142,72 @@ public class ProjectOverviewFrame {
         title.setForeground(Color.BLACK);
         title.setFont(title.getFont().deriveFont(40f));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        header.add(title);
+        header.add(title, BorderLayout.CENTER);
 
-        JLabel spacing = new JLabel("");
-        header.add(spacing);
+        JLabel addLabel = new JLabel();
+        originalIcon = new ImageIcon(getClass().getResource("/dtu/icons/plusSign.png"));
+        scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        scaledIcon = new ImageIcon(scaledImage);
+        addLabel.setIcon(scaledIcon);
+        header.add(addLabel, BorderLayout.EAST);
+
+        JPanel addDropdownContainer = new JPanel();
+        addDropdownContainer.setLayout(new GridLayout(2, 1)); // 3 rows, 1 column
+        addDropdownContainer.setBounds(850, 80, 150, 50);
+        addDropdownContainer.setBackground(Color.LIGHT_GRAY);
+        addDropdownContainer.setVisible(false); // Initially hidden
+        projectOverviewFrame.add(addDropdownContainer); // Add the container to the frame
+
+        // Create the dropdown items
+        JButton createProject = new JButton("Create project");
+        createProject.addActionListener(e -> {
+            System.out.println("Create project clicked");
+        });
+        createProject.setBounds(0, 0, 150, 25);
+        addDropdownContainer.add(createProject);
+
+        JButton createActivity = new JButton("Create activity");
+        createActivity.addActionListener(e -> {
+            System.out.println("Create activity clicked");
+        });
+        createActivity.setBounds(0, 50, 150, 25);
+        addDropdownContainer.add(createActivity);
+
+        // Add MouseListener to the label
+        addLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addDropdownContainer.setVisible(true); // Show the container on hover
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the addDropdownContainer
+                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+                SwingUtilities.convertPointFromScreen(mouseLocation, addDropdownContainer);
+                if (!addDropdownContainer.contains(mouseLocation)) {
+                    addDropdownContainer.setVisible(false); // Hide the container if the mouse is outside
+                }
+            }
+        });
+
+        // Add MouseListener to the container
+        addDropdownContainer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addDropdownContainer.setVisible(true); // Keep the container visible on hover
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the addLabel
+                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+                SwingUtilities.convertPointFromScreen(mouseLocation, addLabel);
+                if (!addLabel.contains(mouseLocation)) {
+                    addDropdownContainer.setVisible(false); // Hide the container if the mouse is outside
+                }
+            }
+        });
 
         // (2) Add it to the top (NORTH) of the frame:
         projectOverviewFrame.add(header, BorderLayout.NORTH);

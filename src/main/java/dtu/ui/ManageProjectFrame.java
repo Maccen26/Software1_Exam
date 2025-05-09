@@ -62,14 +62,14 @@ public class ManageProjectFrame {
         JPanel header = new JPanel();
         header.setBackground(Color.GRAY);
         header.setPreferredSize(new Dimension(1000, 80));
-        header.setLayout(new GridLayout(1, 3));
+        header.setLayout(new BorderLayout());
 
         JLabel dropdownLabel = new JLabel("");
         ImageIcon originalIcon = new ImageIcon(getClass().getResource("/dtu/icons/Account.png"));
         Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         dropdownLabel.setIcon(scaledIcon);
-        header.add(dropdownLabel);
+        header.add(dropdownLabel, BorderLayout.WEST);
 
         JPanel dropdownContainer = new JPanel();
         dropdownContainer.setLayout(new GridLayout(3, 1)); // 3 rows, 1 column
@@ -152,8 +152,77 @@ public class ManageProjectFrame {
         header.add(title);
         manageProjectFrame.add(header, BorderLayout.NORTH);
 
-        JLabel spacing = new JLabel("");
-        header.add(spacing);
+        JLabel addLabel = new JLabel();
+        originalIcon = new ImageIcon(getClass().getResource("/dtu/icons/plusSign.png"));
+        scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        scaledIcon = new ImageIcon(scaledImage);
+        addLabel.setIcon(scaledIcon);
+        header.add(addLabel, BorderLayout.EAST);
+
+        JPanel addDropdownContainer = new JPanel();
+        addDropdownContainer.setLayout(new GridLayout(3, 1)); // 3 rows, 1 column
+        addDropdownContainer.setBounds(800, 80, 200, 75);
+        addDropdownContainer.setBackground(Color.LIGHT_GRAY);
+        addDropdownContainer.setVisible(false); // Initially hidden
+        manageProjectFrame.add(addDropdownContainer); // Add the container to the frame
+
+        // Create the dropdown items
+        JButton newActivity = new JButton("New activity");
+        newActivity.addActionListener(e -> {
+            System.out.println("New activity clicked");
+        });
+        newActivity.setBounds(0, 0, 200, 25);
+        addDropdownContainer.add(newActivity);
+
+        JButton assignProjectleader = new JButton("Assign projectleader");
+        assignProjectleader.addActionListener(e -> {
+            System.out.println("Assign Projectleader clicked");
+        });
+        assignProjectleader.setBounds(0, 50, 200, 25);
+        addDropdownContainer.add(assignProjectleader);
+
+        JButton generateReport = new JButton("Generate report");
+        generateReport.addActionListener(e -> {
+            System.out.println("Generate report clicked");
+        });
+        generateReport.setBounds(0, 100, 200, 25);
+        addDropdownContainer.add(generateReport);
+
+        // Add MouseListener to the label
+        addLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addDropdownContainer.setVisible(true); // Show the container on hover
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the addDropdownContainer
+                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+                SwingUtilities.convertPointFromScreen(mouseLocation, addDropdownContainer);
+                if (!addDropdownContainer.contains(mouseLocation)) {
+                    addDropdownContainer.setVisible(false); // Hide the container if the mouse is outside
+                }
+            }
+        });
+
+        // Add MouseListener to the container
+        addDropdownContainer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addDropdownContainer.setVisible(true); // Keep the container visible on hover
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the addLabel
+                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+                SwingUtilities.convertPointFromScreen(mouseLocation, addLabel);
+                if (!addLabel.contains(mouseLocation)) {
+                    addDropdownContainer.setVisible(false); // Hide the container if the mouse is outside
+                }
+            }
+        });
 
         // Main panel
         JPanel main = new JPanel();
