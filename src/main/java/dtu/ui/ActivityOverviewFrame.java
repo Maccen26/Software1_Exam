@@ -1,18 +1,12 @@
 package dtu.ui;
 import javax.swing.*;
-import javax.swing.event.*;
-
-import org.eclipse.persistence.internal.oxm.mappings.Login;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import dtu.app.*;
 import dtu.domain.*;
-import dtu.ui.*;
 
 public class ActivityOverviewFrame extends JFrame {
     private JFrame activityOverviewFrame = new JFrame("Activity Overview");
@@ -29,7 +23,7 @@ public class ActivityOverviewFrame extends JFrame {
         colors.add(Color.ORANGE);
     }
 
-    private JButton activityButton(Activity activity, int curWeek, int curYear, int index){
+    private JButton activityButton(Activity activity, int curWeek, int curYear, int index, App app) {
         int curWeekOfYear = curWeek + (curYear - 2020) * 52;
         int startWeek = activity.getWeekPlan()[0] + (activity.getYearPlan()[0] - 2020)* 52;
         int endWeek = activity.getWeekPlan()[1] + (activity.getYearPlan()[1] - 2020)* 52;
@@ -57,6 +51,9 @@ public class ActivityOverviewFrame extends JFrame {
 
         activityButton.addActionListener(e -> {
             System.out.println("Activity " + activity.getName() + " clicked");
+            ManageActivityFrame manageActivityFrame = new ManageActivityFrame(app, activity);
+            activityOverviewFrame.setVisible(false);
+            activityOverviewFrame.dispose();
         });
 
         return activityButton;
@@ -81,7 +78,6 @@ public class ActivityOverviewFrame extends JFrame {
 
         JPanel dropdownContainer = new JPanel();
         dropdownContainer.setLayout(new BorderLayout());
-        // dropdownContainer.setPreferredSize(new Dimension(300, 200));
         dropdownContainer.setBounds(0, 80, 150, 50);
         dropdownContainer.setBackground(Color.LIGHT_GRAY);
         dropdownContainer.setVisible(false); // Initially hidden
@@ -94,7 +90,6 @@ public class ActivityOverviewFrame extends JFrame {
             ProjectOverviewFrame projectOverviewFrame = new ProjectOverviewFrame(app);
             activityOverviewFrame.setVisible(false);
             activityOverviewFrame.dispose();
-            // Add your action here
         });
         projectOverviewBUtton.setBounds(0, 0, 150, 25);
         dropdownContainer.add(projectOverviewBUtton, BorderLayout.NORTH);
@@ -102,9 +97,9 @@ public class ActivityOverviewFrame extends JFrame {
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
             System.out.println("Logged out");
+            LoginFrame loginFrame = new LoginFrame(app);
             activityOverviewFrame.setVisible(false);
             activityOverviewFrame.dispose();
-            LoginFrame loginFrame = new LoginFrame(app);
         });
         logoutButton.setBounds(0, 50, 150, 25);
         dropdownContainer.add(logoutButton, BorderLayout.SOUTH);
@@ -255,12 +250,11 @@ public class ActivityOverviewFrame extends JFrame {
         JPanel timelinePanel = new JPanel();
         timelinePanel.setLayout(null); // Use absolute positioning for precise placement
         timelinePanel.setPreferredSize(new Dimension(1000, 400)); // Adjust height as needed
-        timelinePanel.setBackground(Color.WHITE);
 
         // Add activity buttons to the timeline panel
         int i = 0;
         for (Activity activity : activities) {
-            JButton btn = activityButton(activity, curWeek, curYear, i);
+            JButton btn = activityButton(activity, curWeek, curYear, i, app);
             if (btn != null) {
                 timelinePanel.add(btn); // Add buttons to the timeline panel
             } else {

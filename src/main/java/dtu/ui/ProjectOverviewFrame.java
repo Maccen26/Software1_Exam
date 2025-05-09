@@ -88,7 +88,6 @@ public class ProjectOverviewFrame {
             ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
             projectOverviewFrame.setVisible(false);
             projectOverviewFrame.dispose();
-            // Add your action here
         });
         manageProjectsButton.setBounds(0, 0, 150, 25);
         dropdownContainer.add(manageProjectsButton, BorderLayout.NORTH);
@@ -96,9 +95,9 @@ public class ProjectOverviewFrame {
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
             System.out.println("Logged out");
+            LoginFrame loginFrame = new LoginFrame(app);
             projectOverviewFrame.setVisible(false);
             projectOverviewFrame.dispose();
-            LoginFrame loginFrame = new LoginFrame(app);
         });
         logoutButton.setBounds(0, 50, 150, 25);
         dropdownContainer.add(logoutButton, BorderLayout.SOUTH);

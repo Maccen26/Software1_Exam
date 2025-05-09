@@ -7,37 +7,48 @@ import java.awt.event.MouseEvent;
 
 import dtu.app.*;
 import dtu.domain.*;
-import javafx.scene.layout.Border;
 
 public class ManageProjectFrame {
     private JFrame manageProjectFrame;
 
-    private JButton activityButton(Activity activity){
-        JButton activityButton = new JButton(activity.getName()
-            + ": " + activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[0] + " "
-            + activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[1]);
+    private JButton activityButton(Activity activity, App app) {
+        // Create a button for the activity
+        JButton activityButton = new JButton();
         activityButton.setPreferredSize(new Dimension(300, 60));
-        activityButton.setFont(activityButton.getFont().deriveFont(40f));
-        activityButton.setHorizontalAlignment(SwingConstants.CENTER);
         activityButton.setBorderPainted(false);
         activityButton.setOpaque(true);
         activityButton.setBackground(Color.LIGHT_GRAY);
-        activityButton.setVerticalAlignment(SwingConstants.TOP);
-        activityButton.setHorizontalAlignment(SwingConstants.LEFT);
-
+    
+        // Create a panel to hold the text and status label
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setOpaque(false); // Make the panel transparent
+    
+        // Add the activity name as a label
+        JLabel nameLabel = new JLabel(activity.getName() + ": " +
+            activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[0] + " - " +
+            activity.getWeekPlan()[1] + "/" + activity.getYearPlan()[1]);
+        nameLabel.setFont(nameLabel.getFont().deriveFont(16f)); // Set font size
+        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        contentPanel.add(nameLabel, BorderLayout.NORTH);
+    
+        // Add the status label
         JLabel statusLabel = new JLabel(activity.getStatus());
-        statusLabel.setFont(statusLabel.getFont().deriveFont(16f));
-        statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        statusLabel.setVerticalAlignment(SwingConstants.TOP);
-        activityButton.add(statusLabel);
-
-
-
-
+        statusLabel.setFont(statusLabel.getFont().deriveFont(14f)); // Set font size
+        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        contentPanel.add(statusLabel, BorderLayout.SOUTH);
+    
+        // Add the content panel to the button
+        activityButton.setLayout(new BorderLayout());
+        activityButton.add(contentPanel, BorderLayout.CENTER);
+    
+        // Add an action listener
         activityButton.addActionListener(e -> {
             System.out.println("Activity " + activity.getName() + " clicked");
+            ManageActivityFrame manageActivityFrame = new ManageActivityFrame(app, activity);
+            manageProjectFrame.setVisible(false);
+            manageProjectFrame.dispose();
         });
-
+    
         return activityButton;
     }
 
@@ -74,7 +85,6 @@ public class ManageProjectFrame {
             ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
             manageProjectFrame.setVisible(false);
             manageProjectFrame.dispose();
-            // Add your action here
         });
         activityOverviewButton.setBounds(0, 0, 150, 25);
         dropdownContainer.add(activityOverviewButton);
@@ -85,7 +95,6 @@ public class ManageProjectFrame {
             ProjectOverviewFrame manageProjectsFrame = new ProjectOverviewFrame(app);
             manageProjectFrame.setVisible(false);
             manageProjectFrame.dispose();
-            // Add your action here
         });
         projectOverviewButton.setBounds(0, 50, 150, 25);
         dropdownContainer.add(projectOverviewButton);
@@ -93,9 +102,9 @@ public class ManageProjectFrame {
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
             System.out.println("Logged out");
+            LoginFrame loginFrame = new LoginFrame(app);
             manageProjectFrame.setVisible(false);
             manageProjectFrame.dispose();
-            LoginFrame loginFrame = new LoginFrame(app);
         });
         logoutButton.setBounds(0, 100, 150, 25);
         dropdownContainer.add(logoutButton);
@@ -157,7 +166,7 @@ public class ManageProjectFrame {
         activityContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         for (Activity activity : project.getActivities()) {
-            JButton activityButton = activityButton(activity);
+            JButton activityButton = activityButton(activity, app);
             activityContainer.add(activityButton);
         }
         main.add(activityContainer, BorderLayout.CENTER);
