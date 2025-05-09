@@ -3,6 +3,7 @@ package dtu.domain;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import io.cucumber.java.en_old.Ac;
 import io.cucumber.java.hu.De;
 
 public class Project {
@@ -30,31 +31,46 @@ public class Project {
         // At this point either there was no leader, or the requester *is* the leader:
         this.projectLeader = newLeader.getInitials();
     }
+    public ArrayList<Activity> getAllActivities() //MAds
+        {
+            return activities;
+
+        }
 
     public String getProjectNumber() { // Lukas
         // Get the project number
         return projectNumber;
     }
 
-    public Activity getActivity(String activityName) { // Lukas
+    public String getProjectLeader() { // Lukas
+        // Get the project leader
+        return projectLeader;
+    }
+
+    public Activity getActivity(String activityName) throws ErrorMessage{ // Lukas
         // Get an activity by its name
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
                 return activity;
             }
         }
-        return null;
+        throw new ErrorMessage("Activity not found");
     }
 
-    public String getReport() { // Lukas
+    public String getReport(Developer dev) throws ErrorMessage{ // Lukas
+        if (!dev.getInitials().equals(this.projectLeader)) {
+            throw new ErrorMessage("Only the project leader can get the report");
+        }
+
         if (this.activities.isEmpty()) {
             return projectNumber + ", no activities";
         }
+
         // Get the report for the project
-        String report = "";
+        String report = projectNumber + ": " + status + "\n";
         for (Activity activity : activities) {
             String status = activity.getStatus();
-            report += activity.getName() + status + "\n";
+            report += activity.getName() + ": " + status + "\n";
 
         }
         return report;
@@ -82,10 +98,10 @@ public class Project {
         // ---- Create and register the activity ----
         Activity newActivity = new Activity(
             name,
-            this.projectNumber,
+            this,
             weekPlanCopy,
             yearPlanCopy);
-
+        //newActivity.addDeveloper(requester); //SKAL IKKE TILFØJE EN AKTIVITET TIL EN DEN SAMME BRUGER - SÅ KAN PROJEJTLEDEREN KUN TILFØJE AKTIVITETR TIL SIG SELV?
         activities.add(newActivity);
     }
 
@@ -96,6 +112,16 @@ public class Project {
             }
         }
         return false;
+    }
+
+    public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage { //;ads
+        Activity activity = getActivity(activityName); 
+        activity.addDeveloper(developer);
+    }
+
+    public void setActivtyStatus(String activityName, String status2) throws ErrorMessage {
+        Activity activity = getActivity(activityName); 
+        activity.setStatus(status2);
     }
 
 }

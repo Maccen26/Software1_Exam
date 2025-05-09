@@ -1,11 +1,14 @@
 package dtu.acceptance_tests;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 
@@ -18,59 +21,60 @@ import dtu.domain.Project;
 
 public class activityOverviewSteps { //Mads 
 
-    App app = new App(); 
-    Developer developer;
 
     
-    public activityOverviewSteps() {
-        this.app.createProject();
-        
+    private App app;
+    private ArrayList<Activity> activityList;
+
+    public activityOverviewSteps(App app, ArrayList<Activity> activityList) {
+        this.app = app;
+        this.activityList = activityList;
     }
 
-
-    @Given("A project with the number {string} is contained in the app") //Mads
-    public void a_project_with_the_number_is_contained_in_the_app(String projectNumber) throws Exception {
-        if (app.getProject(projectNumber) == null) {
-            assertTrue(false);
-            throw new Exception("Project with the given number"+ projectNumber +"does not exist in the app.");
+//DEVELOPER has Activie or Schesculed activies
+    @Given("{string} is only working on the activity {string} in the project {string}") //Mads
+    public void isOnlyWorkingOnTheActivityInTheProject(String developerInitials, String activityName, String projectNumber) throws Exception {
+        assertEquals(0, activityList.size()); //Check that no activty is assgined
+        activityList = app.getActivitesForDeveloper(developerInitials);
+        if (activityList.size() != 0)
+        {
+            assertEquals("Developer has a Activty:" + app.getActivitesForDeveloper(developerInitials).get(0).getName() , 0, app.getActivitesForDeveloper(developerInitials).size());
         }
-    }
-    @And("the activity with the name {string} is connected to the project with the number {string}") // Mads
-    public void activity_with_name_exists(String activityName, String projectNumber) throws Exception {
-        Project project = this.app.getProject(projectNumber); 
-        int[] weekplan = new int[2];
-        weekplan[0] = 10; 
-        weekplan[1] = 12; 
-        int[] yearplan = new int[2]; 
-        yearplan[0] = 2025; 
-        yearplan[1] = 2025; 
 
-        //project.addActivity("Activty1", projectNumber, weekplan, yearplan);  //WAITING FOR JOHAN TO IMPLEMENT
-
-
-        if (project.getActivity(activityName) == null){
-            assertTrue(false);
-            throw new Exception("Activity with the name '" + activityName + "' does not exist in the app.");
-        }
-    }
-    @Given("{string} is working on the activity {string} in the project {string}") //Mads
-    public void developer_is_working_on_activity(String developerInitials, String activityName, String projectNumber){
-        this.developer = this.app.getDeveloper(developerInitials); 
-        Activity activity = this.app.getActivity(activityName, projectNumber); 
-        activity.addDeveloper(this.developer); 
+        this.app.addDeveloperToActivity(projectNumber, activityName, developerInitials); 
     }
 
-    @When("the developer {string} get an overview of all activities for the project {string}")
-    public void developer_get_an_overview_of_actvities(String developerInitials, String projectNumber)
-    {
-        
+    @When("the developer {string} get an overview of all activities") //MAds
+    public void theDeveloperGetAnOverviewOfAllActivitiesForTheProject(String developerInitials) throws Exception {
+       this.activityList = this.app.getActivitesForDeveloper(developerInitials);
+    }
+
+    @Then("he should see the following activities: {string}") //Mads
+    public void heShouldSeeTheFollowingActivities(String string) {
+        // Write code here that turns the phrase above into concrete actions
+
+        assertEquals(1, activityList.size());
+        assertEquals(string, activityList.get(0).getName());
+    }
+
+//DEVELOPER HAS NO ACTIVE OR SCHESCULED ACTIVITES
+    @Given("{string} doesn't have any active or scheduled activities") //Mads
+    public void isDoesnTHaveAnyActiveOrScheduledActivities(String string) { 
+        //Do nothing because no activty is assigned
+
+    }
+    @When("{string} get a overview")
+    public void getAOverview(String string) throws Exception {
+        // Write code here that turns the phrase above into concrete actions
+        this.activityList = this.app.getActivitesForDeveloper(string);
+    }
+    @Then("no activites is shown")
+    public void noActivitesIsShown() {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(0, this.activityList.size());
     }
 
 
 
 
-
-
-
-    
 }

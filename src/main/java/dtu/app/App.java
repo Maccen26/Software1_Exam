@@ -1,8 +1,13 @@
 package dtu.app;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.ArrayList;
 
+import javax.naming.OperationNotSupportedException;
+
 import dtu.domain.*;
+import io.cucumber.java.PendingException;
 
 public class App {
     private ArrayList<Project> projects;     //= new ArrayList<Project>();
@@ -14,12 +19,30 @@ public class App {
         // Initialise the projects and developers lists
         this.projects = new ArrayList<Project>();
         this.developers = new ArrayList<Developer>();
-
-        // Add huba 
+    
+        
+        // Add test developers 
         Developer huba = new Developer("huba");
         developers.add(huba);
+        //Developer thfa = new Developer("thfa");
+        //developers.add(thfa);
+        //Developer mahh = new Developer("mahh");
+        //developers.add(mahh);
+//
+        //// Add test projects
+        //Project project0 = new Project("20250");
+        //projects.add(project0);
+        //
+        //// Add test activities
+        //try{
+        //    project0.assignProjectLeader(thfa, thfa);
+        //    project0.addActivity(thfa, "Activity1", new int[]{1, 2}, new int[]{2025, 2025});
+        //}
+        //catch (ErrorMessage e){
+        //    System.out.println(e.getMessage());
+        //}
 
-        //Add projectnumber for test
+        // Set current project number
         this.projectNumber = 1;
     }
 
@@ -28,14 +51,31 @@ public class App {
         this.developers.add(developer);
     }
 
-    public void login(Developer developer) { // Lukas
+    public void login(Developer developer) throws ErrorMessage{ // Lukas
         // Log in a developer
+        if (!hasDeveloper(developer.getInitials())) {
+            throw new ErrorMessage("Developer does not exist");
+        }
+        // if (this.loggedInDeveloper != null) {
+        //     throw new ErrorMessage("Another developer is already logged in");
+        // }
         this.loggedInDeveloper = developer.getInitials();
     }
 
     public void createProject() { // Lukas
         // Add a project to the app
         Project newProject = new Project("2025" + projectNumber);
+        this.projects.add(newProject);
+        projectNumber++;
+    }
+    public void createProject(Developer projectLeader) { // Lukas
+        // Add a project to the app
+        Project newProject = new Project("2025" + projectNumber);
+        try {
+            newProject.assignProjectLeader(projectLeader, projectLeader);
+        } catch (ErrorMessage e) {
+            System.out.println(e.getMessage());
+        }
         this.projects.add(newProject);
         projectNumber++;
     }
@@ -50,7 +90,7 @@ public class App {
         return false;
     }
 
-    public Project getProject(String projectNumber) { // Lukas
+    public Project getProject(String projectNumber){ // Lukas
         // Get a project by its number
         for (Project project : projects) {
             if (project.getProjectNumber().equals(projectNumber)) {
@@ -58,9 +98,10 @@ public class App {
             }
         }
         return null;
+        //throw new Exception("Project not contained in the app");
     }
 
-    public Developer getDeveloper(String developerInitials) //Mads
+    public Developer getDeveloper(String developerInitials) throws Exception //Mads
     {
         for (Developer developer: this.developers) 
         {
@@ -69,18 +110,33 @@ public class App {
                 return developer;
             }
         }
-        return null;
+
+        throw new Exception("Developer not contained in app");
     }
 
-    public Activity getActivity(String activityName, String projectNumber2) //MADS
+    public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
     {
-        Project project = this.getProject(projectNumber2); 
-        if (project == null)
-        {
-            return null;
-        }
-        Activity activity = project.getActivity(activityName); 
+        Project project = getProject(projectNumber2); 
+        Developer developer = getDeveloper(this.loggedInDeveloper);
+        project.addActivity(developer, activityName, weekplan, yearplan);
 
-        return activity;
+    }
+
+    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception { //Mads
+        Project project = getProject(projectNumber2); 
+        Developer developer = getDeveloper(developerInitials);
+        project.addDeveloperToActivity(activityName, developer); 
+    }
+
+    public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
+        Developer developer = getDeveloper(developerInitials);
+        return developer.getAssignedActivities();
+    }
+
+
+
+    public void setActivtyStatus(String projectNumber, String activityName, String status) throws ErrorMessage {
+        Project project = getProject(projectNumber); 
+        project.setActivtyStatus(activityName, status);
     }
 }

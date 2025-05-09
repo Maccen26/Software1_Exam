@@ -10,7 +10,7 @@ import javax.swing.*;
 public class EditActivityFrame extends Ui{
     private JFrame editActivityFrame;
 
-    private Activity activity = new Activity("Activity1", "25021", new ArrayList<Developer>(), 30, new int[]{20, 25}, new int[]{2025, 2025});
+    private Activity activity = new Activity("Activity1", "25021", new int[]{20, 25}, new int[]{2025, 2025});
 
     public EditActivityFrame() { // Lukas
         editActivityFrame = new JFrame("Edit Activity");

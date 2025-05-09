@@ -26,8 +26,8 @@ public class Developer {
         }
     }
 
-    public List<Activity> getAssignedActivities() { // Johan
+    public ArrayList <Activity>  getAssignedActivities() { // Johan
         // Get the list of assigned activities for the developer
-        return Collections.unmodifiableList(assignedActivities);
+        return this.assignedActivities;
     }
 }

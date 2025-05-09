@@ -1,1 +1,12 @@
-/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/example/Example.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/app/App.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/domain/Activity.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/domain/Developer.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/domain/ErrorMessage.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/domain/Project.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/ActivityOverviewFrame.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/CreateProjectFrame.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/EditActivityFrame.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/GetReportFrame.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/LoginFrame.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/ManageProjectsFrame.java
+/Users/madshaakonsson/Desktop/Software 1/Exam/src/main/java/dtu/ui/Ui.java

@@ -2,10 +2,13 @@ package dtu.ui;
 
 import javax.swing.*;
 
+import dtu.app.*;
+import dtu.domain.*;
+
 public class CreateProjectFrame extends Ui{
     private JFrame createProjectFrame;
 
-    public CreateProjectFrame() { // Lukas
+    public CreateProjectFrame(App app) { // Lukas
         createProjectFrame = new JFrame("Create Project");
         createProjectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         createProjectFrame.setSize(300, 300);

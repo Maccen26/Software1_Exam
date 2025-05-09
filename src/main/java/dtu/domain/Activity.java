@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Activity {
     private String name; 
-    private String project; 
+    private Project project; 
     private ArrayList<Developer> assignedDevelopers; 
     private String status; 
     private int TimeBudget;
     private int[] weekPlan = new int [2];
     private int[] yearPlan = new int [2];
 
-    public Activity(String name, String assignedProject, int[] weekPlan, int[] yearPlan) { // Lukas
+    public Activity(String name, Project assignedProject, int[] weekPlan, int[] yearPlan) { // Lukas
         // Initialise the activity name, project, assigned developers, status, time budget, week plan and year plan
         this.name = name;
         this.project = assignedProject;
@@ -22,7 +22,12 @@ public class Activity {
         this.yearPlan = yearPlan;
     }
 
-    public void setName(String name) { // Lukas
+    public void setName(Developer dev, String name) throws ErrorMessage{ // Lukas
+        // Check if the developer is the project leader
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+
         // Set the name of the activity
         this.name = name;
     }
@@ -31,7 +36,13 @@ public class Activity {
         return name;
     }
 
-    public void setTimeBudget(int TimeBudget) { // Lukas
+
+    public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage { // Lukas
+        // Check if the developer is the project leader
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+
         // Set the time budget for the activity
         this.TimeBudget = TimeBudget;
     }
@@ -40,7 +51,12 @@ public class Activity {
         return TimeBudget;
     }
 
-    public void setWeekPlan(int[] weekPlan) { // Lukas
+    public void setWeekPlan(Developer dev, int[] weekPlan) throws ErrorMessage { // Lukas
+        // Check if the developer is the project leader
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+
         // Set the week plan for the activity
         this.weekPlan = weekPlan;
     }
@@ -49,7 +65,12 @@ public class Activity {
         return weekPlan;
     }
 
-    public void setYearPlan(int[] yearPlan) { // Lukas
+    public void setYearPlan(Developer dev, int[] yearPlan) throws ErrorMessage { // Lukas
+        // Check if the developer is the project leader
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+
         // Set the year plan for the activity
         this.yearPlan = yearPlan;
     }
@@ -70,5 +91,14 @@ public class Activity {
             developer.addActivity(this);
         }
 
+    }
+
+
+    public ArrayList<Developer> getAssignedDeveloper() { //MAds
+        return this.assignedDevelopers; 
+    }
+
+    public void setStatus(String status2) {
+        this.status = status2;
     }
 }

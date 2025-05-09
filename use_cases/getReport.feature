@@ -15,7 +15,8 @@ Scenario: Getting a report for an ongoing project (with activities)
     And "thfa" has registered 5 hours on "Activity1"
     And "thfa" has registered 15 hours on "Activity2"
     When "thfa" gets the report for project "20251"
-    Then get the report "20251, 20 used time, 50 budgetted time."
+    Then get the report 
+        | "20251, 20 used time, 50 budgetted time." |
         | "Activity1: 5 out of 20 hours." |
         | "Activity2: 15 our of 30 hours." |
 
