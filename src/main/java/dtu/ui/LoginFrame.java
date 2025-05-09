@@ -5,22 +5,40 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 
 import dtu.app.*;
-import dtu.domain.*;
-import dtu.ui.*;
 
-public class LoginFrame{
-	private JFrame loginFrame;
+public class LoginFrame {
+    private JFrame loginFrame;
     private String initials;
 
-	public LoginFrame(App app){ // Lukas
-		loginFrame = new JFrame("Login");
-		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loginFrame.setSize(1000, 700);
+    public LoginFrame(App app) {
+        // Create the login frame
+        loginFrame = new JFrame("Login");
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(1000, 700);
 
-        JTextField initialsField = new JTextField();
+        // Header panel
+        JPanel header = new JPanel();
+        header.setBackground(Color.GRAY);
+        header.setPreferredSize(new Dimension(1000, 80));
+        header.setLayout(new GridLayout(1, 3));
+
+        JLabel title = new JLabel("Project Management System");
+        title.setForeground(Color.BLACK);
+        title.setFont(title.getFont().deriveFont(40f));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        header.add(title);
+        loginFrame.add(header, BorderLayout.NORTH);
+
+        // Main panel
+        JPanel main = new JPanel();
+        main.setLayout(null);
+        loginFrame.add(main, BorderLayout.CENTER);
+
+        // Text field for initials
+        JTextField initialsField = new JTextField("Enter initials");
         initialsField.setBounds(400, 150, 200, 30);
-        loginFrame.add(initialsField);
-
+        initialsField.setForeground(Color.GRAY);
+        main.add(initialsField);
         initialsField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(java.awt.event.FocusEvent e) {
@@ -29,6 +47,7 @@ public class LoginFrame{
                     initialsField.setForeground(Color.BLACK);
                 }
             }
+
             @Override
             public void focusLost(java.awt.event.FocusEvent e) {
                 if (initialsField.getText().isEmpty()) {
@@ -38,33 +57,28 @@ public class LoginFrame{
             }
         });
 
-        JLabel label = new JLabel("Project Management System");
-        label.setBounds(0, 100, 1000, 30);
-        loginFrame.add(label);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.TOP);
-        label.setFont(label.getFont().deriveFont(20f));
-
+        // Login button
         JButton loginButton = new JButton("Login");
+        loginButton.setBounds(400, 200, 200, 30);
         loginButton.addActionListener(e -> {
             initials = initialsField.getText();
             System.out.println("Logged in with initials: " + initials);
             if (app.hasDeveloper(initials)) {
                 System.out.println("Developer exists");
-                ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
+                new ActivityOverviewFrame(app);
                 loginFrame.setVisible(false);
                 loginFrame.dispose();
             } else {
                 System.out.println("Developer does not exist");
                 initialsField.setText("Developer does not exist");
-                initialsField.setForeground(java.awt.Color.RED);
+                initialsField.setForeground(Color.RED);
             }
         });
-        loginFrame.add(loginButton);
-        loginButton.setBounds(400, 200, 200, 30);
-        loginFrame.setLayout(null);
+        main.add(loginButton);
+
+        // Finalize frame
         loginFrame.setLocationRelativeTo(null); // Center the frame on the screen
         loginFrame.setResizable(false);
         loginFrame.setVisible(true);
-	}
+    }
 }

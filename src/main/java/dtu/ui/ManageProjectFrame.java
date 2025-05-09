@@ -1,0 +1,172 @@
+package dtu.ui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import dtu.app.*;
+import dtu.domain.*;
+import javafx.scene.layout.Border;
+
+public class ManageProjectFrame {
+    private JFrame manageProjectFrame;
+
+    private JButton activityButton(Activity activity){
+        JButton activityButton = new JButton(activity.getName()
+            + ": " + activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[0] + " "
+            + activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[1]);
+        activityButton.setPreferredSize(new Dimension(300, 60));
+        activityButton.setFont(activityButton.getFont().deriveFont(40f));
+        activityButton.setHorizontalAlignment(SwingConstants.CENTER);
+        activityButton.setBorderPainted(false);
+        activityButton.setOpaque(true);
+        activityButton.setBackground(Color.LIGHT_GRAY);
+        activityButton.setVerticalAlignment(SwingConstants.TOP);
+        activityButton.setHorizontalAlignment(SwingConstants.LEFT);
+
+        JLabel statusLabel = new JLabel(activity.getStatus());
+        statusLabel.setFont(statusLabel.getFont().deriveFont(16f));
+        statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        statusLabel.setVerticalAlignment(SwingConstants.TOP);
+        activityButton.add(statusLabel);
+
+
+
+
+        activityButton.addActionListener(e -> {
+            System.out.println("Activity " + activity.getName() + " clicked");
+        });
+
+        return activityButton;
+    }
+
+    public ManageProjectFrame(App app, Project project) {
+        // Create the login frame
+        manageProjectFrame = new JFrame("Login");
+        manageProjectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        manageProjectFrame.setSize(1000, 700);
+
+        // Header panel
+        JPanel header = new JPanel();
+        header.setBackground(Color.GRAY);
+        header.setPreferredSize(new Dimension(1000, 80));
+        header.setLayout(new GridLayout(1, 3));
+
+        JLabel dropdownLabel = new JLabel("");
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/dtu/icons/Account.png"));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        dropdownLabel.setIcon(scaledIcon);
+        header.add(dropdownLabel);
+
+        JPanel dropdownContainer = new JPanel();
+        dropdownContainer.setLayout(new GridLayout(3, 1)); // 3 rows, 1 column
+        dropdownContainer.setBounds(0, 80, 150, 75);
+        dropdownContainer.setBackground(Color.LIGHT_GRAY);
+        dropdownContainer.setVisible(false); // Initially hidden
+        manageProjectFrame.add(dropdownContainer); // Add the container to the frame
+
+        // Create the dropdown items
+        JButton activityOverviewButton = new JButton("Activities");
+        activityOverviewButton.addActionListener(e -> {
+            System.out.println("Activities clicked");
+            ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
+            manageProjectFrame.setVisible(false);
+            manageProjectFrame.dispose();
+            // Add your action here
+        });
+        activityOverviewButton.setBounds(0, 0, 150, 25);
+        dropdownContainer.add(activityOverviewButton);
+
+        JButton projectOverviewButton = new JButton("Projects");
+        projectOverviewButton.addActionListener(e -> {
+            System.out.println("Projects clicked");
+            ProjectOverviewFrame manageProjectsFrame = new ProjectOverviewFrame(app);
+            manageProjectFrame.setVisible(false);
+            manageProjectFrame.dispose();
+            // Add your action here
+        });
+        projectOverviewButton.setBounds(0, 50, 150, 25);
+        dropdownContainer.add(projectOverviewButton);
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(e -> {
+            System.out.println("Logged out");
+            manageProjectFrame.setVisible(false);
+            manageProjectFrame.dispose();
+            LoginFrame loginFrame = new LoginFrame(app);
+        });
+        logoutButton.setBounds(0, 100, 150, 25);
+        dropdownContainer.add(logoutButton);
+
+        // Add MouseListener to the label
+        dropdownLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                dropdownContainer.setVisible(true); // Show the container on hover
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the dropdownContainer
+                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+                SwingUtilities.convertPointFromScreen(mouseLocation, dropdownContainer);
+                if (!dropdownContainer.contains(mouseLocation)) {
+                    dropdownContainer.setVisible(false); // Hide the container if the mouse is outside
+                }
+            }
+        });
+
+        // Add MouseListener to the container
+        dropdownContainer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                dropdownContainer.setVisible(true); // Keep the container visible on hover
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the dropdownLabel
+                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+                SwingUtilities.convertPointFromScreen(mouseLocation, dropdownLabel);
+                if (!dropdownLabel.contains(mouseLocation)) {
+                    dropdownContainer.setVisible(false); // Hide the container if the mouse is outside
+                }
+            }
+        });
+
+        JLabel title = new JLabel("Project " + project.getProjectNumber());
+        title.setForeground(Color.BLACK);
+        title.setFont(title.getFont().deriveFont(40f));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        header.add(title);
+        manageProjectFrame.add(header, BorderLayout.NORTH);
+
+        JLabel spacing = new JLabel("");
+        header.add(spacing);
+
+        // Main panel
+        JPanel main = new JPanel();
+        main.setLayout(new BorderLayout());
+        manageProjectFrame.add(main, BorderLayout.CENTER);
+
+        // Create a container for activities
+        JPanel activityContainer = new JPanel();
+        activityContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20)); // Horizontal alignment with spacing
+        activityContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        for (Activity activity : project.getActivities()) {
+            JButton activityButton = activityButton(activity);
+            activityContainer.add(activityButton);
+        }
+        main.add(activityContainer, BorderLayout.CENTER);
+
+        
+
+        // Finalize frame
+        manageProjectFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        manageProjectFrame.setResizable(false);
+        manageProjectFrame.setVisible(true);
+    }
+}

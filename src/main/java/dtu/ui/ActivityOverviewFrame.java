@@ -88,16 +88,16 @@ public class ActivityOverviewFrame extends JFrame {
         activityOverviewFrame.add(dropdownContainer); // Add the container to the frame
 
         // Create the dropdown items
-        JButton manageProjectsButton = new JButton("Manage Projects");
-        manageProjectsButton.addActionListener(e -> {
+        JButton projectOverviewBUtton = new JButton("Projects");
+        projectOverviewBUtton.addActionListener(e -> {
             System.out.println("Manage Projects clicked");
-            ManageProjectsFrame manageProjectsFrame = new ManageProjectsFrame(app);
+            ProjectOverviewFrame projectOverviewFrame = new ProjectOverviewFrame(app);
             activityOverviewFrame.setVisible(false);
             activityOverviewFrame.dispose();
             // Add your action here
         });
-        manageProjectsButton.setBounds(0, 0, 150, 25);
-        dropdownContainer.add(manageProjectsButton, BorderLayout.NORTH);
+        projectOverviewBUtton.setBounds(0, 0, 150, 25);
+        dropdownContainer.add(projectOverviewBUtton, BorderLayout.NORTH);
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
@@ -147,7 +147,7 @@ public class ActivityOverviewFrame extends JFrame {
         
         JLabel title = new JLabel("Activities");
         title.setForeground(Color.BLACK);
-        title.setFont(title.getFont().deriveFont(26f));
+        title.setFont(title.getFont().deriveFont(40f));
         title.setHorizontalAlignment(SwingConstants.CENTER);
         header.add(title);
 
