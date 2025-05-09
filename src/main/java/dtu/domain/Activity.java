@@ -94,13 +94,19 @@ public class Activity {
         return assignedDevelopers;
     }
 
-    public void addDeveloper(Developer developer) // Mads + Johan
+    public void addDeveloper(Developer developer, Developer requester) // Mads + Johan + Thomas
+            throws ErrorMessage {
     {   
+    
+        if (!requester.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
         if (!this.assignedDevelopers.contains(developer)) {
             assignedDevelopers.add(developer);
             developer.addActivity(this);
         }
 
+    }
     }
 
 

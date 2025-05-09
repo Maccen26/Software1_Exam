@@ -21,7 +21,7 @@ public class Project {
         this.status = "Not started";
     }
 
-    public void assignProjectLeader(Developer requester, Developer newLeader)
+    public void assignProjectLeader(Developer requester, Developer newLeader) // Johan
             throws ErrorMessage {
         // If there already is a leader, only they can change it:
         if (this.projectLeader != null
@@ -139,9 +139,9 @@ public class Project {
         return false;
     }
 
-    public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage { //;ads
+    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //;ads
         Activity activity = getActivity(activityName); 
-        activity.addDeveloper(developer);
+        activity.addDeveloper(developer, requester);
     }
 
     public void setActivtyStatus(String activityName, String status2) throws ErrorMessage {
