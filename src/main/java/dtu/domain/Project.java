@@ -1,5 +1,6 @@
 package dtu.domain;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -55,6 +56,11 @@ public class Project {
             }
         }
         throw new ErrorMessage("Activity not found");
+    }
+
+    public ArrayList<Activity> getActivities() { // Lukas
+        // Get all activities
+        return this.activities;
     }
 
     public String getReport(Developer dev) throws ErrorMessage{ // Lukas

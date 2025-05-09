@@ -37,7 +37,7 @@ public class GetReportFrame extends Ui{
                 reportLabel.setText("Project not found");
                 return;
             }
-            reportLabel.setText(project.getReport());
+            // reportLabel.setText(project.getReport());
             System.out.println("Got report for project");
         });
         getReportFrame.add(getReportButton);

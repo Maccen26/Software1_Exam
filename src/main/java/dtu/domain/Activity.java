@@ -84,6 +84,11 @@ public class Activity {
         return status;
     }
 
+    public Project getProject() { // Lukas
+        // Get the project of the activity
+        return project;
+    }
+
     public void addDeveloper(Developer developer) // Mads + Johan
     {   
         if (!this.assignedDevelopers.contains(developer)) {

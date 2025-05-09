@@ -6,6 +6,8 @@ import org.eclipse.persistence.internal.oxm.mappings.Login;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import dtu.app.*;
@@ -14,6 +16,51 @@ import dtu.ui.*;
 
 public class ActivityOverviewFrame extends JFrame {
     private JFrame activityOverviewFrame = new JFrame("Activity Overview");
+
+    ArrayList<Color> colors = new ArrayList<Color>();
+    {
+        colors.add(Color.PINK);
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.BLUE);
+        colors.add(Color.YELLOW);
+        colors.add(Color.CYAN);
+        colors.add(Color.MAGENTA);
+        colors.add(Color.ORANGE);
+    }
+
+    private JButton activityButton(Activity activity, int curWeek, int curYear, int index){
+        int curWeekOfYear = curWeek + (curYear - 2020) * 52;
+        int startWeek = activity.getWeekPlan()[0] + (activity.getYearPlan()[0] - 2020)* 52;
+        int endWeek = activity.getWeekPlan()[1] + (activity.getYearPlan()[1] - 2020)* 52;
+
+        if (curWeekOfYear + 3 < startWeek || curWeekOfYear > endWeek) {
+            // Check if the activity is currently active
+            return null;
+        }
+    
+        int startX = Math.max((startWeek - curWeekOfYear) * 225 + 50, 0); // Calculate X position based on start week
+        int width = Math.min(Math.min(endWeek - startWeek + 1, endWeek - curWeekOfYear + 1) * 225, 1000 - startX); // Calculate width based on duration
+        if (startX == 0){
+            width += 50; // Add the missing 50 px
+        }
+        
+        JButton activityButton = new JButton(activity.getName());
+        activityButton.setBounds(startX, 50 * index + 10, width, 40); // Position the button
+        activityButton.setFont(activityButton.getFont().deriveFont(14f));
+        activityButton.setBorderPainted(false);
+        activityButton.setOpaque(true);
+
+        String name = activity.getProject().getProjectNumber();
+        int nr = Integer.parseInt(name.substring(name.length() - 1));
+        activityButton.setBackground(colors.get(nr % colors.size()));
+
+        activityButton.addActionListener(e -> {
+            System.out.println("Activity " + activity.getName() + " clicked");
+        });
+
+        return activityButton;
+    }
 
     public ActivityOverviewFrame(App app) {
         activityOverviewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,8 +151,8 @@ public class ActivityOverviewFrame extends JFrame {
         title.setHorizontalAlignment(SwingConstants.CENTER);
         header.add(title);
 
-        JLabel temp = new JLabel("");
-        header.add(temp);
+        JLabel spacing = new JLabel("");
+        header.add(spacing);
 
         // (2) Add it to the top (NORTH) of the frame:
         activityOverviewFrame.add(header, BorderLayout.NORTH);
@@ -162,7 +209,7 @@ public class ActivityOverviewFrame extends JFrame {
                 g2d.setColor(Color.BLACK); // Set the line color
                 int height = 10;
                 int dif = 10;
-                g2d.drawLine(50, height, 950, height); 
+                g2d.drawLine(0, height, 1000, height); 
                 g2d.drawLine(50, height - dif, 50, height + dif); 
                 g2d.drawLine(275, height - dif, 275, height + dif); 
                 g2d.drawLine(500, height - dif, 500, height + dif); 
@@ -172,8 +219,58 @@ public class ActivityOverviewFrame extends JFrame {
         }
         // Add the custom panel to the frame
         JPanel linePanel = new LinePanel();
+        int curWeek = 20; // Example current week
+        int curYear = 2025; // Example current year
+        JPanel weekPanel = new JPanel(new GridLayout(1, 4));
+        weekPanel.setPreferredSize(new Dimension(900, 20));
+        weekPanel.setOpaque(true);
+        for (int i = curWeek; i < curWeek + 4; i++) {
+            JLabel weekLabel = new JLabel("Week " + i);
+            weekLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            weekLabel.setFont(weekLabel.getFont().deriveFont(20f));
+            weekLabel.setOpaque(true);
+            weekPanel.add(weekLabel);
+        }
+        main.add(weekPanel);
         linePanel.setPreferredSize(new Dimension(1000, 20)); // Set the preferred size of the panel
         main.add(linePanel, BorderLayout.CENTER); // Add it to the frame
+
+
+        ArrayList<Project> projects = app.getProjects();
+        ArrayList<Activity> activities = new ArrayList<Activity>();
+        for (Project project : projects) {
+            for (Activity activity : project.getActivities()) {
+                activities.add(activity);
+            }
+        }
+        // sort activities by end week
+        activities.sort((a, b) -> {
+            int aEndWeek = a.getWeekPlan()[1];
+            int bEndWeek = b.getWeekPlan()[1];
+            return Integer.compare(aEndWeek, bEndWeek);
+        });
+
+        
+        // Create a timeline panel
+        JPanel timelinePanel = new JPanel();
+        timelinePanel.setLayout(null); // Use absolute positioning for precise placement
+        timelinePanel.setPreferredSize(new Dimension(1000, 400)); // Adjust height as needed
+        timelinePanel.setBackground(Color.WHITE);
+
+        // Add activity buttons to the timeline panel
+        int i = 0;
+        for (Activity activity : activities) {
+            JButton btn = activityButton(activity, curWeek, curYear, i);
+            if (btn != null) {
+                timelinePanel.add(btn); // Add buttons to the timeline panel
+            } else {
+                System.out.println("Activity " + activity.getName() + " is not active");
+            }
+            i++;
+        }
+
+        // Add the timeline panel to the main panel
+        main.add(timelinePanel, BorderLayout.CENTER);
 
         // (4) Size & show
         activityOverviewFrame.setSize(1000, 700);

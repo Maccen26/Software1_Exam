@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 import dtu.app.*;
 import dtu.domain.*;
@@ -12,17 +13,38 @@ import dtu.ui.*;
 public class ManageProjectsFrame {
     private JFrame manageProjectsFrame = new JFrame("Manage Projects");
 
+    ArrayList<Color> colors = new ArrayList<Color>();
+    {
+        colors.add(Color.PINK);
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.BLUE);
+        colors.add(Color.YELLOW);
+        colors.add(Color.CYAN);
+        colors.add(Color.MAGENTA);
+        colors.add(Color.ORANGE);
+    }
+
     private JPanel createProjectPanel(Project project){
         JPanel projectPanel = new JPanel();
         projectPanel.setLayout(new BorderLayout());
         projectPanel.setPreferredSize(new Dimension(1000, 100));
-        projectPanel.setBackground(Color.LIGHT_GRAY);
         
-        JLabel projectLabel = new JLabel(project.getProjectNumber());
-        projectLabel.setFont(projectLabel.getFont().deriveFont(20f));
-        projectLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        projectPanel.add(projectLabel, BorderLayout.CENTER);
+        JButton projectButton = new JButton(project.getProjectNumber());
+        projectButton.setPreferredSize(new Dimension(200, 200));
+        projectButton.setFont(projectButton.getFont().deriveFont(40f));
+        projectButton.setHorizontalAlignment(SwingConstants.CENTER);
+        String number = project.getProjectNumber();
+        int nr = Integer.parseInt(number.substring(number.length() - 1));
+        projectButton.setBorderPainted(false);
+        projectButton.setOpaque(true);
+        projectButton.setBackground(colors.get(nr % colors.size()));
 
+        projectButton.addActionListener(e -> {
+            System.out.println("Project " + project.getProjectNumber() + " clicked");
+        });
+
+        projectPanel.add(projectButton, BorderLayout.CENTER);
         return projectPanel;
     }
 
@@ -169,6 +191,26 @@ public class ManageProjectsFrame {
         });
         searchContainer.add(searchButton);
         main.add(searchContainer, BorderLayout.NORTH);
+        
+        // Create a container for projects
+        int projectCount = app.getProjects().size();
+        int rows = (int) Math.min(projectCount/3, 3);
+        JPanel projectContainer = new JPanel(new GridLayout(rows, 3, 20, 20));
+        projectContainer.setPreferredSize(new Dimension(1000, rows * 100));
+        projectContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        int i = 0;
+        for (Project project : app.getProjects()) {
+            if (i == 9){
+                break;
+            }
+            i++;
+            // if (project.getStatus().equals("Finished")) {
+            //     continue;
+            // }
+            JPanel projectPanel = createProjectPanel(project);
+            projectContainer.add(projectPanel);
+        }
+        main.add(projectContainer, BorderLayout.CENTER);
         
         manageProjectsFrame.setVisible(true);
     }

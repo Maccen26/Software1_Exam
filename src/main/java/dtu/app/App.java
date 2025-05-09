@@ -101,6 +101,11 @@ public class App {
         //throw new Exception("Project not contained in the app");
     }
 
+    public ArrayList<Project> getProjects() { // Lukas
+        // Get all projects
+        return this.projects;
+    }
+
     public Developer getDeveloper(String developerInitials) throws Exception //Mads
     {
         for (Developer developer: this.developers) 

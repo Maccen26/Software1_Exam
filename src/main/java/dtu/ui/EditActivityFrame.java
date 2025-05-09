@@ -10,7 +10,7 @@ import javax.swing.*;
 public class EditActivityFrame extends Ui{
     private JFrame editActivityFrame;
 
-    private Activity activity = new Activity("Activity1", "25021", new int[]{20, 25}, new int[]{2025, 2025});
+    // private Activity activity = new Activity("Activity1", "25021", new int[]{20, 25}, new int[]{2025, 2025});
 
     public EditActivityFrame() { // Lukas
         editActivityFrame = new JFrame("Edit Activity");
@@ -49,15 +49,15 @@ public class EditActivityFrame extends Ui{
             int startYear = Integer.parseInt(startYearField.getText());
             int endYear = Integer.parseInt(endYearField.getText());
 
-            activity.setName(activityName);
-            activity.setTimeBudget(activityTime);
-            activity.setWeekPlan(new int[]{startWeek, endWeek});
-            activity.setYearPlan(new int[]{startYear, endYear});
+            // activity.setName(activityName);
+            // activity.setTimeBudget(activityTime);
+            // activity.setWeekPlan(new int[]{startWeek, endWeek});
+            // activity.setYearPlan(new int[]{startYear, endYear});
 
-            System.out.println("Activity saved: " + activity.getName());
-            System.out.println("Time budget: " + activity.getTimeBudget());
-            System.out.println("Week plan: " + activity.getWeekPlan()[0] + " - " + activity.getWeekPlan()[1]);
-            System.out.println("Year plan: " + activity.getYearPlan()[0] + " - " + activity.getYearPlan()[1]);
+            // System.out.println("Activity saved: " + activity.getName());
+            // System.out.println("Time budget: " + activity.getTimeBudget());
+            // System.out.println("Week plan: " + activity.getWeekPlan()[0] + " - " + activity.getWeekPlan()[1]);
+            // System.out.println("Year plan: " + activity.getYearPlan()[0] + " - " + activity.getYearPlan()[1]);
         });
         editActivityFrame.add(saveButton);
     }
