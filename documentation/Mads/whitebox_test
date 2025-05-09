@@ -1,4 +1,11 @@
 Method to be testing: 
+getActivitiesForDeveloper 
 
 
-Input Data Set | Contents | Expected Output |
+BLACKBOX test: 
+
+Input Data Set | Contents                                    | Expected Output |
+    A          | Developer is doesnt exist                   | Error messeage: "Developer not contained in app" 
+    B          | Developer has 1 activty which isnt finished | Array of size 1 
+    C          | Developer has  1 done activty               | Array of size 1       
+

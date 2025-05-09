@@ -8,3 +8,8 @@
 - [] Create design by contract
 - [] Implement Time Recording Activity 
 - [] Impelement Time Recording Button
+
+
+
+JUnit Tests: 
+- getActivitesForDeveloper

@@ -114,21 +114,6 @@ public class App {
         throw new Exception("Developer not contained in app");
     }
 
-    public Activity getActivity(String activityName, String projectNumber2) throws Exception //MADS
-    {
-        Project project = this.getProject(projectNumber2); 
-
-        Activity activity;
-        try{
-            activity = project.getActivity(activityName);
-            return activity;
-        } catch (ErrorMessage e){
-            System.out.println(e.getMessage());
-        }
-
-        return null;
-    }
-
     public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
     {
         Project project = getProject(projectNumber2); 
@@ -143,8 +128,15 @@ public class App {
         project.addDeveloperToActivity(activityName, developer); 
     }
 
-    public ArrayList<Activity> getActivites(String developerInitials) throws Exception { //Mads
+    public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
         Developer developer = getDeveloper(developerInitials);
         return developer.getAssignedActivities();
+    }
+
+
+
+    public void setActivtyStatus(String projectNumber, String activityName, String status) throws ErrorMessage {
+        Project project = getProject(projectNumber); 
+        project.setActivtyStatus(activityName, status);
     }
 }

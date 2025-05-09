@@ -3,6 +3,7 @@ package dtu.domain;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import io.cucumber.java.en_old.Ac;
 import io.cucumber.java.hu.De;
 
 public class Project {
@@ -113,24 +114,14 @@ public class Project {
         return false;
     }
 
-    public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage {
+    public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage { //;ads
         Activity activity = getActivity(activityName); 
         activity.addDeveloper(developer);
     }
 
-    public ArrayList<Activity> getActivitiesForDeveloper(Developer developer) {
-
-        ArrayList<Activity> activityList = new ArrayList<Activity>(); 
-
-        for (Activity activity: getAllActivities())
-        {
-            if (activity.hasDeveloper(developer))
-            {
-                activityList.add(activity);
-            }
-
-        }
-        return activityList;
+    public void setActivtyStatus(String activityName, String status2) throws ErrorMessage {
+        Activity activity = getActivity(activityName); 
+        activity.setStatus(status2);
     }
 
 }

@@ -94,20 +94,11 @@ public class Activity {
     }
 
 
-    public boolean hasDeveloper(Developer developer) {
-        boolean hasDeveloper = false; 
-
-        for (Developer dev: getAssignedDeveloper())
-        {
-            if (dev.getInitials().equals(developer.getInitials()))
-            {
-                hasDeveloper = true;
-            }
-        }
-        return hasDeveloper;
+    public ArrayList<Developer> getAssignedDeveloper() { //MAds
+        return this.assignedDevelopers; 
     }
 
-    private ArrayList<Developer> getAssignedDeveloper() {
-        return this.assignedDevelopers;
+    public void setStatus(String status2) {
+        this.status = status2;
     }
 }
