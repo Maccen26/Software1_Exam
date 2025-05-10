@@ -101,6 +101,15 @@ public class App {
         //throw new Exception("Project not contained in the app");
     }
 
+    public boolean hasProject(String projectNumber) { // Lukas
+        for (Project project : projects) {
+            if (project.getProjectNumber().equals(projectNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Project> getProjects() { // Lukas
         // Get all projects
         return this.projects;
