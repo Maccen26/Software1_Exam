@@ -1,10 +1,10 @@
 Feature: Editting an activity on a project
 Background: 
     Given a project with projectnumber "20251"
-    And project "20251" has an activity with name: "Activity1", start week: 10, start year: 2025, end week: 20, end year: 2025 and budgetted time: 20 hours
     And a developer with the name "thfa" is contained in the app
     And "thfa" is logged in
     And "thfa" is projectleader for project "20251"
+    And project "20251" has an activity with name: "Activity1", start week: 10, start year: 2025, end week: 20, end year: 2025 and budgetted time: 20 hours
         
 Scenario: Editting start and end week
     When "thfa" edits the start week of "Activity1" to 15 in 2025
