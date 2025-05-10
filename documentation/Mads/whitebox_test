@@ -2,8 +2,10 @@ Method to be testing:
 getActivitiesForDeveloper 
 
 
-BLACKBOX test: 
+Table 1: 
 
+
+Table 2: 
 Input Data Set | Contents                                    | Expected Output |
     A          | Developer is doesnt exist                   | Error messeage: "Developer not contained in app" 
     B          | Developer has 1 activty which isnt finished | Array of size 1 
