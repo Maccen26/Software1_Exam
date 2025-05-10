@@ -8,7 +8,7 @@ public class Activity {
     private Project project; 
     private ArrayList<Developer> assignedDevelopers; 
     private String status; 
-    private int TimeBudget;
+    private Double TimeBudget;
     private int[] weekPlan = new int [2];
     private int[] yearPlan = new int [2];
     private HashMap<Developer, Double> timeTracker = new HashMap<>();
@@ -18,7 +18,7 @@ public class Activity {
         this.project = assignedProject;
         this.assignedDevelopers = new ArrayList<Developer>();
         this.status = "Not started";
-        this.TimeBudget = 0;
+        this.TimeBudget = 0.;
         this.weekPlan = weekPlan;
         this.yearPlan = yearPlan;
         this.timeTracker = new HashMap<Developer, Double>();
@@ -52,7 +52,7 @@ public class Activity {
         return this.assignedDevelopers; 
     }
 
-    public int getTimeBudget() {
+    public Double getTimeBudget() {
         return TimeBudget;
     }
 
@@ -87,7 +87,7 @@ public class Activity {
         this.name = name;
     }
 
-    public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage {
+    public void setTimeBudget(Developer dev, Double TimeBudget) throws ErrorMessage {
         if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
             throw new ErrorMessage("Does not have permission to edit");
         }
