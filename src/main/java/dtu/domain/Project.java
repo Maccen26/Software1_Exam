@@ -139,6 +139,10 @@ public class Project {
         return projectLeader;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     //setters
     public void setStatus (String status, Developer requester) throws Exception{
         if (!this.projectLeader.equals(requester.getInitials()) && this.projectLeader != null) {
