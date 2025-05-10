@@ -60,6 +60,10 @@ public class Activity {
         public int[] getWeekPlan() {
         return weekPlan;
     }
+    
+    public String getName() {
+        return name;
+    }
 
     //setters
     public void setName(Developer dev, String name) throws ErrorMessage{
@@ -67,9 +71,6 @@ public class Activity {
             throw new ErrorMessage("Does not have permission to edit");
         }
         this.name = name;
-    }
-    public String getName() {
-        return name;
     }
 
     public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage {
