@@ -1,7 +1,8 @@
 Feature: Finish activity
     Background: 
-        Given "activity1" with status: "ongoing"
-        And "activity2" with status: "pending", startweek: "5"
+        Given a project "20251"
+        And "activity1" with status: "ongoing", start and end year: "2025", startweek: "10", endweek: "15"
+        And "activity2" with status: "Not started", start and end year: "2025", startweek: "15", endweek: "20"
         And developer with name "thfa" is in app
         And "thfa" is logged in 
         And "thfa" is assigned to "activity1"
@@ -19,5 +20,5 @@ Feature: Finish activity
         And status for "activity1" not changed
 
     Scenario: Developer assigned to activity can't change status before activity is started
-        When "thfa" change status for "activity2" in week "2" to finished then gets errormessage "activity pending, status change failed"
+        When "thfa" change status for "activity2" in week "14" to finished then gets errormessage "activity pending, status change failed"
         And status for "activity2" not changed
