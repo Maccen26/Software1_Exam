@@ -158,4 +158,5 @@ public class Activity {
 
         return totalTime;
     }
+
 }
