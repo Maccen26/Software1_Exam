@@ -8,7 +8,7 @@ public class Activity {
     private Project project; 
     private ArrayList<Developer> assignedDevelopers; 
     private String status; 
-    private int TimeBudget;
+    private Double TimeBudget;
     private int[] weekPlan = new int [2];
     private int[] yearPlan = new int [2];
     private HashMap<Developer, Double> timeTracker = new HashMap<>();
@@ -18,7 +18,7 @@ public class Activity {
         this.project = assignedProject;
         this.assignedDevelopers = new ArrayList<Developer>();
         this.status = "Not started";
-        this.TimeBudget = 0;
+        this.TimeBudget = 0.;
         this.weekPlan = weekPlan;
         this.yearPlan = yearPlan;
         this.timeTracker = new HashMap<Developer, Double>();
@@ -52,7 +52,7 @@ public class Activity {
         return this.assignedDevelopers; 
     }
 
-    public int getTimeBudget() {
+    public Double getTimeBudget() {
         return TimeBudget;
     }
 
@@ -87,7 +87,7 @@ public class Activity {
         this.name = name;
     }
 
-    public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage {
+    public void setTimeBudget(Developer dev, Double TimeBudget) throws ErrorMessage {
         if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
             throw new ErrorMessage("Does not have permission to edit");
         }
@@ -126,19 +126,17 @@ public class Activity {
     }
 
     public void registerTime(Double time, Developer developer) throws Exception { //Mads
-        checkTime(time);
 
-        Double registeredTime = timeTracker.get(developer);
-        if (registeredTime == null) {
-            registeredTime = 0.0;
-        }
-        timeTracker.put(developer, registeredTime + time);
-    }
+        assert time%0.5 == 0: "Time can only be logged in 0.5 hours increments"; //1
+        assert time > 0: "Time cannot be negative";//2
 
-    public void checkTime(Double time) throws Exception{ //Mads
-        if (time % 0.5 != 0){
-            throw new Exception("Time can only be logged in 0.5 hours increments");
+
+        Double registeredTime = timeTracker.get(developer); //3
+
+        if (registeredTime == null) { //4
+            registeredTime = 0.0; //5
         }
+        timeTracker.put(developer, registeredTime + time); //6
     }
 
     public Double getRegisteredTime(Developer developer) { //Mads
@@ -160,4 +158,5 @@ public class Activity {
 
         return totalTime;
     }
+
 }

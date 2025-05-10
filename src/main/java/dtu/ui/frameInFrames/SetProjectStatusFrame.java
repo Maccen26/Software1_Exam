@@ -5,8 +5,8 @@ import javax.swing.*;
 import dtu.app.*;
 import dtu.domain.*;
 
-public class SetStatusFrame extends JFrame{
-    public SetStatusFrame(App app, Activity activity){
+public class SetProjectStatusFrame extends JFrame{
+    public SetProjectStatusFrame(App app, Project project){
         setTitle("Set status");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(200, 300);
@@ -32,7 +32,7 @@ public class SetStatusFrame extends JFrame{
                 JOptionPane.showMessageDialog(this, "Please enter a status", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {
-                    activity.setStatus(statusField.getText(), app.getLoggedInDeveloper());
+                    project.setStatus(statusField.getText(), app.getLoggedInDeveloper());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }

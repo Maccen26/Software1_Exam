@@ -96,6 +96,7 @@ public class App {
             }
         }
         return null;
+       // throw new Exception("Project not contained in app");
     }
 
     public ArrayList<Project> getProjects() { // Lukas

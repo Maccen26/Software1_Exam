@@ -23,11 +23,9 @@ public class Project {
         this.status = "Not started";
     }
 
-    public void assignProjectLeader(Developer requester, Developer newLeader) // Johan
-            throws ErrorMessage {
+    public void assignProjectLeader(Developer requester, Developer newLeader) throws ErrorMessage { //Johan
         // If there already is a leader, only they can change it:
-        if (this.projectLeader != null
-            && !requester.getInitials().equals(this.projectLeader)) {
+        if (this.projectLeader != null && !requester.getInitials().equals(this.projectLeader)) {
             throw new ErrorMessage("Only the current project leader can reassign the project leader");
         }
 
@@ -36,11 +34,9 @@ public class Project {
     }
 
     public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws ErrorMessage {
-
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
             throw new ErrorMessage("Developer is not projectleader");
         }
-
         if (containsActivityName(name)) {
             throw new ErrorMessage("Activity title already exists");
         }
@@ -49,7 +45,6 @@ public class Project {
         int[] yearPlanCopy = yearPlan.clone();
 
         Activity newActivity = new Activity(name, this, weekPlanCopy, yearPlanCopy);
-        //newActivity.addDeveloper(requester); //SKAL IKKE TILFØJE EN AKTIVITET TIL EN DEN SAMME BRUGER - SÅ KAN PROJEJTLEDEREN KUN TILFØJE AKTIVITETR TIL SIG SELV?
         activities.add(newActivity);
     }
 
@@ -58,15 +53,15 @@ public class Project {
             throw new ErrorMessage("Developer is not projectleader");
         }
         else if (!containsActivityName(name)) {
-            throw new ErrorMessage("Activity title does not exist");
+            throw new ErrorMessage("Activity not found");
         }
 
         Activity activityToRemove = getActivity(name);
         activities.remove(activityToRemove);
     }
 
-    public Boolean containsActivityName(String name) { //Johan
-        for (Activity activity : activities) {
+    public boolean containsActivityName(String name) { //Johan
+        for (Activity activity : this.activities) {
             if (activity.getName().equals(name)) {
                 return true;
             }
@@ -79,10 +74,8 @@ public class Project {
         activity.addDeveloper(developer, requester);
     }
 
-    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
-        if (!dev.getInitials().equals(this.projectLeader)) {
-            throw new ErrorMessage("Only the project leader can get the report");
-        }
+    public ArrayList<String> getReport(Developer dev) throws AssertionError{ // Lukas
+        assert !this.projectLeader.equals(dev.getInitials());
 
         if (this.activities.isEmpty()) {
             ArrayList<String> emptyReport = new ArrayList<>();

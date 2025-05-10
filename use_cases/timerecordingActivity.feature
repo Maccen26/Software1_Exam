@@ -33,3 +33,8 @@ Feature: Register worked hours on Activity
         When "thfa" register 0.1 hour on the activity "Activity1" from the project "20251"
         Then an error message is given to the Developer: "Time can only be logged in 0.5 hours increments"
 
+    Scenario: Developer try to register negative time on activity
+        Given the activity "Activity1" from the project "20251"
+        When "thfa" register -1.0 hour on the activity "Activity1" from the project "20251"
+        Then an error message is given to the Developer: "Time cannot be negative"
+

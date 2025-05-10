@@ -5,7 +5,7 @@ Background:
     And the App contains a developer with the initials "mahh"
     And the developer "mahh" is logged into the App
     And the developer "thfa" is logged into the App
-    And the developer "thfa" is the projectleader of project "20251"
+    And "thfa" is the projectleader of project "20251"
 
 Scenario: Projectleader deletes an activity
     Given the developer "thfa" has added the activity with the title "Activity1" to the project "20251"
