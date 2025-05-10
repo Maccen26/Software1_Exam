@@ -106,7 +106,7 @@ public class ManageActivityFrame {
             }
         });
 
-        JLabel title = new JLabel("Project " + project.getProjectNumber() + " - Activity: " + activity.getName());
+        JLabel title = new JLabel("Project " + project.getProjectNumber() + " - " + activity.getName());
         title.setForeground(Color.BLACK);
         title.setFont(title.getFont().deriveFont(40f));
         title.setHorizontalAlignment(SwingConstants.CENTER);

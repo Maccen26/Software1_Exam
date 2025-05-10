@@ -7,7 +7,8 @@ Background:
         
 Scenario: Getting a report for a newly started project (no activities)
     When "thfa" gets the report for project "20251"
-    Then get the report "20251, no activities"
+    Then get the report 
+        | 20251: No activities |
 
 Scenario: Getting a report for an ongoing project (with activities)
     Given project "20251" has an activity with name: "Activity1", start week: 10, start year: 2025, end week: 20, end year: 2025 and budgetted time: 20 hours
@@ -16,12 +17,13 @@ Scenario: Getting a report for an ongoing project (with activities)
     And "thfa" has registered 15 hours on "Activity2"
     When "thfa" gets the report for project "20251"
     Then get the report 
-        | "20251, 20 used time, 50 budgetted time." |
-        | "Activity1: 5 out of 20 hours." |
-        | "Activity2: 15 our of 30 hours." |
+        | 20251: 20 used time, 50 budgetted time. |
+        | Activity1: 5 out of 20 hours. |
+        | Activity2: 15 our of 30 hours. |
 
 Scenario: Getting a report for a finished project (with finished activities)
     Given project "20251" has an activity with name: "Activity1", start week: 10, start year: 2025, end week: 20, end year: 2025 and budgetted time: 20 hours
     And the activity is finished
     When "thfa" gets the report for project "20251"
-    Then get the report "20251, finished all activities"
+    Then get the report 
+        | 20251: Finished |

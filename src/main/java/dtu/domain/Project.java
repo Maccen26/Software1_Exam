@@ -111,7 +111,7 @@ public class Project {
 
         if (this.activities.isEmpty()) {
             ArrayList<String> emptyReport = new ArrayList<>();
-            emptyReport.add(projectNumber + ", no activities");
+            emptyReport.add(projectNumber + ": No activities");
             return emptyReport;
         }
 
@@ -136,7 +136,7 @@ public class Project {
             activity.setStatus(status2);
         } 
         else {
-            throw new ErrorMessage("not assigned to activity, status change failed")
+            throw new ErrorMessage("not assigned to activity, status change failed");
         }
     }
 

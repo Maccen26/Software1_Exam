@@ -2,6 +2,7 @@ package dtu.acceptance_tests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,76 +16,49 @@ import dtu.domain.*;
 // Lukas
 public class getReportSteps {
     App app = new App();
-    String report;
-    Project project;
-    Activity activity;
+    public getReportSteps(App app) {
+        this.app = app;
+    }
     String errorMessage;
+    ArrayList<String> report = new ArrayList<>();
 
     @Given("a project with projectnumber {string}")
     public void aProjectWithProjectnumber(String string) {
         app.createProject();
-        project = app.getProject(string);
     }
 
     @Given("{string} is projectleader for project {string}")
     public void isProjectleaderForProject(String string, String string2) throws Exception {
-        // Set the project leader for the project
-        try {
-            app.getProject(string2).assignProjectLeader(app.getDeveloper(string), app.getDeveloper(string));
-        } catch (ErrorMessage e) {
-            errorMessage = e.getMessage();
-            System.out.println(errorMessage);
-        }
+        app.getProject(string2).assignProjectLeader(app.getLoggedInDeveloper(), app.getDeveloper(string));
     }
 
     @When("{string} gets the report for project {string}")
     public void triesToGetTheReportForProject(String string, String string2) throws Exception {
-        // Get the report for the project
         try {
             report = app.getProject(string2).getReport(app.getDeveloper(string));
         } catch (ErrorMessage e) {
             errorMessage = e.getMessage();
-            System.out.println(errorMessage);
         }
-    }
-
-    @Then("get the report {string}")
-    public void getTheReport(String string) {
-        System.out.println(report);
-        // Check if the report is correct
-        assertTrue(report.equals(string));
     }
 
     @Then("get the report")
     public void getTheReport(io.cucumber.datatable.DataTable dataTable) {
         List<List<String>> strings = dataTable.asLists();
-        // Convert the DataTable to a string
-        String string = "";
-        for (List<String> list : strings) {
-            for (String string2 : list) {
-                string += string2 + "\n";
+
+        for (int i = 0; i < strings.size(); i++) {
+            for (int j = 0; j < strings.get(i).size(); j++) {
+                System.out.println(i + " " + j);
+                System.out.println(report.get(i));
+                System.out.println(strings.get(i).get(j));
+                assertTrue(report.get(i).equals(strings.get(i).get(j)));
             }
         }
-        // Remove the last newline character
-        string = string.substring(0, string.length() - 1);
-
-
-        System.out.println(report);
-        
-        // Check if the report is correct
-        assertTrue(report.equals(string));
     }
 
     @Given("project {string} has an activity with name: {string}, start week: {int}, start year: {int}, end week: {int}, end year: {int} and budgetted time: {int} hours")
     public void projectHasAnActivityWithNameStartWeekStartYearEndWeekEndYearAndBudgettedTimeHours(String string, String string2, Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) throws Exception {
-        // Create an activity
-        try {
-            app.getProject(string).addActivity(app.getDeveloper("thfa"), string2, new int[] {int1, int2}, new int[] {int3, int4});
-            activity = project.getActivity(string);    
-        } catch (ErrorMessage e) {
-            errorMessage = e.getMessage();
-            System.out.println(errorMessage);
-        }
+        app.getProject(string).addActivity(app.getLoggedInDeveloper(), string2, new int[]{int1, int3}, new int[]{int2, int4});
+        app.getProject(string).getActivity(string2).setTimeBudget(app.getLoggedInDeveloper(), int5);
     }
 
     @Given("{string} has registered {int} hours on {string}")
