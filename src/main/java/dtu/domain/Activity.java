@@ -32,6 +32,17 @@ public class Activity {
         developer.addActivity(this);
     }
 
+    public void removeDeveloper(Developer requester, Developer developer) throws ErrorMessage { //Thomas
+        if (!requester.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
+        if (!this.assignedDevelopers.contains(developer)) {
+            throw new ErrorMessage("Developer is not working on activity");
+        }
+        assignedDevelopers.remove(developer);
+        developer.getAssignedActivities().remove(this);
+    }
+
     //Implicit methods implemented by Lukas
     //getters
     public ArrayList<Developer> getAssignedDeveloper() {

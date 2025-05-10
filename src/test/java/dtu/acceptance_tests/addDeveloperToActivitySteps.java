@@ -13,8 +13,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class addDeveloperToActivitySteps {
-    App app = new App();
-    String errorMessage;
+
+    private App app;
+    private String errorMessage;
+
+    public addDeveloperToActivitySteps(App app) {
+        this.app = app;
+    }
 
     @Given("A project with the number {string} is contained in the app")
     public void aProjectWithTheNumberIsContainedInTheApp(String string) {
