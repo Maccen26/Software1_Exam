@@ -70,7 +70,7 @@ public class addDeveloperToActivitySteps {
 
         //activity.addDeveloper(requester, developer);
     }
-    @When("the developer with the name {string} adds {string} to {string} from project {string}")
+    @When("the developer with the name {string} tries to add {string} to {string} from project {string}")
     public void theDeveloperWithTheNameAddsAgain(String string1, String string2, String string3, String string4) throws Exception{
         //Developer projectLeader = app.getDeveloper(string1);
         //Developer developer = app.getDeveloper(string2);
