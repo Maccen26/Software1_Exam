@@ -74,10 +74,8 @@ public class Project {
         activity.addDeveloper(developer, requester);
     }
 
-    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
-        if (!dev.getInitials().equals(this.projectLeader)) {
-            throw new ErrorMessage("Only the project leader can get the report");
-        }
+    public ArrayList<String> getReport(Developer dev) throws AssertionError{ // Lukas
+        assert !this.projectLeader.equals(dev.getInitials());
 
         if (this.activities.isEmpty()) {
             ArrayList<String> emptyReport = new ArrayList<>();
