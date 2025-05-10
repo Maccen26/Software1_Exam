@@ -2,6 +2,7 @@ package dtu.acceptance_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.calls;
 
 import dtu.app.App;
 import dtu.domain.Activity;
@@ -42,8 +43,11 @@ public class TimeRecordingSteps {
         Activity activityApp = project.getActivity(activityName); 
         this.developer = app.getDeveloper(developerInitials);
         activityApp.registerTime(time, this.developer); 
-
-        } catch (Exception e){
+ 
+        } catch (AssertionError e){
+            this.errorMessage = e.getMessage();
+        }
+        catch (Exception e){
             this.errorMessage = e.getMessage();
         }
     }
@@ -59,12 +63,15 @@ public class TimeRecordingSteps {
 
 
     @When("{string} add {double} hours to {string} in the project {string}")
-    public void addHoursInTheProject(String developerInitials, Double time, String activtyName, String projectNumber) {
+    public void addHoursInTheProject(String developerInitials, Double time, String activtyName, String projectNumber)  {
         try {
             Project project = app.getProject(projectNumber); 
             Activity activity = project.getActivity(activtyName); 
             Developer developer = app.getDeveloper(developerInitials); 
+
             activity.registerTime(time, developer);
+        } catch (AssertionError e){
+            this.errorMessage = e.getMessage();
         } catch (Exception e){
             this.errorMessage = e.getMessage();
         }
