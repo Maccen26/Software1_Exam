@@ -134,8 +134,7 @@ public class App {
     }
 
     public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception { //Mads + Thomas
-        Project project = getProject(projectNumber); 
-        project.addActivity(this.loggedInDeveloper, activityName, weekplan, yearplan);
+        getProject(projectNumber).addActivity(this.loggedInDeveloper, activityName, weekplan, yearplan);
     }
 
     public void addDeveloperToActivity(String projectNumber, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan + Thomas
