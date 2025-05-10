@@ -94,7 +94,7 @@ public class Activity {
         return assignedDevelopers;
     }
 
-    public void addDeveloper(Developer developer, Developer requester) // Mads + Johan + Thomas
+    public void addDeveloper(Developer requester, Developer developer) // Mads + Johan + Thomas
             throws ErrorMessage {
     {   
     
@@ -116,5 +116,8 @@ public class Activity {
 
     public void setStatus(String status2) {
         this.status = status2;
+    }
+    public boolean hasDeveloper(Developer developer){ //Thomas
+        return this.getAssignedDevelopers().contains(developer);
     }
 }
