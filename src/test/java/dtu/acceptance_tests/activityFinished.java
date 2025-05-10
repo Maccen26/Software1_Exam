@@ -57,7 +57,7 @@ public class activityFinished {
     @Given("{string} is assigned to {string}")
     public void isAssignedTo(String string, String string2) {
         try{
-            app.addDeveloperToActivity(project.getProjectNumber(), string2, string);
+            app.addDeveloperToActivity(project.getProjectNumber(), string2, string, string);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -65,7 +65,7 @@ public class activityFinished {
 
     @When("{string} change status for {string} to finished")
     public void changeStatusForToFinished(String string, String string2) {
-        
+
     }
 
     @Then("status change succed")
