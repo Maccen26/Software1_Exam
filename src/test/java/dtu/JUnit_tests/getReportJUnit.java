@@ -3,6 +3,8 @@ package dtu.JUnit_tests;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import dtu.app.*;
 import dtu.domain.*;
 
@@ -13,7 +15,7 @@ public class getReportJUnit {
         app.createProject();
         Developer mahh = new Developer("mahh");
         app.addDeveloper(mahh);
-        Developer thfa = app.getDeveloper("thfa");
+        Developer thfa = new Developer("thfa");
         app.addDeveloper(thfa);
 
         app.createProject();
@@ -25,7 +27,7 @@ public class getReportJUnit {
         }
 
         try{
-            String report = project.getReport(mahh);
+            ArrayList<String> report = project.getReport(mahh);
         } catch (ErrorMessage e) {
             assertEquals("Only the project leader can get the report", e.getMessage());
         }
@@ -47,8 +49,8 @@ public class getReportJUnit {
         }
 
         try{
-            String report = project.getReport(thfa);
-            assertEquals("20251, no activities", report);
+            ArrayList<String> report = project.getReport(thfa);
+            assertEquals("20251: No activities", report.get(0));
         } catch (ErrorMessage e) {
             System.out.println(e.getMessage());
         }
@@ -76,8 +78,11 @@ public class getReportJUnit {
         }
 
         try{
-            String report = project.getReport(thfa);
-            assertEquals("20251: Not started\nActivity1: Not started\n", report);
+            ArrayList<String> report = project.getReport(thfa);
+            ArrayList<String> answers = new ArrayList<String>();
+            answers.add("20251: Not started - 0.0/0.0");
+            answers.add("Activity1: Not started - 0.0/0.0");
+            assertEquals(answers, report);
         } catch (ErrorMessage e) {
             System.out.println(e.getMessage());
         }

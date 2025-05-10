@@ -14,10 +14,11 @@ import io.cucumber.java.en.When;
 
 public class addDeveloperToActivitySteps {
 
-    private App app;
+    private App app; 
     private String errorMessage;
 
-    public addDeveloperToActivitySteps(App app) {
+    public addDeveloperToActivitySteps(App app)
+    {
         this.app = app;
     }
 

@@ -1,24 +1,27 @@
 package dtu.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Activity {
     private String name; 
     private Project project; 
     private ArrayList<Developer> assignedDevelopers; 
     private String status; 
-    private int TimeBudget;
+    private Double TimeBudget;
     private int[] weekPlan = new int [2];
     private int[] yearPlan = new int [2];
+    private HashMap<Developer, Double> timeTracker = new HashMap<>();
 
     public Activity(String name, Project assignedProject, int[] weekPlan, int[] yearPlan) { // Lukas
         this.name = name;
         this.project = assignedProject;
         this.assignedDevelopers = new ArrayList<Developer>();
         this.status = "Not started";
-        this.TimeBudget = 0;
+        this.TimeBudget = 0.;
         this.weekPlan = weekPlan;
         this.yearPlan = yearPlan;
+        this.timeTracker = new HashMap<Developer, Double>();
     }
 
     public void addDeveloper(Developer requester, Developer developer) throws ErrorMessage { //Thomas
@@ -49,7 +52,7 @@ public class Activity {
         return this.assignedDevelopers; 
     }
 
-    public int getTimeBudget() {
+    public Double getTimeBudget() {
         return TimeBudget;
     }
 
@@ -84,7 +87,7 @@ public class Activity {
         this.name = name;
     }
 
-    public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage {
+    public void setTimeBudget(Developer dev, Double TimeBudget) throws ErrorMessage {
         if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
             throw new ErrorMessage("Does not have permission to edit");
         }
@@ -105,12 +108,56 @@ public class Activity {
         this.yearPlan = yearPlan;
     }
 
-    public void setStatus(String status2) {
-        this.status = status2;
+    public void setStatus(String status, Developer requester) throws ErrorMessage{ //Freja 
+        if(hasDeveloper(requester)){
+            if(getStatus().equals("Not started") && status.equals("Finished")){
+                throw new ErrorMessage("activity pending, status change failed");
+            }
+            this.status = status;
+        } 
+        else {
+            throw new ErrorMessage("not assigned to activity, status change failed");
+        }
     }
 
     //has
     public boolean hasDeveloper(Developer developer){ //Thomas
         return this.getAssignedDevelopers().contains(developer);
+    }
+
+    public void registerTime(Double time, Developer developer) throws Exception { //Mads
+        checkTime(time);
+
+        Double registeredTime = timeTracker.get(developer);
+        if (registeredTime == null) {
+            registeredTime = 0.0;
+        }
+        timeTracker.put(developer, registeredTime + time);
+    }
+
+    public void checkTime(Double time) throws Exception{ //Mads
+        if (time % 0.5 != 0){
+            throw new Exception("Time can only be logged in 0.5 hours increments");
+        }
+    }
+
+    public Double getRegisteredTime(Developer developer) { //Mads
+        Double registeredTime = timeTracker.get(developer);
+
+        if (registeredTime == null)
+        {
+            registeredTime = 0.0;
+        }
+        return registeredTime;
+    }
+
+    public Double getTimeSpent(){ // Mads
+        Double totalTime = 0.0;
+
+        for (Double time: timeTracker.values() ) {
+            totalTime += time;
+        }
+
+        return totalTime;
     }
 }

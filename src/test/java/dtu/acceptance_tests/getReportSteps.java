@@ -58,20 +58,22 @@ public class getReportSteps {
     @Given("project {string} has an activity with name: {string}, start week: {int}, start year: {int}, end week: {int}, end year: {int} and budgetted time: {int} hours")
     public void projectHasAnActivityWithNameStartWeekStartYearEndWeekEndYearAndBudgettedTimeHours(String string, String string2, Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) throws Exception {
         app.getProject(string).addActivity(app.getLoggedInDeveloper(), string2, new int[]{int1, int3}, new int[]{int2, int4});
-        app.getProject(string).getActivity(string2).setTimeBudget(app.getLoggedInDeveloper(), int5);
+        app.getProject(string).getActivity(string2).setTimeBudget(app.getLoggedInDeveloper(), (double) int5);
+        app.getProject(string).getActivity(string2).addDeveloper(app.getLoggedInDeveloper(), app.getDeveloper("thfa"));
     }
 
     @Given("{string} has registered {int} hours on {string}")
-    public void hasRegisteredHoursOn(String string, Integer int1, String string2) {
-        ////////// UNFINISHED /////////
-        // Register the hours for the activity
-        // dev.registerHours(activity, int1);
+    public void hasRegisteredHoursOn(String string, Integer int1, String string2) throws Exception {
+        app.getProject("20251").getActivity(string2).registerTime((double) int1, app.getDeveloper(string));
+        app.getProject("20251").getActivity(string2).setStatus("Ongoing", app.getDeveloper(string));
+        app.getProject("20251").setStatus("Ongoing", app.getDeveloper(string));
     }
 
     @Given("the activity is finished")
-    public void theActivityIsFinished() {
-        ////////// UNFINISHED /////////
-        // Set the status of the activity to finished
-        // activity.finish();
+    public void theActivityIsFinished() throws Exception {
+        app.getProject("20251").getActivity("Activity1").registerTime((double) 30, app.getDeveloper("thfa"));
+        app.getProject("20251").getActivity("Activity1").setStatus("Ongoing", app.getDeveloper("thfa"));
+        app.getProject("20251").getActivity("Activity1").setStatus("Finished", app.getDeveloper("thfa"));
+        app.getProject("20251").setStatus("Finished", app.getDeveloper("thfa"));
     }
 }

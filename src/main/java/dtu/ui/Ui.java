@@ -40,25 +40,31 @@ public class Ui {
         try {
             projects.get(0).assignProjectLeader(dev, dev);
             projects.get(0).addActivity(dev, "Activity 1", new int[] {20, 21}, new int[] {2025, 2025});
+            projects.get(0).getActivity("Activity 1").setTimeBudget(dev, 20.);
             projects.get(0).getActivity("Activity 1").addDeveloper(dev, devsList.get(0));
             projects.get(0).getActivity("Activity 1").addDeveloper(dev, devsList.get(1));
             projects.get(0).addActivity(dev, "Activity 2", new int[] {19, 24}, new int[] {2025, 2025});
+            projects.get(0).getActivity("Activity 2").setTimeBudget(dev, 50.);
             projects.get(0).getActivity("Activity 2").addDeveloper(dev, devsList.get(3));
             projects.get(0).getActivity("Activity 2").addDeveloper(dev, devsList.get(4));
             projects.get(0).getActivity("Activity 2").addDeveloper(dev, devsList.get(2));
             projects.get(0).getActivity("Activity 2").addDeveloper(dev, dev);
             projects.get(0).addActivity(dev, "Activity 3", new int[] {22, 23}, new int[] {2025, 2025});
+            projects.get(0).getActivity("Activity 3").setTimeBudget(dev, 10.);
             projects.get(0).getActivity("Activity 3").addDeveloper(dev, devsList.get(0));
     
             projects.get(1).assignProjectLeader(dev, dev);
             projects.get(1).addActivity(dev, "Activity 1", new int[] {18, 20}, new int[] {2025, 2025});
+            projects.get(0).getActivity("Activity 1").setTimeBudget(dev, 20.);
             projects.get(1).getActivity("Activity 1").addDeveloper(dev, devsList.get(4));
             projects.get(1).getActivity("Activity 1").addDeveloper(dev, devsList.get(3));
             projects.get(1).addActivity(dev, "Activity 2", new int[] {20, 22}, new int[] {2025, 2025});
+            projects.get(0).getActivity("Activity 1").setTimeBudget(dev, 5.);
             projects.get(1).getActivity("Activity 2").addDeveloper(dev, devsList.get(2));
     
             projects.get(2).assignProjectLeader(dev, dev);
             projects.get(2).addActivity(dev, "Activity 1", new int[] {20, 21}, new int[] {2025, 2025});
+            projects.get(0).getActivity("Activity 1").setTimeBudget(dev, 100.);
             projects.get(2).getActivity("Activity 1").addDeveloper(dev, devsList.get(0));
             projects.get(2).getActivity("Activity 1").addDeveloper(dev, devsList.get(1));
             projects.get(2).getActivity("Activity 1").addDeveloper(dev, devsList.get(2));

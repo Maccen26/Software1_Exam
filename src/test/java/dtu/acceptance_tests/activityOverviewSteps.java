@@ -40,8 +40,11 @@ public class activityOverviewSteps { //Mads
         {
             assertEquals("Developer has a Activty:" + app.getActivitesForDeveloper(developerInitials).get(0).getName() , 0, app.getActivitesForDeveloper(developerInitials).size());
         }
+        Project project = app.getProject(projectNumber); 
+        Activity activity = project.getActivity(activityName);
+        Developer developer = app.getDeveloper(developerInitials);
 
-        this.app.addDeveloperToActivity(projectNumber, activityName, developerInitials); 
+        activity.addDeveloper(developer, developer);
     }
 
     @When("the developer {string} get an overview of all activities") //MAds

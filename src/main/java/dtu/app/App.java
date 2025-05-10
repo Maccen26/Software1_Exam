@@ -57,7 +57,7 @@ public class App {
         project.addDeveloperToActivity(activityName, requester, developer); 
     }
 
-    public void login(Developer developer) throws ErrorMessage{ // Lukas
+    public void login(Developer developer) throws Exception, ErrorMessage{ // Lukas
         // Log in a developer
         if (!hasDeveloper(developer.getInitials())) {
             throw new ErrorMessage("Developer does not exist");
@@ -96,7 +96,6 @@ public class App {
             }
         }
         return null;
-        //throw new Exception("Project not contained in the app");
     }
 
     public ArrayList<Project> getProjects() { // Lukas
@@ -121,11 +120,6 @@ public class App {
         return this.loggedInDeveloper;
     }
 
-    public void setActivtyStatus(String projectNumber, String activityName, String status, Developer requester) throws ErrorMessage {
-        Project project = getProject(projectNumber); 
-        project.setActivtyStatus(activityName, status, requester);
-    }
-
     public boolean hasProject(String projectNumber) { // Lukas
         for (Project project : projects) {
             if (project.getProjectNumber().equals(projectNumber)) {
@@ -135,12 +129,12 @@ public class App {
         return false;
     }
 
-    public boolean hasDeveloper(String initials) { // Lukas
+    public boolean hasDeveloper(String initials) throws Exception{ // Lukas
         for (Developer developer : developers) {
             if (developer.getInitials().equals(initials)) {
                 return true;
             }
         }
-        return false;
+        throw new Exception("Developer not contained in app");
     }
 }

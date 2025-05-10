@@ -25,7 +25,7 @@ public class editActivitySteps {
     @When("{string} edits the budgetted time of {string} to {int} hours")
     public void editsTheBudgettedTimeOfToHours(String string, String string2, Integer int1) throws Exception {
         try{
-            app.getProject("20251").getActivity(string2).setTimeBudget(app.getDeveloper(string), int1);
+            app.getProject("20251").getActivity(string2).setTimeBudget(app.getDeveloper(string), (double) int1);
         } catch (ErrorMessage e) {
             errorMessage = e.getMessage();
             return;
@@ -34,7 +34,7 @@ public class editActivitySteps {
 
     @Then("{string} has the budgetted time {int} hours")
     public void hasTheBudgettedTimeHours(String string, Integer int1) throws ErrorMessage{
-        assertTrue(app.getProject("20251").getActivity(string).getTimeBudget() == int1);
+        assertTrue(app.getProject("20251").getActivity(string).getTimeBudget() == (double) int1);
     }
 
     @When("{string} edits the start week of {string} to {int} in {int}")
