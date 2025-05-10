@@ -33,7 +33,7 @@ public class RemoveDeveloperFrame extends JFrame{
             } else {
                 try {
                         Developer dev = app.getDeveloper(developerInitials);
-                        //activity.removeDeveloper(app.getLoggedInDeveloper(), dev);
+                        activity.removeDeveloper(app.getLoggedInDeveloper(), dev);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
