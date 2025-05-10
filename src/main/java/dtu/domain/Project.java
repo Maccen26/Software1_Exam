@@ -21,7 +21,7 @@ public class Project {
         this.status = "Not started";
     }
 
-    public void assignProjectLeader(Developer requester, Developer newLeader)
+    public void assignProjectLeader(Developer requester, Developer newLeader) // Johan
             throws ErrorMessage {
         // If there already is a leader, only they can change it:
         if (this.projectLeader != null
@@ -56,6 +56,16 @@ public class Project {
             }
         }
         throw new ErrorMessage("Activity not found");
+    }
+
+    public boolean hasActivity(String activityName) { // Lukas
+        // Check if an activity exists by its name
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Activity> getActivities() { // Lukas
@@ -111,6 +121,25 @@ public class Project {
         activities.add(newActivity);
     }
 
+    public void removeActivity(//Johan
+            Developer requester,
+            String name)
+            throws ErrorMessage {
+
+        // ---- Basic validation ----
+        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
+
+        if (!containsActivityName(name)) {
+            throw new ErrorMessage("Activity title does not exist");
+        }
+
+        // ---- Remove the activity ----
+        Activity activityToRemove = getActivity(name);
+        activities.remove(activityToRemove);
+    }
+
     public Boolean containsActivityName(String name) { //Johan
         for (Activity activity : activities) {
             if (activity.getName().equals(name)) {
@@ -120,9 +149,9 @@ public class Project {
         return false;
     }
 
-    public void addDeveloperToActivity(String activityName, Developer developer) throws ErrorMessage { //;ads
+    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //;ads
         Activity activity = getActivity(activityName); 
-        activity.addDeveloper(developer);
+        activity.addDeveloper(developer, requester);
     }
 
     public void setActivtyStatus(String activityName, String status2) throws ErrorMessage {

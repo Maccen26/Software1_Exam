@@ -1,7 +1,8 @@
-package dtu.ui;
+package dtu.ui.frameInFrames;
 
 import dtu.app.*;
 import dtu.domain.*;
+import dtu.ui.Ui;
 
 import java.util.ArrayList;
 

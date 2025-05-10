@@ -89,13 +89,24 @@ public class Activity {
         return project;
     }
 
-    public void addDeveloper(Developer developer) // Mads + Johan
+    public ArrayList<Developer> getAssignedDevelopers() { // Lukas
+        // Get the assigned developers for the activity
+        return assignedDevelopers;
+    }
+
+    public void addDeveloper(Developer requester, Developer developer) // Mads + Johan + Thomas
+            throws ErrorMessage {
     {   
+    
+        if (!requester.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
         if (!this.assignedDevelopers.contains(developer)) {
             assignedDevelopers.add(developer);
             developer.addActivity(this);
         }
 
+    }
     }
 
 
@@ -105,5 +116,8 @@ public class Activity {
 
     public void setStatus(String status2) {
         this.status = status2;
+    }
+    public boolean hasDeveloper(Developer developer){ //Thomas
+        return this.getAssignedDevelopers().contains(developer);
     }
 }

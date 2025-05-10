@@ -65,6 +65,11 @@ public class LoginFrame {
             System.out.println("Logged in with initials: " + initials);
             if (app.hasDeveloper(initials)) {
                 System.out.println("Developer exists");
+                try{
+                    app.login(app.getDeveloper(initials));
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
                 new ActivityOverviewFrame(app);
                 loginFrame.setVisible(false);
                 loginFrame.dispose();

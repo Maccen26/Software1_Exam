@@ -12,7 +12,7 @@ import io.cucumber.java.PendingException;
 public class App {
     private ArrayList<Project> projects;     //= new ArrayList<Project>();
     private ArrayList<Developer> developers; //= new ArrayList<Developer>();
-    private String loggedInDeveloper;
+    private Developer loggedInDeveloper;
     private int projectNumber; // = 1;
     
     public App() { // Lukas
@@ -59,7 +59,12 @@ public class App {
         // if (this.loggedInDeveloper != null) {
         //     throw new ErrorMessage("Another developer is already logged in");
         // }
-        this.loggedInDeveloper = developer.getInitials();
+        this.loggedInDeveloper = developer;
+    }
+
+    public Developer getLoggedInDeveloper() { // Lukas
+        // Get the logged in developer
+        return this.loggedInDeveloper;
     }
 
     public void createProject() { // Lukas
@@ -101,6 +106,15 @@ public class App {
         //throw new Exception("Project not contained in the app");
     }
 
+    public boolean hasProject(String projectNumber) { // Lukas
+        for (Project project : projects) {
+            if (project.getProjectNumber().equals(projectNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Project> getProjects() { // Lukas
         // Get all projects
         return this.projects;
@@ -122,15 +136,16 @@ public class App {
     public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
     {
         Project project = getProject(projectNumber2); 
-        Developer developer = getDeveloper(this.loggedInDeveloper);
+        Developer developer = this.loggedInDeveloper;
         project.addActivity(developer, activityName, weekplan, yearplan);
 
     }
 
-    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception { //Mads
+    public void addDeveloperToActivity(String projectNumber2, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan
         Project project = getProject(projectNumber2); 
         Developer developer = getDeveloper(developerInitials);
-        project.addDeveloperToActivity(activityName, developer); 
+        Developer requester = getDeveloper(requesterInitails);
+        project.addDeveloperToActivity(activityName, requester, developer); 
     }
 
     public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
