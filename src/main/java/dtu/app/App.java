@@ -141,6 +141,34 @@ public class App {
                 return true;
             }
         }
-        return false;
+
+        throw new Exception("Developer not contained in app");
+    }
+
+    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
+    {
+        Project project = getProject(projectNumber); 
+        Developer developer = this.loggedInDeveloper;
+        project.addActivity(developer, activityName, weekplan, yearplan);
+
+    }
+
+    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception { //Mads + Johan
+        Project project = getProject(projectNumber2); 
+        Developer developer = getDeveloper(developerInitials);
+        Developer requester = this.loggedInDeveloper;
+        project.addDeveloperToActivity(activityName, requester, developer); 
+    }
+
+    public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
+        Developer developer = getDeveloper(developerInitials);
+        return developer.getAssignedActivities();
+    }
+
+
+
+    public void setActivtyStatus(String projectNumber, String activityName, String status) throws ErrorMessage {
+        Project project = getProject(projectNumber); 
+        project.setActivtyStatus(activityName, status);
     }
 }
