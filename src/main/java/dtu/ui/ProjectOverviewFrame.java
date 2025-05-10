@@ -179,6 +179,7 @@ public class ProjectOverviewFrame {
         JButton createActivity = new JButton("Create activity");
         createActivity.addActionListener(e -> {
             System.out.println("Create activity clicked");
+            CreateActivityFrame createActivityFrame = new CreateActivityFrame(app, null);
         });
         createActivity.setBounds(0, 50, 150, 25);
         addDropdownContainer.add(createActivity);
@@ -288,6 +289,7 @@ public class ProjectOverviewFrame {
         
         projectOverviewFrame.setVisible(true);
     }
+    
     private void refreshFrame(App app) {
         projectOverviewFrame.setVisible(false);
         projectOverviewFrame.dispose();

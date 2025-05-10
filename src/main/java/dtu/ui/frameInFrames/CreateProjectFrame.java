@@ -8,7 +8,7 @@ public class CreateProjectFrame extends JFrame {
 
     public CreateProjectFrame(App app) {
         // Set up the frame
-        setTitle("Create Project");
+        setTitle("Create project");
         setSize(200, 300);
         setLayout(null);
         setLocationRelativeTo(null); // Center the frame on the screen
@@ -16,7 +16,7 @@ public class CreateProjectFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ensure windowClosed is triggered
 
         // Add components
-        JLabel projectLeader = new JLabel("Project Leader:");
+        JLabel projectLeader = new JLabel("Project leader:");
         projectLeader.setBounds(0, 20, 200, 25);
         projectLeader.setHorizontalAlignment(SwingConstants.CENTER);
         add(projectLeader);
@@ -25,7 +25,7 @@ public class CreateProjectFrame extends JFrame {
         projectLeaderField.setBounds(60, 50, 80, 25);
         add(projectLeaderField);
 
-        JButton createButton = new JButton("Create Project");
+        JButton createButton = new JButton("Create project");
         createButton.setBounds(50, 100, 100, 30);
         createButton.addActionListener(e -> {
             String projectLeaderName = projectLeaderField.getText();

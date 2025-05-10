@@ -2,11 +2,11 @@ package dtu.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 import dtu.app.*;
 import dtu.domain.*;
+import dtu.ui.frameInFrames.CreateActivityFrame;
 
 public class ManageProjectFrame {
     private JFrame manageProjectFrame;
@@ -157,6 +157,11 @@ public class ManageProjectFrame {
         scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
         scaledIcon = new ImageIcon(scaledImage);
         addLabel.setIcon(scaledIcon);
+        if (app.getLoggedInDeveloper().getInitials().equals(project.getProjectLeader())) {
+            addLabel.setVisible(true);
+        } else {
+            addLabel.setVisible(false);
+        }
         header.add(addLabel, BorderLayout.EAST);
 
         JPanel addDropdownContainer = new JPanel();
@@ -170,6 +175,15 @@ public class ManageProjectFrame {
         JButton newActivity = new JButton("New activity");
         newActivity.addActionListener(e -> {
             System.out.println("New activity clicked");
+            CreateActivityFrame createActivityFrame = new CreateActivityFrame(app, project);
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            createActivityFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         newActivity.setBounds(0, 0, 200, 25);
         addDropdownContainer.add(newActivity);
@@ -229,6 +243,12 @@ public class ManageProjectFrame {
         main.setLayout(new BorderLayout());
         manageProjectFrame.add(main, BorderLayout.CENTER);
 
+        JLabel projectLeaderLabel = new JLabel("Project leader: " + project.getProjectLeader());
+        projectLeaderLabel.setFont(projectLeaderLabel.getFont().deriveFont(20f)); // Set font size
+        projectLeaderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        projectLeaderLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Add padding
+        main.add(projectLeaderLabel, BorderLayout.NORTH);
+
         // Create a container for activities
         JPanel activityContainer = new JPanel();
         activityContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20)); // Horizontal alignment with spacing
@@ -240,11 +260,15 @@ public class ManageProjectFrame {
         }
         main.add(activityContainer, BorderLayout.CENTER);
 
-        
-
         // Finalize frame
         manageProjectFrame.setLocationRelativeTo(null); // Center the frame on the screen
         manageProjectFrame.setResizable(false);
         manageProjectFrame.setVisible(true);
+    }
+
+    private void refreshFrame(App app, Project project) {
+        manageProjectFrame.setVisible(false);
+        manageProjectFrame.dispose();
+        new ManageProjectFrame(app, project);
     }
 }
