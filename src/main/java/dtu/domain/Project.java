@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord.NULL;
+
 import io.cucumber.java.en_old.Ac;
 import io.cucumber.java.hu.De;
 
@@ -127,6 +129,19 @@ public class Project {
     }
 
     //setters
+    public void setStatus (String status, Developer requester) throws Exception{
+        if (!this.projectLeader.equals(requester.getInitials()) && this.projectLeader != null) {
+            throw new ErrorMessage("not project leader, status change failed");
+        }
+        if(status.equals("Finished")){
+            for(Activity activity: this.getActivities()){
+                if(!activity.getStatus().equals(status)){
+                    throw new ErrorMessage("Still ongoing activities, status change failed");
+                }
+            }
+        }
+        this.status = status;
+    }
 
     //has
     public boolean hasActivity(String activityName) { // Lukas

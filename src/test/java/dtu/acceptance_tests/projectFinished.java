@@ -24,13 +24,13 @@ public class projectFinished {
     Activity activity;
 
     @Given("status for project {string} is {string}")
-    public void StatusForProjectIs(String projectNumber, String status){
-        
+    public void StatusForProjectIs(String projectNumber, String status) throws Exception{
+        app.getProject(projectNumber).setStatus(status, developer);
     }
 
     @Given("{string} has status project leader for project {string}")
-    public void HasStatusProjectLeaderForProject(String developer, String ProjectNumber){
-        
+    public void HasStatusProjectLeaderForProject(String developer, String ProjectNumber) throws ErrorMessage, Exception{
+        app.getProject(ProjectNumber).assignProjectLeader(app.getDeveloper(developer),app.getDeveloper(developer));
     }
 
     @Given("the project {string} has assigned {string}")

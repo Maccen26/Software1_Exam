@@ -1,9 +1,9 @@
 Feature: Finish project
     Background: 
         Given a project "20251"
-        And status for project "20251" is "ongoing"
         And developer with name "thfa" is in app
         And "thfa" is logged in 
+        And status for project "20251" is "ongoing"
         And "thfa" has status project leader for project "20251"
         And the project "20251" has assigned "activity1"
         And "activity1" has status "finished"

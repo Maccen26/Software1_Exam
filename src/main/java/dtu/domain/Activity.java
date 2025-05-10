@@ -108,12 +108,12 @@ public class Activity {
         this.yearPlan = yearPlan;
     }
 
-    public void setStatus(String status2, Developer requester) throws ErrorMessage{ //Freja 
-        if (hasDeveloper(requester)){
-            if (getStatus().equals("Not started") && status2.equals("Finished")){
+    public void setStatus(String status, Developer requester) throws ErrorMessage{ //Freja 
+        if(hasDeveloper(requester)){
+            if(getStatus().equals("Not started") && status.equals("Finished")){
                 throw new ErrorMessage("activity pending, status change failed");
             }
-            this.status = status2;
+            this.status = status;
         } 
         else {
             throw new ErrorMessage("not assigned to activity, status change failed");
