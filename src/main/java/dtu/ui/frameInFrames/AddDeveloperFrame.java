@@ -1,7 +1,6 @@
 package dtu.ui.frameInFrames;
 
 import javax.swing.*;
-import java.awt.*;
 
 import dtu.app.*;
 import dtu.domain.*;

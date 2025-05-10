@@ -45,8 +45,10 @@ public class ActivityOverviewFrame extends JFrame {
         activityButton.setBorderPainted(false);
         activityButton.setOpaque(true);
 
-        String name = activity.getProject().getProjectNumber();
-        int nr = Integer.parseInt(name.substring(name.length() - 1));
+        String number = activity.getProject().getProjectNumber();
+        int nr = Integer.parseInt(number.substring(4, number.length()));
+        activityButton.setBorderPainted(false);
+        activityButton.setOpaque(true);
         activityButton.setBackground(colors.get(nr % colors.size()));
 
         activityButton.addActionListener(e -> {
