@@ -32,7 +32,7 @@ public class ManageProjectFrame {
         contentPanel.add(nameLabel, BorderLayout.NORTH);
     
         // Add the status label
-        JLabel statusLabel = new JLabel(activity.getStatus());
+        JLabel statusLabel = new JLabel(activity.getStatus() + " - " + activity.getTimeSpent() + "/" + activity.getTimeBudget());;
         statusLabel.setFont(statusLabel.getFont().deriveFont(14f)); // Set font size
         statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
         contentPanel.add(statusLabel, BorderLayout.SOUTH);
@@ -165,8 +165,8 @@ public class ManageProjectFrame {
         header.add(addLabel, BorderLayout.EAST);
 
         JPanel addDropdownContainer = new JPanel();
-        addDropdownContainer.setLayout(new GridLayout(3, 1)); // 3 rows, 1 column
-        addDropdownContainer.setBounds(800, 80, 200, 75);
+        addDropdownContainer.setLayout(new GridLayout(4, 1)); // 3 rows, 1 column
+        addDropdownContainer.setBounds(800, 80, 200, 100);
         addDropdownContainer.setBackground(Color.LIGHT_GRAY);
         addDropdownContainer.setVisible(false); // Initially hidden
         manageProjectFrame.add(addDropdownContainer); // Add the container to the frame
@@ -185,8 +185,22 @@ public class ManageProjectFrame {
                 }
             });
         });
-        newActivity.setBounds(0, 0, 200, 25);
         addDropdownContainer.add(newActivity);
+
+        JButton deleteActivity = new JButton("Delete activity");
+        deleteActivity.addActionListener(e -> {
+            System.out.println("New activity clicked");
+            DeleteActivityFrame deleteActivityFrame = new DeleteActivityFrame(app, project);
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            deleteActivityFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame
+                }
+            });
+        });
+        addDropdownContainer.add(deleteActivity);
 
         JButton assignProjectleader = new JButton("Assign projectleader");
         assignProjectleader.addActionListener(e -> {
@@ -201,7 +215,6 @@ public class ManageProjectFrame {
                 }
             });
         });
-        assignProjectleader.setBounds(0, 50, 200, 25);
         addDropdownContainer.add(assignProjectleader);
 
         JButton generateReport = new JButton("Generate report");
@@ -209,7 +222,6 @@ public class ManageProjectFrame {
             System.out.println("Generate report clicked");
             GetReportFrame getReportFrame = new GetReportFrame(app, project);
         });
-        generateReport.setBounds(0, 100, 200, 25);
         addDropdownContainer.add(generateReport);
 
         // Add MouseListener to the label

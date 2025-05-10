@@ -57,7 +57,7 @@ public class App {
         project.addDeveloperToActivity(activityName, requester, developer); 
     }
 
-    public void login(Developer developer) throws ErrorMessage{ // Lukas
+    public void login(Developer developer) throws Exception, ErrorMessage{ // Lukas
         // Log in a developer
         if (!hasDeveloper(developer.getInitials())) {
             throw new ErrorMessage("Developer does not exist");
@@ -96,7 +96,6 @@ public class App {
             }
         }
         return null;
-        //throw new Exception("Project not contained in the app");
     }
 
     public ArrayList<Project> getProjects() { // Lukas
@@ -130,40 +129,12 @@ public class App {
         return false;
     }
 
-    public boolean hasDeveloper(String initials) { // Lukas
+    public boolean hasDeveloper(String initials) throws Exception{ // Lukas
         for (Developer developer : developers) {
             if (developer.getInitials().equals(initials)) {
                 return true;
             }
         }
-
         throw new Exception("Developer not contained in app");
-    }
-
-    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
-    {
-        Project project = getProject(projectNumber); 
-        Developer developer = this.loggedInDeveloper;
-        project.addActivity(developer, activityName, weekplan, yearplan);
-
-    }
-
-    public void addDeveloperToActivity(String projectNumber2, String activityName, String developerInitials) throws Exception { //Mads + Johan
-        Project project = getProject(projectNumber2); 
-        Developer developer = getDeveloper(developerInitials);
-        Developer requester = this.loggedInDeveloper;
-        project.addDeveloperToActivity(activityName, requester, developer); 
-    }
-
-    public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
-        Developer developer = getDeveloper(developerInitials);
-        return developer.getAssignedActivities();
-    }
-
-
-
-    public void setActivtyStatus(String projectNumber, String activityName, String status) throws ErrorMessage {
-        Project project = getProject(projectNumber); 
-        project.setActivtyStatus(activityName, status);
     }
 }

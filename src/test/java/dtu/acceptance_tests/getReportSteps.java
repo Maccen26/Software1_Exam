@@ -62,16 +62,16 @@ public class getReportSteps {
     }
 
     @Given("{string} has registered {int} hours on {string}")
-    public void hasRegisteredHoursOn(String string, Integer int1, String string2) {
-        ////////// UNFINISHED /////////
-        // Register the hours for the activity
-        // dev.registerHours(activity, int1);
+    public void hasRegisteredHoursOn(String string, Integer int1, String string2) throws Exception {
+        app.getProject("20251").getActivity(string2).registerTime((double) int1, app.getDeveloper(string));
+        //app.getProject("20251").getActivity(string2).setStatus(app.getDeveloper(string), "Ongoing");
+        //app.getProject("20251").setStatus("Ongoing");
     }
 
     @Given("the activity is finished")
-    public void theActivityIsFinished() {
-        ////////// UNFINISHED /////////
-        // Set the status of the activity to finished
-        // activity.finish();
+    public void theActivityIsFinished() throws Exception {
+        app.getProject("20251").getActivity("Activity1").registerTime((double) 30, app.getDeveloper("thfa"));
+        //app.getProject("20251").getActivity(string2).setStatus(app.getDeveloper(string), "Ongoing");
+        //app.getProject("20251").getActivity(string2).setStatus(app.getDeveloper(string), "Finished");
     }
 }

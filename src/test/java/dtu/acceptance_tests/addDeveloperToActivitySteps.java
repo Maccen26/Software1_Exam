@@ -15,6 +15,7 @@ import io.cucumber.java.en.When;
 public class addDeveloperToActivitySteps {
 
     private App app; 
+    private String errorMessage;
 
     public addDeveloperToActivitySteps(App app)
     {

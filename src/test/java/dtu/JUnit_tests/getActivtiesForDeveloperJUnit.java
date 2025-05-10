@@ -28,12 +28,17 @@ public getActivtiesForDeveloperJUnit() throws Exception {
     this.app.createProject();
     
     this.app.addActivity("20251", "Activity1", new int[] {10, 14}, new int[] {2025, 2025});
-    this.app.addDeveloperToActivity("20251", "Activity1", "mahh");
+    Project project = app.getProject("20251");
+    Activity activity = project.getActivity("Activity1");
+    Developer developer = app.getDeveloper("mahh");
+    activity.addDeveloper(developer, developer);
+    //this.app.addDeveloperToActivity("20251", "Activity1", "mahh");
 }
 
     @Test 
-    public void setup() throws ErrorMessage
-    {
+    public void setup() throws Exception
+    {   
+        
         assertTrue(this.app.hasDeveloper("mahh"));
         assertTrue(this.app.getProject("20251").getProjectNumber().equals("20251"));
         assertTrue(this.app.getProject("20251").getAllActivities().size() == 1);
@@ -64,7 +69,9 @@ public getActivtiesForDeveloperJUnit() throws Exception {
     @Test
     public void testC() throws Exception
     {
-        this.app.setActivtyStatus("20251", "Activity1", "Done");
+        Project project = app.getProject("20251"); 
+        Activity activity = project.getActivity("Activity1"); 
+        activity.setStatus("Done");
         this.activityList = app.getActivitesForDeveloper("mahh"); 
         assertTrue(activityList.size() == 1); 
         assertEquals(activityList.get(0).getName(), "Activity1");

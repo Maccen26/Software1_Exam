@@ -258,7 +258,7 @@ public class ManageActivityFrame {
         dateLabel.setFont(dateLabel.getFont().deriveFont(20f));
         statusPanel.add(dateLabel);
 
-        JLabel statusLabel = new JLabel(activity.getStatus().toString());
+        JLabel statusLabel = new JLabel(activity.getStatus().toString() + " - " + activity.getTimeSpent() + "/" + activity.getTimeBudget());
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         statusLabel.setFont(statusLabel.getFont().deriveFont(20f));
         statusPanel.add(statusLabel);
