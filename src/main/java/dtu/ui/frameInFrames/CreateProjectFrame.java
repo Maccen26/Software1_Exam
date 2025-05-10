@@ -5,7 +5,6 @@ import javax.swing.*;
 import dtu.app.*;
 
 public class CreateProjectFrame extends JFrame {
-
     public CreateProjectFrame(App app) {
         // Set up the frame
         setTitle("Create project");

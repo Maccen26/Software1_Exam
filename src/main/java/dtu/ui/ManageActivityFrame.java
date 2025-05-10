@@ -201,7 +201,7 @@ public class ManageActivityFrame {
         main.setBackground(Color.WHITE);
 
         // Status panel
-        JPanel statusPanel = new JPanel(new GridLayout(2, 1));
+        JPanel statusPanel = new JPanel(new GridLayout(3, 1));
         statusPanel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createEmptyBorder(20, 20, 20, 20), // Outer padding
             BorderFactory.createLineBorder(Color.GRAY, 1)    // Optional: Add a border for better visibility
@@ -211,6 +211,12 @@ public class ManageActivityFrame {
         statusTitle.setFont(statusTitle.getFont().deriveFont(40f));
         statusTitle.setHorizontalAlignment(SwingConstants.CENTER);
         statusPanel.add(statusTitle);
+
+        JLabel dateLabel = new JLabel(activity.getWeekPlan()[0] + "/" + activity.getYearPlan()[0] + " - " +
+            activity.getWeekPlan()[1] + "/" + activity.getYearPlan()[1]);
+        dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        dateLabel.setFont(dateLabel.getFont().deriveFont(20f));
+        statusPanel.add(dateLabel);
 
         JLabel statusLabel = new JLabel(activity.getStatus().toString());
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);

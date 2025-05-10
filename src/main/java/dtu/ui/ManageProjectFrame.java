@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import dtu.app.*;
 import dtu.domain.*;
-import dtu.ui.frameInFrames.CreateActivityFrame;
+import dtu.ui.frameInFrames.*;
 
 public class ManageProjectFrame {
     private JFrame manageProjectFrame;
@@ -191,6 +191,15 @@ public class ManageProjectFrame {
         JButton assignProjectleader = new JButton("Assign projectleader");
         assignProjectleader.addActionListener(e -> {
             System.out.println("Assign Projectleader clicked");
+            AssignProjectleaderFrame assignProjectleaderFrame = new AssignProjectleaderFrame(app, project);
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            assignProjectleaderFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         assignProjectleader.setBounds(0, 50, 200, 25);
         addDropdownContainer.add(assignProjectleader);
