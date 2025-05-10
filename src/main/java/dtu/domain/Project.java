@@ -73,20 +73,23 @@ public class Project {
         return this.activities;
     }
 
-    public String getReport(Developer dev) throws ErrorMessage{ // Lukas
+    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
         if (!dev.getInitials().equals(this.projectLeader)) {
             throw new ErrorMessage("Only the project leader can get the report");
         }
 
         if (this.activities.isEmpty()) {
-            return projectNumber + ", no activities";
+            ArrayList<String> emptyReport = new ArrayList<>();
+            emptyReport.add(projectNumber + ", no activities");
+            return emptyReport;
         }
 
         // Get the report for the project
-        String report = projectNumber + ": " + status + "\n";
+        ArrayList<String> report = new ArrayList<>();
+        report.add(projectNumber + ": " + status);
         for (Activity activity : activities) {
             String status = activity.getStatus();
-            report += activity.getName() + ": " + status + "\n";
+            report.add(activity.getName() + ": " + status);
 
         }
         return report;
