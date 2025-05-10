@@ -237,8 +237,9 @@ public class ActivityOverviewFrame extends JFrame {
         }
         // sort activities by end week
         activities.sort((a, b) -> {
-            int aEndWeek = a.getWeekPlan()[1];
-            int bEndWeek = b.getWeekPlan()[1];
+            int aEndWeek = a.getWeekPlan()[1] + (a.getYearPlan()[1] - 2020)* 52;
+            int bEndWeek = b.getWeekPlan()[1] + (b.getYearPlan()[1] - 2020)* 52;
+
             return Integer.compare(aEndWeek, bEndWeek);
         });
 
@@ -251,13 +252,16 @@ public class ActivityOverviewFrame extends JFrame {
         // Add activity buttons to the timeline panel
         int i = 0;
         for (Activity activity : activities) {
+            if (i == 10){
+                break;
+            }
             JButton btn = activityButton(activity, curWeek, curYear, i, app);
             if (btn != null) {
                 timelinePanel.add(btn); // Add buttons to the timeline panel
+                i++;
             } else {
                 System.out.println("Activity " + activity.getName() + " is not active");
             }
-            i++;
         }
 
         // Add the timeline panel to the main panel
