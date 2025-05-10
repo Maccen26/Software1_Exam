@@ -12,7 +12,7 @@ Feature: Finish activity
         
     Scenario: developer assigned to activity change status to finished 
         When "thfa" change status for "activity1" to finished
-	    Then status change succeed
+	    Then status to finished for "activity1" succeed
 
     Scenario: developer not assigned to activity can’t change status for project to finished
 	    When "mahh" change status for "activity1" 
@@ -21,4 +21,4 @@ Feature: Finish activity
 
     Scenario: Developer assigned to activity can't change status before activity is started
         When "thfa" change status for "activity2" in week "14" to finished then gets errormessage "activity pending, status change failed"
-        And status for "activity2" not changed
+        And status for "activity2" not changed from "Not started"

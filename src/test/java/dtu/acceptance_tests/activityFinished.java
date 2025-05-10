@@ -1,5 +1,7 @@
 package dtu.acceptance_tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 import io.cucumber.java.en.Given;
@@ -53,12 +55,16 @@ public class activityFinished {
 
     @When("{string} change status for {string} to finished")
     public void changeStatusForToFinished(String string, String string2) {
-
+        
     }
 
-    @Then("status change succed")
-    public void statusChangeSucceed() {
-    
+    @Then("status to finished for {string} succed")
+    public void statusChangeForSucceed(String string) {
+        try{
+            assertTrue(project.getActivity(string).getStatus().equals("Finished"));
+        } catch (ErrorMessage e){
+            System.err.println(e.getMessage());
+        }
     }
 
     @When("{string} change status for {string}")
@@ -71,9 +77,13 @@ public class activityFinished {
         throw new ErrorMessage(string);
     }
 
-    @Then("status for {string} not changed")
-    public void statusForNotChanged(String string) {
-
+    @Then("status for {string} not changed from {string}")
+    public void statusForNotChanged(String string, String string2) {
+        try{
+            assertTrue(project.getActivity(string).getStatus().equals(string2));
+        } catch (ErrorMessage e){
+            System.err.println(e.getMessage());
+        }
     }
 
     @When("{string} change status for {string} in week {int} to finished")
