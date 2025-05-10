@@ -137,7 +137,7 @@ public class Project {
     }
 
     //setters
-    public void setStatus (String status, Developer requester) throws Exception{
+    public void setStatus (String status, Developer requester) throws Exception{ //Freja
         if (!this.projectLeader.equals(requester.getInitials()) && this.projectLeader != null) {
             throw new ErrorMessage("not project leader, status change failed");
         }
