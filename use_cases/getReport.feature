@@ -17,9 +17,9 @@ Scenario: Getting a report for an ongoing project (with activities)
     And "thfa" has registered 15 hours on "Activity2"
     When "thfa" gets the report for project "20251"
     Then get the report 
-        | 20251: 20 used time, 50 budgetted time. |
-        | Activity1: 5 out of 20 hours. |
-        | Activity2: 15 our of 30 hours. |
+        | 20251: Ongoing - 20.0/50.0 |
+        | Activity1: Ongoing 5.0/20.0 |
+        | Activity2: Ongoing 15.0/30.0 |
 
 Scenario: Getting a report for a finished project (with finished activities)
     Given project "20251" has an activity with name: "Activity1", start week: 10, start year: 2025, end week: 20, end year: 2025 and budgetted time: 20 hours

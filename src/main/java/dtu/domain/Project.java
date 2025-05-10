@@ -77,6 +77,39 @@ public class Project {
         activity.addDeveloper(developer, requester);
     }
 
+    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
+        if (!dev.getInitials().equals(this.projectLeader)) {
+            throw new ErrorMessage("Only the project leader can get the report");
+        }
+
+        if (this.activities.isEmpty()) {
+            ArrayList<String> emptyReport = new ArrayList<>();
+            emptyReport.add(projectNumber + ": No activities");
+            return emptyReport;
+        }
+        if (this.status.equals("Finished")){
+            ArrayList<String> finishedReport = new ArrayList<>();
+            finishedReport.add(projectNumber + ": Finished");
+            return finishedReport;
+        }
+
+        // Get the report for the project
+        ArrayList<String> report = new ArrayList<>();
+        Double totalTime = 0.;
+        Double totalBudget = 0.;
+        for (Activity activity : activities) {
+            totalTime += activity.getTimeSpent();
+            totalBudget += activity.getTimeBudget();
+        }
+        report.add(projectNumber + ": " + status + " - " + totalTime + "/" + totalBudget);
+        for (Activity activity : activities) {
+            String status = activity.getStatus();
+            report.add(activity.getName() + ": " + status + " - " + activity.getTimeSpent() + "/" + activity.getTimeBudget());
+
+        }
+        return report;
+    }
+
     //Implicit methods
     //getters
     public Activity getActivity(String activityName) throws ErrorMessage{
@@ -102,28 +135,6 @@ public class Project {
 
     public String getProjectLeader() {
         return projectLeader;
-    }
-
-    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
-        if (!dev.getInitials().equals(this.projectLeader)) {
-            throw new ErrorMessage("Only the project leader can get the report");
-        }
-
-        if (this.activities.isEmpty()) {
-            ArrayList<String> emptyReport = new ArrayList<>();
-            emptyReport.add(projectNumber + ": No activities");
-            return emptyReport;
-        }
-
-        // Get the report for the project
-        ArrayList<String> report = new ArrayList<>();
-        report.add(projectNumber + ": " + status);
-        for (Activity activity : activities) {
-            String status = activity.getStatus();
-            report.add(activity.getName() + ": " + status);
-
-        }
-        return report;
     }
 
     //setters

@@ -63,20 +63,20 @@ public class LoginFrame {
         loginButton.addActionListener(e -> {
             initials = initialsField.getText();
             System.out.println("Logged in with initials: " + initials);
-            if (app.hasDeveloper(initials)) {
-                System.out.println("Developer exists");
-                try{
+            try{
+                if (app.hasDeveloper(initials)) {
+                    System.out.println("Developer exists");
                     app.login(app.getDeveloper(initials));
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    new ActivityOverviewFrame(app);
+                    loginFrame.setVisible(false);
+                    loginFrame.dispose();
+                } else {
+                    System.out.println("Developer does not exist");
+                    initialsField.setText("Developer does not exist");
+                    initialsField.setForeground(Color.RED);
                 }
-                new ActivityOverviewFrame(app);
-                loginFrame.setVisible(false);
-                loginFrame.dispose();
-            } else {
-                System.out.println("Developer does not exist");
-                initialsField.setText("Developer does not exist");
-                initialsField.setForeground(Color.RED);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
         });
         main.add(loginButton);

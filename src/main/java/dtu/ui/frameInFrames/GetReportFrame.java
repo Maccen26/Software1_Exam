@@ -17,7 +17,7 @@ public class GetReportFrame extends JFrame{
         setResizable(false);
 
         JLabel title = new JLabel("Report");
-        title.setBounds(0, 20, 200, 30);
+        title.setBounds(0, 20, 300, 30);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         add(title);
@@ -29,7 +29,7 @@ public class GetReportFrame extends JFrame{
         } catch (ErrorMessage e) {
             reportLabel.setText(e.getMessage());
         }
-        // Build the HTML content for the report
+        
         StringBuilder reportContent = new StringBuilder("<html>");
         for (String line : report) {
             reportContent.append(line).append("<br>");
@@ -37,7 +37,7 @@ public class GetReportFrame extends JFrame{
         reportContent.append("</html>");
         reportLabel.setText(reportContent.toString());
 
-        reportLabel.setBounds(10, 10, 200, 200);
+        reportLabel.setBounds(10, 10, 300, 250);
         reportLabel.setHorizontalAlignment(SwingConstants.CENTER);
         reportLabel.setVerticalAlignment(SwingConstants.CENTER);
         add(reportLabel);
