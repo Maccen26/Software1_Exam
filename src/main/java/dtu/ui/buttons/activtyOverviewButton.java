@@ -39,7 +39,7 @@ public class activtyOverviewButton { //Mads
         app.login(developer);
 
         app.addActivity("20251", "Activty1", new int[]{10, 20}, new int[]{2025, 2025});
-        app.addDeveloperToActivity("20251", "Activty1", "huba");
+        //app.addDeveloperToActivity("20251", "Activty1", "huba");
 
 
         SwingUtilities.invokeLater(() -> new activtyOverviewButton(app));

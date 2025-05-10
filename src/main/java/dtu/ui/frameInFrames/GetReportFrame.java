@@ -1,53 +1,47 @@
 package dtu.ui.frameInFrames;
 
+import java.util.ArrayList;
+
+import java.awt.*;
 import javax.swing.*;
 
 import dtu.app.*;
 import dtu.domain.*;
-import dtu.ui.Ui;
 
-public class GetReportFrame extends Ui{
-    private JFrame getReportFrame;
+public class GetReportFrame extends JFrame{
+    public GetReportFrame (App app, Project project) {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(300, 300);
+        setLayout(null);
+        setLocationRelativeTo(null); // Center the frame on the screen
+        setResizable(false);
 
-    
+        JLabel title = new JLabel("Report");
+        title.setBounds(0, 20, 200, 30);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        add(title);
 
-    public GetReportFrame(App app) { // Lukas
-        app.createProject();
+        JLabel reportLabel = new JLabel();
+        ArrayList<String> report = new ArrayList<>();
+        try {
+            report = project.getReport(app.getLoggedInDeveloper());
+        } catch (ErrorMessage e) {
+            reportLabel.setText(e.getMessage());
+        }
+        // Build the HTML content for the report
+        StringBuilder reportContent = new StringBuilder("<html>");
+        for (String line : report) {
+            reportContent.append(line).append("<br>");
+        }
+        reportContent.append("</html>");
+        reportLabel.setText(reportContent.toString());
 
-        getReportFrame = new JFrame("Get Report");
-        getReportFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getReportFrame.setSize(300, 300);
-        getReportFrame.setLayout(null);
-        getReportFrame.setLocationRelativeTo(null); // Center the frame on the screen
-        getReportFrame.setResizable(false);
-
-        JLabel reportLabel = new JLabel("Report:");
         reportLabel.setBounds(10, 10, 200, 200);
-        getReportFrame.add(reportLabel);
+        reportLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        reportLabel.setVerticalAlignment(SwingConstants.CENTER);
+        add(reportLabel);
 
-        JTextField projectNumberField = new JTextField("Enter project number:");
-        projectNumberField.setBounds(10, 10, 200, 30);
-        getReportFrame.add(projectNumberField);
-
-        JButton getReportButton = new JButton("Get Report");
-        getReportButton.setBounds(100, 50, 100, 30);
-        getReportButton.addActionListener(e -> {
-            String projectNumber = projectNumberField.getText();
-            Project project = app.getProject(projectNumber);
-            if (project == null) {
-                reportLabel.setText("Project not found");
-                return;
-            }
-            // reportLabel.setText(project.getReport());
-            System.out.println("Got report for project");
-        });
-        getReportFrame.add(getReportButton);
-    }
-    
-    public void show() { // Lukas
-        getReportFrame.setVisible(true);
-    }
-    public void hide() { // Lukas
-        getReportFrame.setVisible(false);
+        setVisible(true);
     }
 }

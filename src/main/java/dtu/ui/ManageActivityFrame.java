@@ -2,11 +2,11 @@ package dtu.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 import dtu.app.*;
 import dtu.domain.*;
+import dtu.ui.frameInFrames.*;
 
 public class ManageActivityFrame {
     private JFrame manageActivityFrame;
@@ -123,39 +123,49 @@ public class ManageActivityFrame {
         header.add(addLabel, BorderLayout.EAST);
 
         JPanel addDropdownContainer = new JPanel();
-        addDropdownContainer.setLayout(new GridLayout(4, 1)); // 3 rows, 1 column
-        addDropdownContainer.setBounds(850, 80, 150, 100);
+        addDropdownContainer.setLayout(new GridLayout(5, 1)); // 3 rows, 1 column
+        addDropdownContainer.setBounds(850, 80, 150, 125);
         addDropdownContainer.setBackground(Color.LIGHT_GRAY);
         addDropdownContainer.setVisible(false); // Initially hidden
         manageActivityFrame.add(addDropdownContainer); // Add the container to the frame
 
         // Create the dropdown items
-        JButton updateStatus = new JButton("Update Status");
+        JButton updateStatus = new JButton("Update status");
         updateStatus.addActionListener(e -> {
             System.out.println("Update Status clicked");
         });
-        updateStatus.setBounds(0, 0, 150, 25);
         addDropdownContainer.add(updateStatus);
 
-        JButton registerTime = new JButton("Register Time");
+        JButton editActivity = new JButton("Edit activity");
+        editActivity.addActionListener(e -> {
+            System.out.println("Edit activity clicked");
+            EditActivityFrame editActivityFrame = new EditActivityFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            editActivityFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
+        });
+        addDropdownContainer.add(editActivity);
+
+        JButton registerTime = new JButton("Register time");
         registerTime.addActionListener(e -> {
             System.out.println("Register Time clicked");
         });
-        registerTime.setBounds(0, 50, 150, 25);
         addDropdownContainer.add(registerTime);
 
         JButton addDeveloper = new JButton("Add developer");
         addDeveloper.addActionListener(e -> {
             System.out.println("Add Developer clicked");
         });
-        addDeveloper.setBounds(0, 100, 150, 25);
         addDropdownContainer.add(addDeveloper);
 
         JButton removeDeveloper = new JButton("Remove developer");
         removeDeveloper.addActionListener(e -> {
             System.out.println("Remove Developer clicked");
         });
-        removeDeveloper.setBounds(0, 150, 150, 25);
         addDropdownContainer.add(removeDeveloper);
 
         // Add MouseListener to the label
@@ -253,5 +263,11 @@ public class ManageActivityFrame {
         manageActivityFrame.setLocationRelativeTo(null); // Center the frame on the screen
         manageActivityFrame.setResizable(false);
         manageActivityFrame.setVisible(true);
+    }
+
+    private void refreshFrame(App app, Activity activity) {
+        manageActivityFrame.setVisible(false);
+        manageActivityFrame.dispose();
+        ManageActivityFrame manageActivityFrame = new ManageActivityFrame(app, activity);
     }
 }

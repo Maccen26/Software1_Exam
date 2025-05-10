@@ -157,7 +157,7 @@ public class ManageProjectFrame {
         scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
         scaledIcon = new ImageIcon(scaledImage);
         addLabel.setIcon(scaledIcon);
-        if (app.getLoggedInDeveloper().getInitials().equals(project.getProjectLeader())) {
+        if (app.getLoggedInDeveloper().getInitials().equals(project.getProjectLeader()) || project.getProjectLeader() == null) {
             addLabel.setVisible(true);
         } else {
             addLabel.setVisible(false);
@@ -207,6 +207,7 @@ public class ManageProjectFrame {
         JButton generateReport = new JButton("Generate report");
         generateReport.addActionListener(e -> {
             System.out.println("Generate report clicked");
+            GetReportFrame getReportFrame = new GetReportFrame(app, project);
         });
         generateReport.setBounds(0, 100, 200, 25);
         addDropdownContainer.add(generateReport);

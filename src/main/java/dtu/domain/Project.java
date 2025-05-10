@@ -32,74 +32,9 @@ public class Project {
         // At this point either there was no leader, or the requester *is* the leader:
         this.projectLeader = newLeader.getInitials();
     }
-    public ArrayList<Activity> getAllActivities() //MAds
-        {
-            return activities;
 
-        }
+    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws ErrorMessage {
 
-    public String getProjectNumber() { // Lukas
-        // Get the project number
-        return projectNumber;
-    }
-
-    public String getProjectLeader() { // Lukas
-        // Get the project leader
-        return projectLeader;
-    }
-
-    public Activity getActivity(String activityName) throws ErrorMessage{ // Lukas
-        // Get an activity by its name
-        for (Activity activity : activities) {
-            if (activity.getName().equals(activityName)) {
-                return activity;
-            }
-        }
-        throw new ErrorMessage("Activity not found");
-    }
-
-    public boolean hasActivity(String activityName) { // Lukas
-        // Check if an activity exists by its name
-        for (Activity activity : activities) {
-            if (activity.getName().equals(activityName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ArrayList<Activity> getActivities() { // Lukas
-        // Get all activities
-        return this.activities;
-    }
-
-    public String getReport(Developer dev) throws ErrorMessage{ // Lukas
-        if (!dev.getInitials().equals(this.projectLeader)) {
-            throw new ErrorMessage("Only the project leader can get the report");
-        }
-
-        if (this.activities.isEmpty()) {
-            return projectNumber + ", no activities";
-        }
-
-        // Get the report for the project
-        String report = projectNumber + ": " + status + "\n";
-        for (Activity activity : activities) {
-            String status = activity.getStatus();
-            report += activity.getName() + ": " + status + "\n";
-
-        }
-        return report;
-    }
-
-    public void addActivity( //Johan
-            Developer requester,
-            String name, 
-            int[] weekPlan, 
-            int[] yearPlan)
-            throws ErrorMessage {
-
-        // ---- Basic validation ----
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
             throw new ErrorMessage("Developer is not projectleader");
         }
@@ -111,31 +46,19 @@ public class Project {
         int[] weekPlanCopy = weekPlan.clone();
         int[] yearPlanCopy = yearPlan.clone();
 
-        // ---- Create and register the activity ----
-        Activity newActivity = new Activity(
-            name,
-            this,
-            weekPlanCopy,
-            yearPlanCopy);
+        Activity newActivity = new Activity(name, this, weekPlanCopy, yearPlanCopy);
         //newActivity.addDeveloper(requester); //SKAL IKKE TILFØJE EN AKTIVITET TIL EN DEN SAMME BRUGER - SÅ KAN PROJEJTLEDEREN KUN TILFØJE AKTIVITETR TIL SIG SELV?
         activities.add(newActivity);
     }
 
-    public void removeActivity(//Johan
-            Developer requester,
-            String name)
-            throws ErrorMessage {
-
-        // ---- Basic validation ----
+    public void removeActivity(Developer requester, String name) throws ErrorMessage {//Johan
         if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
             throw new ErrorMessage("Developer is not projectleader");
         }
-
-        if (!containsActivityName(name)) {
+        else if (!containsActivityName(name)) {
             throw new ErrorMessage("Activity title does not exist");
         }
 
-        // ---- Remove the activity ----
         Activity activityToRemove = getActivity(name);
         activities.remove(activityToRemove);
     }
@@ -149,14 +72,74 @@ public class Project {
         return false;
     }
 
-    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //;ads
+    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //Mads
         Activity activity = getActivity(activityName); 
         activity.addDeveloper(developer, requester);
     }
 
+    //Implicit methods
+    //getters
+    public Activity getActivity(String activityName) throws ErrorMessage{
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return activity;
+            }
+        }
+        throw new ErrorMessage("Activity not found");
+    }
+
+    public ArrayList<Activity> getActivities() {
+        return this.activities;
+    }
+
+    public ArrayList<Activity> getAllActivities(){
+        return activities;
+    }
+
+    public String getProjectNumber() {
+        return projectNumber;
+    }
+
+    public String getProjectLeader() {
+        return projectLeader;
+    }
+
+    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
+        if (!dev.getInitials().equals(this.projectLeader)) {
+            throw new ErrorMessage("Only the project leader can get the report");
+        }
+
+        if (this.activities.isEmpty()) {
+            ArrayList<String> emptyReport = new ArrayList<>();
+            emptyReport.add(projectNumber + ", no activities");
+            return emptyReport;
+        }
+
+        // Get the report for the project
+        ArrayList<String> report = new ArrayList<>();
+        report.add(projectNumber + ": " + status);
+        for (Activity activity : activities) {
+            String status = activity.getStatus();
+            report.add(activity.getName() + ": " + status);
+
+        }
+        return report;
+    }
+
+    //setters
     public void setActivtyStatus(String activityName, String status2) throws ErrorMessage {
         Activity activity = getActivity(activityName); 
         activity.setStatus(status2);
     }
 
+    //has
+    public boolean hasActivity(String activityName) { // Lukas
+        // Check if an activity exists by its name
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

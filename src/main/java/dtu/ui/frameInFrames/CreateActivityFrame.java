@@ -12,13 +12,13 @@ public class CreateActivityFrame extends JFrame {
         // Set up the frame
         setTitle("Create activity");
         setSize(300, 400);
-        setLayout(new GridLayout(2, 1));
+        setLayout(new GridLayout(2, 1, 0, 10));
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Add components
-        JPanel panel = new JPanel(new GridLayout(6, 2));
+        JPanel panel = new JPanel(new GridLayout(6, 2, 0, 5));
         add(panel);
 
         JLabel projectLabel = new JLabel("Assigned project:");
