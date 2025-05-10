@@ -12,7 +12,6 @@ public class Activity {
     private int[] yearPlan = new int [2];
 
     public Activity(String name, Project assignedProject, int[] weekPlan, int[] yearPlan) { // Lukas
-        // Initialise the activity name, project, assigned developers, status, time budget, week plan and year plan
         this.name = name;
         this.project = assignedProject;
         this.assignedDevelopers = new ArrayList<Developer>();
@@ -20,78 +19,6 @@ public class Activity {
         this.TimeBudget = 0;
         this.weekPlan = weekPlan;
         this.yearPlan = yearPlan;
-    }
-
-    public void setName(Developer dev, String name) throws ErrorMessage{ // Lukas
-        // Check if the developer is the project leader
-        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
-            throw new ErrorMessage("Does not have permission to edit");
-        }
-
-        // Set the name of the activity
-        this.name = name;
-    }
-    public String getName() { // Lukas
-        // Get the name of the activity
-        return name;
-    }
-
-
-    public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage { // Lukas
-        // Check if the developer is the project leader
-        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
-            throw new ErrorMessage("Does not have permission to edit");
-        }
-
-        // Set the time budget for the activity
-        this.TimeBudget = TimeBudget;
-    }
-    public int getTimeBudget() { // Lukas
-        // Get the time budget for the activity
-        return TimeBudget;
-    }
-
-    public void setWeekPlan(Developer dev, int[] weekPlan) throws ErrorMessage { // Lukas
-        // Check if the developer is the project leader
-        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
-            throw new ErrorMessage("Does not have permission to edit");
-        }
-
-        // Set the week plan for the activity
-        this.weekPlan = weekPlan;
-    }
-    public int[] getWeekPlan() { // Lukas
-        // Get the week plan for the activity
-        return weekPlan;
-    }
-
-    public void setYearPlan(Developer dev, int[] yearPlan) throws ErrorMessage { // Lukas
-        // Check if the developer is the project leader
-        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
-            throw new ErrorMessage("Does not have permission to edit");
-        }
-
-        // Set the year plan for the activity
-        this.yearPlan = yearPlan;
-    }
-    public int[] getYearPlan() { // Lukas
-        // Get the year plan for the activity
-        return yearPlan;
-    }
-
-    public String getStatus(){ // Lukas
-        // Get the status of the activity
-        return status;
-    }
-
-    public Project getProject() { // Lukas
-        // Get the project of the activity
-        return project;
-    }
-
-    public ArrayList<Developer> getAssignedDevelopers() { // Lukas
-        // Get the assigned developers for the activity
-        return assignedDevelopers;
     }
 
     public void addDeveloper(Developer requester, Developer developer) throws ErrorMessage { //Thomas
@@ -105,14 +32,72 @@ public class Activity {
         developer.addActivity(this);
     }
 
-
-    public ArrayList<Developer> getAssignedDeveloper() { //MAds
+    //Implicit methods implemented by Lukas
+    //getters
+    public ArrayList<Developer> getAssignedDeveloper() {
         return this.assignedDevelopers; 
+    }
+
+    public int getTimeBudget() {
+        return TimeBudget;
+    }
+
+    public int[] getYearPlan() {
+        return yearPlan;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public ArrayList<Developer> getAssignedDevelopers() {
+        return assignedDevelopers;
+    }
+        public int[] getWeekPlan() {
+        return weekPlan;
+    }
+
+    //setters
+    public void setName(Developer dev, String name) throws ErrorMessage{
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setTimeBudget(Developer dev, int TimeBudget) throws ErrorMessage {
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+        this.TimeBudget = TimeBudget;
+    }
+
+    public void setWeekPlan(Developer dev, int[] weekPlan) throws ErrorMessage {
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+        this.weekPlan = weekPlan;
+    }
+
+    public void setYearPlan(Developer dev, int[] yearPlan) throws ErrorMessage { 
+        if (!dev.getInitials().equals(this.project.getProjectLeader()) && this.project.getProjectLeader() != null) {
+            throw new ErrorMessage("Does not have permission to edit");
+        }
+        this.yearPlan = yearPlan;
     }
 
     public void setStatus(String status2) {
         this.status = status2;
     }
+
+    //has
     public boolean hasDeveloper(Developer developer){ //Thomas
         return this.getAssignedDevelopers().contains(developer);
     }

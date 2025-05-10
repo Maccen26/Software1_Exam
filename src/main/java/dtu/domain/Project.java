@@ -32,24 +32,54 @@ public class Project {
         // At this point either there was no leader, or the requester *is* the leader:
         this.projectLeader = newLeader.getInitials();
     }
-    public ArrayList<Activity> getAllActivities() //MAds
-        {
-            return activities;
 
+    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws ErrorMessage {
+
+        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
+            throw new ErrorMessage("Developer is not projectleader");
         }
 
-    public String getProjectNumber() { // Lukas
-        // Get the project number
-        return projectNumber;
+        if (containsActivityName(name)) {
+            throw new ErrorMessage("Activity title already exists");
+        }
+
+        int[] weekPlanCopy = weekPlan.clone();
+        int[] yearPlanCopy = yearPlan.clone();
+
+        Activity newActivity = new Activity(name, this, weekPlanCopy, yearPlanCopy);
+        //newActivity.addDeveloper(requester); //SKAL IKKE TILFØJE EN AKTIVITET TIL EN DEN SAMME BRUGER - SÅ KAN PROJEJTLEDEREN KUN TILFØJE AKTIVITETR TIL SIG SELV?
+        activities.add(newActivity);
     }
 
-    public String getProjectLeader() { // Lukas
-        // Get the project leader
-        return projectLeader;
+    public void removeActivity(Developer requester, String name) throws ErrorMessage {//Johan
+        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
+            throw new ErrorMessage("Developer is not projectleader");
+        }
+        else if (!containsActivityName(name)) {
+            throw new ErrorMessage("Activity title does not exist");
+        }
+
+        Activity activityToRemove = getActivity(name);
+        activities.remove(activityToRemove);
     }
 
-    public Activity getActivity(String activityName) throws ErrorMessage{ // Lukas
-        // Get an activity by its name
+    public Boolean containsActivityName(String name) { //Johan
+        for (Activity activity : activities) {
+            if (activity.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //Mads
+        Activity activity = getActivity(activityName); 
+        activity.addDeveloper(developer, requester);
+    }
+
+    //Implicit methods
+    //getters
+    public Activity getActivity(String activityName) throws ErrorMessage{
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
                 return activity;
@@ -58,19 +88,20 @@ public class Project {
         throw new ErrorMessage("Activity not found");
     }
 
-    public boolean hasActivity(String activityName) { // Lukas
-        // Check if an activity exists by its name
-        for (Activity activity : activities) {
-            if (activity.getName().equals(activityName)) {
-                return true;
-            }
-        }
-        return false;
+    public ArrayList<Activity> getActivities() {
+        return this.activities;
     }
 
-    public ArrayList<Activity> getActivities() { // Lukas
-        // Get all activities
-        return this.activities;
+    public ArrayList<Activity> getAllActivities(){
+        return activities;
+    }
+
+    public String getProjectNumber() {
+        return projectNumber;
+    }
+
+    public String getProjectLeader() {
+        return projectLeader;
     }
 
     public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
@@ -95,71 +126,20 @@ public class Project {
         return report;
     }
 
-    public void addActivity( //Johan
-            Developer requester,
-            String name, 
-            int[] weekPlan, 
-            int[] yearPlan)
-            throws ErrorMessage {
-
-        // ---- Basic validation ----
-        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
-            throw new ErrorMessage("Developer is not projectleader");
-        }
-
-        if (containsActivityName(name)) {
-            throw new ErrorMessage("Activity title already exists");
-        }
-
-        int[] weekPlanCopy = weekPlan.clone();
-        int[] yearPlanCopy = yearPlan.clone();
-
-        // ---- Create and register the activity ----
-        Activity newActivity = new Activity(
-            name,
-            this,
-            weekPlanCopy,
-            yearPlanCopy);
-        //newActivity.addDeveloper(requester); //SKAL IKKE TILFØJE EN AKTIVITET TIL EN DEN SAMME BRUGER - SÅ KAN PROJEJTLEDEREN KUN TILFØJE AKTIVITETR TIL SIG SELV?
-        activities.add(newActivity);
-    }
-
-    public void removeActivity(//Johan
-            Developer requester,
-            String name)
-            throws ErrorMessage {
-
-        // ---- Basic validation ----
-        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
-            throw new ErrorMessage("Developer is not projectleader");
-        }
-
-        if (!containsActivityName(name)) {
-            throw new ErrorMessage("Activity title does not exist");
-        }
-
-        // ---- Remove the activity ----
-        Activity activityToRemove = getActivity(name);
-        activities.remove(activityToRemove);
-    }
-
-    public Boolean containsActivityName(String name) { //Johan
-        for (Activity activity : activities) {
-            if (activity.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //;ads
-        Activity activity = getActivity(activityName); 
-        activity.addDeveloper(developer, requester);
-    }
-
+    //setters
     public void setActivtyStatus(String activityName, String status2) throws ErrorMessage {
         Activity activity = getActivity(activityName); 
         activity.setStatus(status2);
     }
 
+    //has
+    public boolean hasActivity(String activityName) { // Lukas
+        // Check if an activity exists by its name
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

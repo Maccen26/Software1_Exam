@@ -19,8 +19,7 @@ public class App {
         // Initialise the projects and developers lists
         this.projects = new ArrayList<Project>();
         this.developers = new ArrayList<Developer>();
-    
-        
+
         // Add test developers 
         Developer huba = new Developer("huba");
         developers.add(huba);
@@ -51,6 +50,13 @@ public class App {
         this.developers.add(developer);
     }
 
+    public void addDeveloperToActivity(String projectNumber, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan + Thomas
+        Project project = getProject(projectNumber); 
+        Developer developer = getDeveloper(developerInitials);
+        Developer requester = getDeveloper(requesterInitails);
+        project.addDeveloperToActivity(activityName, requester, developer); 
+    }
+
     public void login(Developer developer) throws ErrorMessage{ // Lukas
         // Log in a developer
         if (!hasDeveloper(developer.getInitials())) {
@@ -62,19 +68,13 @@ public class App {
         this.loggedInDeveloper = developer;
     }
 
-    public Developer getLoggedInDeveloper() { // Lukas
-        // Get the logged in developer
-        return this.loggedInDeveloper;
-    }
-
     public void createProject() { // Lukas
-        // Add a project to the app
         Project newProject = new Project("2025" + projectNumber);
         this.projects.add(newProject);
         projectNumber++;
     }
+    //Overload
     public void createProject(Developer projectLeader) { // Lukas
-        // Add a project to the app
         Project newProject = new Project("2025" + projectNumber);
         try {
             newProject.assignProjectLeader(projectLeader, projectLeader);
@@ -85,18 +85,11 @@ public class App {
         projectNumber++;
     }
 
-    public boolean hasDeveloper(String initials) { // Lukas
-        // Check if a developer exists in the app
-        for (Developer developer : developers) {
-            if (developer.getInitials().equals(initials)) {
-                return true;
-            }
-        }
-        return false;
+    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception { //Mads + Thomas
+        getProject(projectNumber).addActivity(this.loggedInDeveloper, activityName, weekplan, yearplan);
     }
 
     public Project getProject(String projectNumber){ // Lukas
-        // Get a project by its number
         for (Project project : projects) {
             if (project.getProjectNumber().equals(projectNumber)) {
                 return project;
@@ -104,6 +97,33 @@ public class App {
         }
         return null;
         //throw new Exception("Project not contained in the app");
+    }
+
+    public ArrayList<Project> getProjects() { // Lukas
+        return this.projects;
+    }
+
+    public Developer getDeveloper(String developerInitials) throws Exception{ //Mads
+        for (Developer developer: this.developers){
+            if (developer.getInitials().equals(developerInitials)){
+                return developer;
+            }
+        }
+        throw new Exception("Developer not contained in app");
+    }
+
+    public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
+        Developer developer = getDeveloper(developerInitials);
+        return developer.getAssignedActivities();
+    }
+
+    public Developer getLoggedInDeveloper() { // Lukas
+        return this.loggedInDeveloper;
+    }
+
+    public void setActivtyStatus(String projectNumber, String activityName, String status) throws ErrorMessage {
+        Project project = getProject(projectNumber); 
+        project.setActivtyStatus(activityName, status);
     }
 
     public boolean hasProject(String projectNumber) { // Lukas
@@ -115,44 +135,12 @@ public class App {
         return false;
     }
 
-    public ArrayList<Project> getProjects() { // Lukas
-        // Get all projects
-        return this.projects;
-    }
-
-    public Developer getDeveloper(String developerInitials) throws Exception //Mads
-    {
-        for (Developer developer: this.developers) 
-        {
-            if (developer.getInitials().equals(developerInitials)) 
-            {
-                return developer;
+    public boolean hasDeveloper(String initials) { // Lukas
+        for (Developer developer : developers) {
+            if (developer.getInitials().equals(initials)) {
+                return true;
             }
         }
-
-        throw new Exception("Developer not contained in app");
-    }
-
-    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception { //Mads + Thomas
-        getProject(projectNumber).addActivity(this.loggedInDeveloper, activityName, weekplan, yearplan);
-    }
-
-    public void addDeveloperToActivity(String projectNumber, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan + Thomas
-        Project project = getProject(projectNumber); 
-        Developer developer = getDeveloper(developerInitials);
-        Developer requester = getDeveloper(requesterInitails);
-        project.addDeveloperToActivity(activityName, requester, developer); 
-    }
-
-    public ArrayList<Activity> getActivitesForDeveloper(String developerInitials) throws Exception { //Mads
-        Developer developer = getDeveloper(developerInitials);
-        return developer.getAssignedActivities();
-    }
-
-
-
-    public void setActivtyStatus(String projectNumber, String activityName, String status) throws ErrorMessage {
-        Project project = getProject(projectNumber); 
-        project.setActivtyStatus(activityName, status);
+        return false;
     }
 }
