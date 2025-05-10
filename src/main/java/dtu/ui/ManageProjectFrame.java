@@ -165,8 +165,8 @@ public class ManageProjectFrame {
         header.add(addLabel, BorderLayout.EAST);
 
         JPanel addDropdownContainer = new JPanel();
-        addDropdownContainer.setLayout(new GridLayout(4, 1)); // 3 rows, 1 column
-        addDropdownContainer.setBounds(800, 80, 200, 100);
+        addDropdownContainer.setLayout(new GridLayout(5, 1)); // 3 rows, 1 column
+        addDropdownContainer.setBounds(800, 80, 200, 125);
         addDropdownContainer.setBackground(Color.LIGHT_GRAY);
         addDropdownContainer.setVisible(false); // Initially hidden
         manageProjectFrame.add(addDropdownContainer); // Add the container to the frame
@@ -216,6 +216,21 @@ public class ManageProjectFrame {
             });
         });
         addDropdownContainer.add(assignProjectleader);
+
+        JButton setStatusButton = new JButton("Update status");
+        setStatusButton.addActionListener(e -> {
+            System.out.println("Update status clicked");
+            SetProjectStatusFrame setProjectStatusFrame = new SetProjectStatusFrame(app, project);
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            setProjectStatusFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame
+                }
+            });
+        });
+        addDropdownContainer.add(setStatusButton);
 
         JButton generateReport = new JButton("Generate report");
         generateReport.addActionListener(e -> {

@@ -62,7 +62,7 @@ public class EditActivityFrame extends JFrame{
 
                 String activityTime = activityTimeField.getText();
                 if (!activityTime.isEmpty()) {
-                    activity.setTimeBudget(dev, Integer.parseInt(activityTimeField.getText()));
+                    activity.setTimeBudget(dev, Double.parseDouble(activityTimeField.getText()));
                 }
 
                 String startWeek = startWeekField.getText();
