@@ -159,12 +159,28 @@ public class ManageActivityFrame {
         JButton addDeveloper = new JButton("Add developer");
         addDeveloper.addActionListener(e -> {
             System.out.println("Add Developer clicked");
+            AddDeveloperFrame addDeveloperFrame = new AddDeveloperFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            addDeveloperFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         addDropdownContainer.add(addDeveloper);
 
         JButton removeDeveloper = new JButton("Remove developer");
         removeDeveloper.addActionListener(e -> {
             System.out.println("Remove Developer clicked");
+            RemoveDeveloperFrame removeDeveloperFrame = new RemoveDeveloperFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            removeDeveloperFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         addDropdownContainer.add(removeDeveloper);
 
