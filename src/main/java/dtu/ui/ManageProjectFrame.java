@@ -32,7 +32,7 @@ public class ManageProjectFrame {
         contentPanel.add(nameLabel, BorderLayout.NORTH);
     
         // Add the status label
-        JLabel statusLabel = new JLabel(activity.getStatus());
+        JLabel statusLabel = new JLabel(activity.getStatus() + " - " + activity.getTimeSpent() + "/" + activity.getTimeBudget());;
         statusLabel.setFont(statusLabel.getFont().deriveFont(14f)); // Set font size
         statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
         contentPanel.add(statusLabel, BorderLayout.SOUTH);

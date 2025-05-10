@@ -32,7 +32,7 @@ public class RegisterTimeFrame extends JFrame{
                 JOptionPane.showMessageDialog(this, "Please enter a time", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {
-                    //activity.registerTime(app.getLoggedInDeveloper(), Integer.parseInt(time));
+                    activity.registerTime(Double.parseDouble(time), app.getLoggedInDeveloper());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
