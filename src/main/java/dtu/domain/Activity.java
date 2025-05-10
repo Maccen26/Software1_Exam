@@ -126,19 +126,17 @@ public class Activity {
     }
 
     public void registerTime(Double time, Developer developer) throws Exception { //Mads
-        checkTime(time);
 
-        Double registeredTime = timeTracker.get(developer);
-        if (registeredTime == null) {
-            registeredTime = 0.0;
-        }
-        timeTracker.put(developer, registeredTime + time);
-    }
+        assert time%0.5 == 0: "Time can only be logged in 0.5 hours increments"; //1
+        assert time > 0: "Time cannot be negative";//2
 
-    public void checkTime(Double time) throws Exception{ //Mads
-        if (time % 0.5 != 0){
-            throw new Exception("Time can only be logged in 0.5 hours increments");
+
+        Double registeredTime = timeTracker.get(developer); //3
+
+        if (registeredTime == null) { //4
+            registeredTime = 0.0; //5
         }
+        timeTracker.put(developer, registeredTime + time); //6
     }
 
     public Double getRegisteredTime(Developer developer) { //Mads
