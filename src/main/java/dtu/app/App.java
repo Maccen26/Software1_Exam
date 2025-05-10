@@ -133,9 +133,9 @@ public class App {
         throw new Exception("Developer not contained in app");
     }
 
-    public void addActivity(String projectNumber2, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
+    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
     {
-        Project project = getProject(projectNumber2); 
+        Project project = getProject(projectNumber); 
         Developer developer = this.loggedInDeveloper;
         project.addActivity(developer, activityName, weekplan, yearplan);
 
