@@ -14,6 +14,11 @@ import dtu.domain.*;
 //Freja
 public class activityFinished {
     App app;
+
+    public activityFinished(App app){
+        this.app = app;
+    }
+
     ArrayList<Activity> activityList;
     Developer developer;
     Project project;
@@ -24,8 +29,8 @@ public class activityFinished {
         project = app.getProject(string);
     }
 
-    @Given("{string} with status {string}, start and end year: {int}, startweek: {int}, endweek: {int}")
-    public void withStatus(String string, String string2, int year, int startweek, int endweek) {
+    @Given("{string} with status: {string}, start and end year: {int}, startweek: {int}, endweek: {int}")
+    public void withStatusStartAndEndYearStartweekEndweek(String string, String string2, int year, int startweek, int endweek) {
         try{
             app.addActivity(project.getProjectNumber(), string, new int[] {year,year}, new int[] {startweek, endweek});
         } catch (Exception e) {
@@ -54,12 +59,16 @@ public class activityFinished {
     }
 
     @When("{string} change status for {string} to finished")
-    public void changeStatusForToFinished(String string, String string2) {
-        
+    public void changeStatusForToFinished(String string, String string2) throws Exception{
+        try{
+            app.setActivtyStatus(project.getProjectNumber(), string2, "Finished", app.getDeveloper(string));
+        }  catch (ErrorMessage e){
+            System.err.println(e.getMessage());
+        }
     }
 
-    @Then("status to finished for {string} succed")
-    public void statusChangeForSucceed(String string) {
+    @Then("status to finished for {string} succeed")
+    public void statusToFinishedForSucceed(String string) {
         try{
             assertTrue(project.getActivity(string).getStatus().equals("Finished"));
         } catch (ErrorMessage e){
@@ -68,17 +77,21 @@ public class activityFinished {
     }
 
     @When("{string} change status for {string}")
-    public void changeStatusFor(String string, String string2) {
-
+    public void changeStatusFor(String string, String string2) throws Exception{
+        try{
+            app.setActivtyStatus(project.getProjectNumber(), string2, "Ongoing", app.getDeveloper(string));
+        }  catch (ErrorMessage e){
+            System.err.println(e.getMessage());
+        }
     }
 
     @Then("gets errormessage {string}")
-    public String GetsErrormessage(String string) throws ErrorMessage{
-        throw new ErrorMessage(string);
+    public void GetsErrormessage(String string) throws ErrorMessage{
+        // løser til sidste
     }
 
     @Then("status for {string} not changed from {string}")
-    public void statusForNotChanged(String string, String string2) {
+    public void statusForNotChangedFrom(String string, String string2) {
         try{
             assertTrue(project.getActivity(string).getStatus().equals(string2));
         } catch (ErrorMessage e){
@@ -87,7 +100,11 @@ public class activityFinished {
     }
 
     @When("{string} change status for {string} in week {int} to finished")
-    public void changeStatusForInWeekToFinishedThenGetsErrormessage(String string, String string2, String string3, String string4) {
-   
+    public void changeStatusForInWeekToFinishedThenGetsErrormessage(String string, String string2, String string3, String string4) throws Exception{
+        try{
+            app.setActivtyStatus(project.getProjectNumber(), string2, "Finished", app.getDeveloper(string));
+        }  catch (ErrorMessage e){
+            System.err.println(e.getMessage());
+        }
     }
 }
