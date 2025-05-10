@@ -58,6 +58,16 @@ public class Project {
         throw new ErrorMessage("Activity not found");
     }
 
+    public boolean hasActivity(String activityName) { // Lukas
+        // Check if an activity exists by its name
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Activity> getActivities() { // Lukas
         // Get all activities
         return this.activities;
