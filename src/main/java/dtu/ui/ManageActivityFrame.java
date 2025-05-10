@@ -46,7 +46,6 @@ public class ManageActivityFrame {
             ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);
             manageActivityFrame.setVisible(false);
             manageActivityFrame.dispose();
-            // Add your action here
         });
         activityOverviewButton.setBounds(0, 0, 150, 25);
         dropdownContainer.add(activityOverviewButton);
@@ -57,7 +56,6 @@ public class ManageActivityFrame {
             ProjectOverviewFrame manageProjectsFrame = new ProjectOverviewFrame(app);
             manageActivityFrame.setVisible(false);
             manageActivityFrame.dispose();
-            // Add your action here
         });
         projectOverviewButton.setBounds(0, 50, 150, 25);
         dropdownContainer.add(projectOverviewButton);
@@ -133,6 +131,14 @@ public class ManageActivityFrame {
         JButton updateStatus = new JButton("Update status");
         updateStatus.addActionListener(e -> {
             System.out.println("Update Status clicked");
+            SetStatusFrame setStatusFrame = new SetStatusFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            setStatusFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         addDropdownContainer.add(updateStatus);
 
@@ -153,18 +159,42 @@ public class ManageActivityFrame {
         JButton registerTime = new JButton("Register time");
         registerTime.addActionListener(e -> {
             System.out.println("Register Time clicked");
+            RegisterTimeFrame registerTimeFrame = new RegisterTimeFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            registerTimeFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         addDropdownContainer.add(registerTime);
 
         JButton addDeveloper = new JButton("Add developer");
         addDeveloper.addActionListener(e -> {
             System.out.println("Add Developer clicked");
+            AddDeveloperFrame addDeveloperFrame = new AddDeveloperFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            addDeveloperFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         addDropdownContainer.add(addDeveloper);
 
         JButton removeDeveloper = new JButton("Remove developer");
         removeDeveloper.addActionListener(e -> {
             System.out.println("Remove Developer clicked");
+            RemoveDeveloperFrame removeDeveloperFrame = new RemoveDeveloperFrame(app, activity);
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+            removeDeveloperFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refreshFrame(app, activity); // Refresh the ProjectOverviewFrame
+                }
+            });
         });
         addDropdownContainer.add(removeDeveloper);
 
