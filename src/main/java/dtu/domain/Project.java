@@ -127,18 +127,6 @@ public class Project {
     }
 
     //setters
-    public void setActivtyStatus(String activityName, String status2, Developer requester) throws ErrorMessage { //Freja
-        Activity activity = getActivity(activityName); 
-        if (activity.hasDeveloper(requester)){
-            if (activity.getStatus().equals("Not started") && status2.equals("Finished")){
-                throw new ErrorMessage("activity pending, status change failed");
-            }
-            activity.setStatus(status2);
-        } 
-        else {
-            throw new ErrorMessage("not assigned to activity, status change failed");
-        }
-    }
 
     //has
     public boolean hasActivity(String activityName) { // Lukas

@@ -1,12 +1,15 @@
 Feature: Finish activity
     Background: 
         Given a project "20251"
-        And "activity1" with status: "ongoing", start and end year: 2025, startweek: 10, endweek: 15
-        And "activity2" with status: "Not started", start and end year: 2025, startweek: 15, endweek: 20
         And developer with name "thfa" is in app
         And "thfa" is logged in 
+        And "thfa" is projectleader for project "20251"
+        And project "20251" has an activity with name: "activity1", start week: 15, start year: 2025, end week: 25, end year: 2025 and budgetted time: 30 hours
+        And project "20251" has an activity with name: "activity2", start week: 15, start year: 2025, end week: 25, end year: 2025 and budgetted time: 30 hours
         And "thfa" is assigned to "activity1"
         And "thfa" is assigned to "activity2"
+        And "thfa" changes "activity1" with status: "ongoing"
+        And "thfa" changes "activity2" with status: "Not started"
         And developer with name "mahh" is in app
         And "mahh" is logged in
         

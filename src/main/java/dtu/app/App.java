@@ -121,11 +121,6 @@ public class App {
         return this.loggedInDeveloper;
     }
 
-    public void setActivtyStatus(String projectNumber, String activityName, String status, Developer requester) throws ErrorMessage {
-        Project project = getProject(projectNumber); 
-        project.setActivtyStatus(activityName, status, requester);
-    }
-
     public boolean hasProject(String projectNumber) { // Lukas
         for (Project project : projects) {
             if (project.getProjectNumber().equals(projectNumber)) {

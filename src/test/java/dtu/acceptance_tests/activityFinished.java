@@ -29,15 +29,11 @@ public class activityFinished {
         project = app.getProject(string);
     }
 
-    @Given("{string} with status: {string}, start and end year: {int}, startweek: {int}, endweek: {int}")
-    public void withStatusStartAndEndYearStartweekEndweek(String string, String string2, int year, int startweek, int endweek) {
+    @Given("{string} changes {string} with status: {string}")
+    public void withStatusStartAndEndYearStartweekEndweek(String dev, String string, String string2) throws Exception {
         try{
-            app.addActivity(project.getProjectNumber(), string, new int[] {year,year}, new int[] {startweek, endweek});
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        try{
-            project.getActivity(string).setStatus(string2);
+            project.getActivity(string).setStatus(string2,app.getDeveloper(dev));
+            System.out.println("Changed status to " + project.getActivity(string).getStatus());
         } catch (ErrorMessage e){
             System.out.println(e.getMessage());
         }
@@ -52,7 +48,7 @@ public class activityFinished {
     @Given("{string} is assigned to {string}")
     public void isAssignedTo(String string, String string2) {
         try{
-            app.addDeveloperToActivity(project.getProjectNumber(), string2, string, string);
+            project.getActivity(string).addDeveloper(developer, developer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -61,7 +57,7 @@ public class activityFinished {
     @When("{string} change status for {string} to finished")
     public void changeStatusForToFinished(String string, String string2) throws Exception{
         try{
-            app.setActivtyStatus(project.getProjectNumber(), string2, "Finished", app.getDeveloper(string));
+            project.getActivity(string2).setStatus("Finished", app.getDeveloper(string));
         }  catch (ErrorMessage e){
             System.err.println(e.getMessage());
         }
@@ -79,7 +75,7 @@ public class activityFinished {
     @When("{string} change status for {string}")
     public void changeStatusFor(String string, String string2) throws Exception{
         try{
-            app.setActivtyStatus(project.getProjectNumber(), string2, "Ongoing", app.getDeveloper(string));
+            project.getActivity(string2).setStatus("Ongoing", app.getDeveloper(string));
         }  catch (ErrorMessage e){
             System.err.println(e.getMessage());
         }
@@ -100,9 +96,9 @@ public class activityFinished {
     }
 
     @When("{string} change status for {string} in week {int} to finished")
-    public void changeStatusForInWeekToFinishedThenGetsErrormessage(String string, String string2, String string3, String string4) throws Exception{
+    public void changeStatusForInWeekToFinishedThenGetsErrormessage(String string, String string2, int int1) throws Exception{
         try{
-            app.setActivtyStatus(project.getProjectNumber(), string2, "Finished", app.getDeveloper(string));
+            project.getActivity(string2).setStatus("Finished", app.getDeveloper(string));
         }  catch (ErrorMessage e){
             System.err.println(e.getMessage());
         }
