@@ -23,7 +23,7 @@ public class addDeveloperToActivitySteps {
     public void theActivityWithTheNameIsConnectedToTheProjectWithTheNumber(String string1, String string2) throws Exception{
         int[] weekPlan = {1, 2};
         int[] yearPlan = {2025, 2025};
-        app.addActivity(string1, string2, weekPlan, yearPlan);
+        app.getProject(string2).addActivity(app.getLoggedInDeveloper(), string1, weekPlan, yearPlan);
     }
     
     @Given("a developer with the name {string} is contained in the app")
@@ -43,7 +43,6 @@ public class addDeveloperToActivitySteps {
         Project project = app.getProject(string2);
         Developer developer = app.getDeveloper(string1);
         project.assignProjectLeader(developer, developer);
-        throw new io.cucumber.java.PendingException();
     }
     
     @When("the developer with the name {string} adds {string} to {string} from project {string}")
