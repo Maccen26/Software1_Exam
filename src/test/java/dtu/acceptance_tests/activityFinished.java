@@ -22,7 +22,6 @@ public class activityFinished {
     }
 
     ArrayList<Activity> activityList;
-    Developer developer;
     Project project;
 
     @Given("a project {string}")
@@ -31,38 +30,59 @@ public class activityFinished {
         project = app.getProject(string);
     }
 
-    @Given("{string} changes {string} with status: {string}")
-    public void withStatusStartAndEndYearStartweekEndweek(String dev, String string, String string2) throws Exception, ErrorMessage {
-        project.getActivity(string).setStatus(string2,app.getDeveloper(dev));
-    }
-
     @Given("developer with name {string} is in app")
     public void developerWithNameIsInApp(String string) {
-        developer = new Developer(string);
+        Developer developer = new Developer(string);
         app.addDeveloper(developer);
     }
 
+    @Given("the developer {string} is logged in")
+    public void IsLoggedIntoTheApp(String string) throws Exception, ErrorMessage{
+        app.login(app.getDeveloper(string));
+    }
+
+    @Given("{string} is projectleader for the project {string}")
+    public void IsProjectleaderForTheProject(String string, String string2) throws Exception, ErrorMessage{
+        project.assignProjectLeader(app.getDeveloper(string), app.getDeveloper(string));
+    }
+
+    @Given("project {string} has an activity with name: {string}, start week: {int}, start and year: {int}, end week: {int}")
+    public void ProjectHasAnActivityWithNameStartweekStartAndYearEndweek(String string1, String string2, int int1, int int2, int int3) throws Exception, ErrorMessage{
+        int[] yearPlan = {int2, int2};
+        int[] weekPlan = {int1, int3};
+        project.addActivity(app.getDeveloper(project.getProjectLeader()), string2, weekPlan, yearPlan );
+    }
+
     @Given("{string} is assigned to {string}")
-    public void isAssignedTo(String string, String string2) throws Exception {
-        project.getActivity(string).addDeveloper(developer, developer);
+    public void isAssignedTo(String dev, String activity) throws Exception {
+        Developer developer = app.getDeveloper(dev);
+        project.getActivity(activity).addDeveloper(developer, developer);
     }
 
-    @When("{string} change status for {string} to finished")
-    public void changeStatusForToFinished(String string, String string2) throws Exception, ErrorMessage{
-        project.getActivity(string2).setStatus("Finished", app.getDeveloper(string));
+    @Given("{string} changes {string} with status: {string}")
+    public void withStatusStartAndEndYearStartweekEndweek(String dev, String activity, String status) throws Exception, ErrorMessage {
+        Developer developer = app.getDeveloper(dev);
+        project.getActivity(activity).setStatus(status, developer);
     }
 
-    @Then("status to finished for {string} succeed")
-    public void statusToFinishedForSucceed(String string) throws ErrorMessage {
-        assertTrue(project.getActivity(string).getStatus().equals("Finished"));
+    @When("{string} sets the status as {string} for the activity {string}")
+    public void changeStatusForToFinished(String dev, String status, String activity) throws Exception, ErrorMessage{
+        Developer developer = app.getDeveloper(dev);
+        project.getActivity(activity).setStatus(status, developer);
     }
 
-    @When("{string} change status for {string}")
-    public void changeStatusFor(String string, String string2) throws Exception{
+    @Then("the activity {string} has status {string}")
+    public void statusToFinishedForSucceed(String activity, String status) throws Exception, ErrorMessage {
+        assertEquals(project.getActivity(activity).getStatus(), status);
+    }
+
+    @When("{string} tries to set the status as {string} for the activity {string}")
+    public void TriesToSetTheStatusForToFinished(String dev, String status, String activity) throws Exception, ErrorMessage{
+        Developer developer = app.getDeveloper(dev);
         try{
-            project.getActivity(string2).setStatus("Ongoing", app.getDeveloper(string));
-        }  catch (ErrorMessage e){
-            errorMessage = e.getMessage();
+            project.getActivity(activity).setStatus(status, developer);
+        } catch (ErrorMessage e) {
+            errorMessage = (e.getMessage());
         }
     }
 
@@ -80,10 +100,11 @@ public class activityFinished {
         }
     }
 
-    @When("{string} change status for {string} in week {int} to finished")
-    public void changeStatusForInWeekToFinishedThenGetsErrormessage(String string, String string2, int int1) throws Exception{
+    @When("{string} tries to change status to {string} for {string}")
+    public void changeStatusForInWeekToFinishedThenGetsErrormessage(String dev, String statusTo, String activity) throws Exception{
+        Developer developer = app.getDeveloper(dev);
         try{
-            project.getActivity(string2).setStatus("Finished", app.getDeveloper(string));
+            project.getActivity(activity).setStatus(statusTo, developer);
         }  catch (ErrorMessage e){
             errorMessage = (e.getMessage());
         }
