@@ -252,6 +252,7 @@ public class ActivityOverviewFrame extends JFrame {
         // Add activity buttons to the timeline panel
         int i = 0;
         for (Activity activity : activities) {
+            System.out.println("Activity " + activity.getName() + " checked");
             if (i == 10){
                 break;
             }
