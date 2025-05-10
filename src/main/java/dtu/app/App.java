@@ -133,16 +133,13 @@ public class App {
         throw new Exception("Developer not contained in app");
     }
 
-    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception //Mads
-    {
+    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception { //Mads + Thomas
         Project project = getProject(projectNumber); 
-        Developer developer = this.loggedInDeveloper;
-        project.addActivity(developer, activityName, weekplan, yearplan);
-
+        project.addActivity(this.loggedInDeveloper, activityName, weekplan, yearplan);
     }
 
-    public void addDeveloperToActivity(String projectNumber2, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan
-        Project project = getProject(projectNumber2); 
+    public void addDeveloperToActivity(String projectNumber, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan + Thomas
+        Project project = getProject(projectNumber); 
         Developer developer = getDeveloper(developerInitials);
         Developer requester = getDeveloper(requesterInitails);
         project.addDeveloperToActivity(activityName, requester, developer); 
