@@ -42,18 +42,6 @@ public class activityFinished {
         app.addDeveloper(developer);
     }
 
-    @Given("{string} is logged in") 
-    public void isLoggedIn(String string) {
-        if (app.hasDeveloper(string)) {
-            developer = new Developer(string);
-            try{
-                app.login(developer);
-            } catch (ErrorMessage e){
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
     @Given("{string} is assigned to {string}")
     public void isAssignedTo(String string, String string2) {
         try{
