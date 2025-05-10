@@ -75,7 +75,7 @@ public class Project {
     }
 
     public ArrayList<String> getReport(Developer dev) throws AssertionError{ // Lukas
-        assert !this.projectLeader.equals(dev.getInitials());
+        assert this.projectLeader.equals(dev.getInitials());
 
         if (this.activities.isEmpty()) {
             ArrayList<String> emptyReport = new ArrayList<>();
