@@ -23,8 +23,8 @@ public class addActivityJUnit {
 
         p.assignProjectLeader(mahh, mahh);
 
-        ErrorMessage thrown = assertThrows(
-            ErrorMessage.class,
+        AssertionError thrown = assertThrows(
+            AssertionError.class,
             () -> p.addActivity(thfa, "Activity1", new int[]{1,2}, new int[]{2025,2025})
         );
         assertEquals("Developer is not projectleader", thrown.getMessage());
@@ -42,8 +42,8 @@ public class addActivityJUnit {
 
         p.addActivity(thfa, "Activity1", new int[]{1,2}, new int[]{2025,2025});
 
-        ErrorMessage thrown = assertThrows(
-            ErrorMessage.class,
+        AssertionError thrown = assertThrows(
+            AssertionError.class,
             () -> p.addActivity(thfa, "Activity1", new int[]{1,2}, new int[]{2025,2025})
         );
         assertEquals("Activity title already exists", thrown.getMessage());

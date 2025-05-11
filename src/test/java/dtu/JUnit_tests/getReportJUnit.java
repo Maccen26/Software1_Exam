@@ -106,7 +106,7 @@ public class getReportJUnit {
 
         try{
             project.addActivity(thfa, "Activity1", new int[]{1, 2}, new int[]{2025, 2025});
-        } catch (ErrorMessage e) {
+        } catch (AssertionError e) {
             System.out.println(e.getMessage());
         }
 

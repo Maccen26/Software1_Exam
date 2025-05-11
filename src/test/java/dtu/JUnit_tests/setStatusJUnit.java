@@ -40,8 +40,8 @@ public class setStatusJUnit {
     // Test A: requester NOT assigned
     @Test
     void requesterNotAssigned_throws() {
-        ErrorMessage ex = assertThrows(
-            ErrorMessage.class,
+        AssertionError ex = assertThrows(
+            AssertionError.class,
             () -> activity.setStatus("Finished", mahh)
         );
         assertEquals("not assigned to activity, status change failed", ex.getMessage());
@@ -57,8 +57,8 @@ public class setStatusJUnit {
     // Test C: direct Not-started → Finished
     @Test
     void notStartedToFinishedDirectly_throws() {
-        ErrorMessage ex = assertThrows(
-            ErrorMessage.class,
+        AssertionError ex = assertThrows(
+            AssertionError.class,
             () -> activity.setStatus("Finished", thfa)
         );
         assertEquals("activity pending, status change failed", ex.getMessage());
