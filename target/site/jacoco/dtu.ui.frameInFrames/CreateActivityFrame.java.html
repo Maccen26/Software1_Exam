@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreateActivityFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ExamProject</a> &gt; <a href="index.source.html" class="el_package">dtu.ui.frameInFrames</a> &gt; <span class="el_source">CreateActivityFrame.java</span></div><h1>CreateActivityFrame.java</h1><pre class="source lang-java linenums">package dtu.ui.frameInFrames;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import dtu.app.*;
+import dtu.domain.*;
+
+public class CreateActivityFrame extends JFrame {
+<span class="nc" id="L11">    public CreateActivityFrame(App app, Project givenProject) {</span>
+        // Set up the frame
+<span class="nc" id="L13">        setTitle(&quot;Create activity&quot;);</span>
+<span class="nc" id="L14">        setSize(300, 400);</span>
+<span class="nc" id="L15">        setLayout(new GridLayout(2, 1, 0, 10));</span>
+<span class="nc" id="L16">        setLocationRelativeTo(null);</span>
+<span class="nc" id="L17">        setResizable(false);</span>
+<span class="nc" id="L18">        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);</span>
+
+        // Add components
+<span class="nc" id="L21">        JPanel panel = new JPanel(new GridLayout(6, 2, 0, 5));</span>
+<span class="nc" id="L22">        add(panel);</span>
+
+<span class="nc" id="L24">        JLabel projectLabel = new JLabel(&quot;Assigned project:&quot;);</span>
+<span class="nc" id="L25">        JTextField projectField = new JTextField();</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (givenProject == null) {</span>
+<span class="nc" id="L27">            panel.add(projectLabel);</span>
+<span class="nc" id="L28">            panel.add(projectField);</span>
+        }
+
+<span class="nc" id="L31">        JLabel nameLabel = new JLabel(&quot;Activity name:&quot;);</span>
+<span class="nc" id="L32">        panel.add(nameLabel);</span>
+<span class="nc" id="L33">        JTextField nameField = new JTextField();</span>
+<span class="nc" id="L34">        panel.add(nameField);</span>
+
+<span class="nc" id="L36">        JLabel startWeekLabel = new JLabel(&quot;Start week:&quot;);</span>
+<span class="nc" id="L37">        panel.add(startWeekLabel);</span>
+<span class="nc" id="L38">        JTextField startWeekField = new JTextField();</span>
+<span class="nc" id="L39">        panel.add(startWeekField);</span>
+
+<span class="nc" id="L41">        JLabel startYearLabel = new JLabel(&quot;Start year:&quot;);</span>
+<span class="nc" id="L42">        panel.add(startYearLabel);</span>
+<span class="nc" id="L43">        JTextField startYearField = new JTextField();</span>
+<span class="nc" id="L44">        panel.add(startYearField);</span>
+
+<span class="nc" id="L46">        JLabel endWeekLabel = new JLabel(&quot;End week:&quot;);</span>
+<span class="nc" id="L47">        panel.add(endWeekLabel);</span>
+<span class="nc" id="L48">        JTextField endWeekField = new JTextField();</span>
+<span class="nc" id="L49">        panel.add(endWeekField);</span>
+
+<span class="nc" id="L51">        JLabel endYearLabel = new JLabel(&quot;End year:&quot;);</span>
+<span class="nc" id="L52">        panel.add(endYearLabel);</span>
+<span class="nc" id="L53">        JTextField endYearField = new JTextField();</span>
+<span class="nc" id="L54">        panel.add(endYearField);</span>
+
+<span class="nc" id="L56">        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));</span>
+<span class="nc" id="L57">        add(buttonPanel);</span>
+
+<span class="nc" id="L59">        JButton createButton = new JButton(&quot;Create activity&quot;);</span>
+<span class="nc" id="L60">        createButton.addActionListener(e -&gt; {</span>
+<span class="nc bnc" id="L61" title="All 8 branches missed.">            if ((projectField.getText().isEmpty() &amp;&amp; givenProject == null)|| nameField.getText().isEmpty() || startWeekField.getText().isEmpty()</span>
+<span class="nc bnc" id="L62" title="All 4 branches missed.">                    || startYearField.getText().isEmpty() || endWeekField.getText().isEmpty()</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                    || endYearField.getText().isEmpty()) {</span>
+<span class="nc" id="L64">                JOptionPane.showMessageDialog(this, &quot;All fields must be filled out&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L65">                return;</span>
+            }
+
+<span class="nc" id="L68">            String projectName = projectField.getText();</span>
+<span class="nc" id="L69">            String activityName = nameField.getText();</span>
+<span class="nc" id="L70">            int startWeek = Integer.parseInt(startWeekField.getText());</span>
+<span class="nc" id="L71">            int startYear = Integer.parseInt(startYearField.getText());</span>
+<span class="nc" id="L72">            int endWeek = Integer.parseInt(endWeekField.getText());</span>
+<span class="nc" id="L73">            int endYear = Integer.parseInt(endYearField.getText());</span>
+<span class="nc" id="L74">            int startTime = (startYear - 2020) * 52 + startWeek;</span>
+<span class="nc" id="L75">            int endTime = (endYear - 2020) * 52 + endWeek;</span>
+            
+<span class="nc bnc" id="L77" title="All 2 branches missed.">            if (startTime &gt; endTime) {</span>
+<span class="nc" id="L78">                JOptionPane.showMessageDialog(this, &quot;Start date must be before end date&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L79">                return;</span>
+            }
+<span class="nc bnc" id="L81" title="All 8 branches missed.">            if (startWeek &lt; 1 || startWeek &gt; 52 || endWeek &lt; 1 || endWeek &gt; 52) {</span>
+<span class="nc" id="L82">                JOptionPane.showMessageDialog(this, &quot;Week must be between 1 and 52&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L83">                return;</span>
+            }
+<span class="nc bnc" id="L85" title="All 6 branches missed.">            if (startYear &gt; endYear || (startYear == endYear &amp;&amp; startWeek &gt; endWeek)) {</span>
+<span class="nc" id="L86">                JOptionPane.showMessageDialog(this, &quot;Start date must be before end date&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L87">                return;</span>
+            }
+<span class="nc bnc" id="L89" title="All 4 branches missed.">            if (!app.hasProject(projectName) &amp;&amp; givenProject == null) {</span>
+<span class="nc" id="L90">                JOptionPane.showMessageDialog(this, &quot;Project does not exist&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L91">                return;</span>
+            }
+
+<span class="nc" id="L94">            Project project = app.getProject(projectName);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (givenProject != null) {</span>
+<span class="nc" id="L96">                project = givenProject;</span>
+            }
+            
+
+<span class="nc bnc" id="L100" title="All 2 branches missed.">            if (project.hasActivity(activityName)) {</span>
+<span class="nc" id="L101">                JOptionPane.showMessageDialog(this, &quot;Activity already exists&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L102">                return;</span>
+            }
+
+            try {
+<span class="nc" id="L106">                project.addActivity(app.getLoggedInDeveloper(), activityName, new int[] { startWeek, endWeek },</span>
+                        new int[] { startYear, endYear });
+<span class="nc" id="L108">            } catch (ErrorMessage ex) {</span>
+<span class="nc" id="L109">                JOptionPane.showMessageDialog(this, ex.getMessage(), &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L110">                return;</span>
+<span class="nc" id="L111">            }</span>
+
+<span class="nc" id="L113">            setVisible(false);</span>
+<span class="nc" id="L114">            dispose();</span>
+<span class="nc" id="L115">        });</span>
+<span class="nc" id="L116">        buttonPanel.add(createButton);</span>
+
+        // Make the frame visible
+<span class="nc" id="L119">        setVisible(true);</span>
+<span class="nc" id="L120">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,50 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ExamProject,dtu.ui,ManageActivityFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageActivityFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageActivityFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageActivityFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageActivityFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageActivityFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageActivityFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageActivityFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageActivityFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,LoginFrame.new FocusAdapter() {...},38,0,4,0,9,0,5,0,3,0
+ExamProject,dtu.ui,ActivityOverviewFrame,664,0,18,0,127,0,15,0,6,0
+ExamProject,dtu.ui,LoginFrame,193,0,2,0,45,0,3,0,2,0
+ExamProject,dtu.ui,ManageProjectFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,Ui,568,0,6,0,60,0,6,0,3,0
+ExamProject,dtu.ui,ManageProjectFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageProjectFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageProjectFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageProjectFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageProjectFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageProjectFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ManageActivityFrame,757,0,2,0,152,0,11,0,10,0
+ExamProject,dtu.ui,ManageProjectFrame.new WindowAdapter() {...},20,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ProjectOverviewFrame,606,0,4,0,129,0,10,0,8,0
+ExamProject,dtu.ui,ActivityOverviewFrame.new JPanel() {...},82,0,0,0,14,0,2,0,2,0
+ExamProject,dtu.ui,ProjectOverviewFrame.new WindowAdapter() {...},15,0,0,0,3,0,2,0,2,0
+ExamProject,dtu.ui,ProjectOverviewFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ProjectOverviewFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ProjectOverviewFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ProjectOverviewFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ManageProjectFrame,778,0,6,0,156,0,15,0,12,0
+ExamProject,dtu.ui,ActivityOverviewFrame.new MouseAdapter() {...},34,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui,ActivityOverviewFrame.new MouseAdapter() {...},31,0,2,0,8,0,4,0,3,0
+ExamProject,dtu.ui.frameInFrames,CreateProjectFrame,143,0,2,0,39,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,RemoveDeveloperFrame,117,0,2,0,32,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,CreateActivityFrame,365,0,40,0,80,0,22,0,2,0
+ExamProject,dtu.ui.frameInFrames,RegisterTimeFrame,115,0,2,0,31,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,EditActivityFrame,372,0,22,0,85,0,13,0,2,0
+ExamProject,dtu.ui.frameInFrames,AssignProjectleaderFrame,104,0,0,0,29,0,2,0,2,0
+ExamProject,dtu.ui.frameInFrames,DeleteActivityFrame,105,0,2,0,30,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,AddDeveloperFrame,117,0,2,0,32,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,SetStatusFrame,114,0,2,0,31,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,SetProjectStatusFrame,114,0,2,0,31,0,3,0,2,0
+ExamProject,dtu.ui.frameInFrames,GetReportFrame,113,0,2,0,29,0,2,0,1,0
+ExamProject,dtu.domain,ErrorMessage,0,4,0,0,0,2,0,1,0,1
+ExamProject,dtu.domain,Developer,0,28,1,1,0,9,1,4,0,4
+ExamProject,dtu.domain,Project,34,388,8,42,6,76,8,33,2,14
+ExamProject,dtu.domain,Activity,70,300,18,30,11,64,16,29,3,18
+ExamProject,dtu.ui.buttons,activtyOverviewButton,84,0,0,0,17,0,3,0,3,0
+ExamProject,dtu.app,App,87,150,6,12,21,35,8,15,4,10

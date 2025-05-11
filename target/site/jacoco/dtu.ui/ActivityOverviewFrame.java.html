@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActivityOverviewFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ExamProject</a> &gt; <a href="index.source.html" class="el_package">dtu.ui</a> &gt; <span class="el_source">ActivityOverviewFrame.java</span></div><h1>ActivityOverviewFrame.java</h1><pre class="source lang-java linenums">package dtu.ui;
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+import dtu.app.*;
+import dtu.domain.*;
+
+public class ActivityOverviewFrame extends JFrame {
+<span class="nc" id="L12">    private JFrame activityOverviewFrame = new JFrame(&quot;Activity Overview&quot;);</span>
+
+<span class="nc" id="L14">    ArrayList&lt;Color&gt; colors = new ArrayList&lt;Color&gt;();</span>
+    {
+<span class="nc" id="L16">        colors.add(Color.PINK);</span>
+<span class="nc" id="L17">        colors.add(Color.RED);</span>
+<span class="nc" id="L18">        colors.add(Color.GREEN);</span>
+<span class="nc" id="L19">        colors.add(Color.BLUE);</span>
+<span class="nc" id="L20">        colors.add(Color.YELLOW);</span>
+<span class="nc" id="L21">        colors.add(Color.CYAN);</span>
+<span class="nc" id="L22">        colors.add(Color.MAGENTA);</span>
+<span class="nc" id="L23">        colors.add(Color.ORANGE);</span>
+    }
+
+    private JButton activityButton(Activity activity, int curWeek, int curYear, int index, App app) {
+<span class="nc" id="L27">        int curWeekOfYear = curWeek + (curYear - 2020) * 52;</span>
+<span class="nc" id="L28">        int startWeek = activity.getWeekPlan()[0] + (activity.getYearPlan()[0] - 2020)* 52;</span>
+<span class="nc" id="L29">        int endWeek = activity.getWeekPlan()[1] + (activity.getYearPlan()[1] - 2020)* 52;</span>
+
+<span class="nc bnc" id="L31" title="All 4 branches missed.">        if (curWeekOfYear + 3 &lt; startWeek || curWeekOfYear &gt; endWeek) {</span>
+            // Check if the activity is currently active
+<span class="nc" id="L33">            return null;</span>
+        }
+    
+<span class="nc" id="L36">        int startX = Math.max((startWeek - curWeekOfYear) * 225 + 50, 0); // Calculate X position based on start week</span>
+<span class="nc" id="L37">        int width = Math.min(Math.min(endWeek - startWeek + 1, endWeek - curWeekOfYear + 1) * 225, 1000 - startX); // Calculate width based on duration</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (startX == 0){</span>
+<span class="nc" id="L39">            width += 50; // Add the missing 50 px</span>
+        }
+        
+<span class="nc" id="L42">        JButton activityButton = new JButton(activity.getName());</span>
+<span class="nc" id="L43">        activityButton.setBounds(startX, 50 * index + 10, width, 40); // Position the button</span>
+<span class="nc" id="L44">        activityButton.setFont(activityButton.getFont().deriveFont(14f));</span>
+<span class="nc" id="L45">        activityButton.setBorderPainted(false);</span>
+<span class="nc" id="L46">        activityButton.setOpaque(true);</span>
+
+<span class="nc" id="L48">        String number = activity.getProject().getProjectNumber();</span>
+<span class="nc" id="L49">        int nr = Integer.parseInt(number.substring(4, number.length()));</span>
+<span class="nc" id="L50">        activityButton.setBorderPainted(false);</span>
+<span class="nc" id="L51">        activityButton.setOpaque(true);</span>
+<span class="nc" id="L52">        activityButton.setBackground(colors.get(nr % colors.size()));</span>
+
+<span class="nc" id="L54">        activityButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L55">            System.out.println(&quot;Activity &quot; + activity.getName() + &quot; clicked&quot;);</span>
+<span class="nc" id="L56">            ManageActivityFrame manageActivityFrame = new ManageActivityFrame(app, activity);</span>
+<span class="nc" id="L57">            activityOverviewFrame.setVisible(false);</span>
+<span class="nc" id="L58">            activityOverviewFrame.dispose();</span>
+<span class="nc" id="L59">        });</span>
+
+<span class="nc" id="L61">        return activityButton;</span>
+    }
+
+<span class="nc" id="L64">    public ActivityOverviewFrame(App app) {</span>
+<span class="nc" id="L65">        activityOverviewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+
+        // (1) Create your header panel however you like:
+<span class="nc" id="L68">        JPanel header = new JPanel();</span>
+<span class="nc" id="L69">        header.setBackground(Color.GRAY);</span>
+<span class="nc" id="L70">        header.setPreferredSize(new Dimension(1000, 80));   // height = 80px</span>
+<span class="nc" id="L71">        header.setLayout(new BorderLayout()); // 1 row, 3 columns</span>
+
+        
+<span class="nc" id="L74">        JLabel dropdownLabel = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L75">        ImageIcon originalIcon = new ImageIcon(getClass().getResource(&quot;/dtu/icons/Account.png&quot;));</span>
+<span class="nc" id="L76">        Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);</span>
+<span class="nc" id="L77">        ImageIcon scaledIcon = new ImageIcon(scaledImage);</span>
+<span class="nc" id="L78">        dropdownLabel.setIcon(scaledIcon);</span>
+<span class="nc" id="L79">        header.add(dropdownLabel, BorderLayout.WEST); // Add the label to the right side of the header</span>
+
+<span class="nc" id="L81">        JPanel dropdownContainer = new JPanel();</span>
+<span class="nc" id="L82">        dropdownContainer.setLayout(new BorderLayout());</span>
+<span class="nc" id="L83">        dropdownContainer.setBounds(0, 80, 150, 50);</span>
+<span class="nc" id="L84">        dropdownContainer.setBackground(Color.LIGHT_GRAY);</span>
+<span class="nc" id="L85">        dropdownContainer.setVisible(false); // Initially hidden</span>
+<span class="nc" id="L86">        activityOverviewFrame.add(dropdownContainer); // Add the container to the frame</span>
+
+        // Create the dropdown items
+<span class="nc" id="L89">        JButton projectOverviewBUtton = new JButton(&quot;Projects&quot;);</span>
+<span class="nc" id="L90">        projectOverviewBUtton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L91">            System.out.println(&quot;Manage Projects clicked&quot;);</span>
+<span class="nc" id="L92">            ProjectOverviewFrame projectOverviewFrame = new ProjectOverviewFrame(app);</span>
+<span class="nc" id="L93">            activityOverviewFrame.setVisible(false);</span>
+<span class="nc" id="L94">            activityOverviewFrame.dispose();</span>
+<span class="nc" id="L95">        });</span>
+<span class="nc" id="L96">        projectOverviewBUtton.setBounds(0, 0, 150, 25);</span>
+<span class="nc" id="L97">        dropdownContainer.add(projectOverviewBUtton, BorderLayout.NORTH);</span>
+
+<span class="nc" id="L99">        JButton logoutButton = new JButton(&quot;Logout&quot;);</span>
+<span class="nc" id="L100">        logoutButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L101">            System.out.println(&quot;Logged out&quot;);</span>
+<span class="nc" id="L102">            LoginFrame loginFrame = new LoginFrame(app);</span>
+<span class="nc" id="L103">            activityOverviewFrame.setVisible(false);</span>
+<span class="nc" id="L104">            activityOverviewFrame.dispose();</span>
+<span class="nc" id="L105">        });</span>
+<span class="nc" id="L106">        logoutButton.setBounds(0, 50, 150, 25);</span>
+<span class="nc" id="L107">        dropdownContainer.add(logoutButton, BorderLayout.SOUTH);</span>
+
+        // Add MouseListener to the label
+<span class="nc" id="L110">        dropdownLabel.addMouseListener(new MouseAdapter() {</span>
+            @Override
+            public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L113">                dropdownContainer.setVisible(true); // Show the container on hover</span>
+<span class="nc" id="L114">            }</span>
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the dropdownContainer
+<span class="nc" id="L119">                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();</span>
+<span class="nc" id="L120">                SwingUtilities.convertPointFromScreen(mouseLocation, dropdownContainer);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                if (!dropdownContainer.contains(mouseLocation)) {</span>
+<span class="nc" id="L122">                    dropdownContainer.setVisible(false); // Hide the container if the mouse is outside</span>
+                }
+<span class="nc" id="L124">            }</span>
+        });
+
+        // Add MouseListener to the container
+<span class="nc" id="L128">        dropdownContainer.addMouseListener(new MouseAdapter() {</span>
+            @Override
+            public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L131">                dropdownContainer.setVisible(true); // Keep the container visible on hover</span>
+<span class="nc" id="L132">            }</span>
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the dropdownLabel
+<span class="nc" id="L137">                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();</span>
+<span class="nc" id="L138">                SwingUtilities.convertPointFromScreen(mouseLocation, dropdownLabel);</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                if (!dropdownLabel.contains(mouseLocation)) {</span>
+<span class="nc" id="L140">                    dropdownContainer.setVisible(false); // Hide the container if the mouse is outside</span>
+                }
+<span class="nc" id="L142">            }</span>
+        });
+        
+<span class="nc" id="L145">        JLabel title = new JLabel(&quot;Activities&quot;);</span>
+<span class="nc" id="L146">        title.setForeground(Color.BLACK);</span>
+<span class="nc" id="L147">        title.setFont(title.getFont().deriveFont(40f));</span>
+<span class="nc" id="L148">        title.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L149">        header.add(title, BorderLayout.CENTER);</span>
+
+        // (2) Add it to the top (NORTH) of the frame:
+<span class="nc" id="L152">        activityOverviewFrame.add(header, BorderLayout.NORTH);</span>
+
+        // (3) Add your main content in CENTER:
+<span class="nc" id="L155">        JPanel main = new JPanel();</span>
+<span class="nc" id="L156">        activityOverviewFrame.add(main, BorderLayout.CENTER);</span>
+
+        // Search functionality
+        // JPanel searchContainer = new JPanel();
+        // searchContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        // JLabel searchIcon = new JLabel();
+        // ImageIcon searchOriginalIcon = new ImageIcon(getClass().getResource(&quot;/dtu/icons/Search.png&quot;));
+        // Image searchScaledImage = searchOriginalIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        // ImageIcon searchScaledIcon = new ImageIcon(searchScaledImage);
+        // searchIcon.setIcon(searchScaledIcon);
+        // searchContainer.add(searchIcon);
+        
+        // JTextField searchField = new JTextField();
+        // searchField.setPreferredSize(new Dimension(200, 30));
+        // searchField.addFocusListener(new FocusAdapter() {
+        //     @Override
+        //     public void focusGained(java.awt.event.FocusEvent e) {
+        //         if (searchField.getText().equals(&quot;Search for activity&quot;)) {
+        //             searchField.setText(&quot;&quot;);
+        //             searchField.setForeground(Color.BLACK);
+        //         }
+        //     }
+        //     @Override
+        //     public void focusLost(java.awt.event.FocusEvent e) {
+        //         if (searchField.getText().isEmpty()) {
+        //             searchField.setText(&quot;Search for activity&quot;);
+        //             searchField.setForeground(Color.GRAY);
+        //         }
+        //     }
+        // });
+        // searchContainer.add(searchField);
+
+        // JButton searchButton = new JButton(&quot;Search&quot;);
+        // searchButton.addActionListener(e -&gt; {
+        //     String searchText = searchField.getText();
+        //     System.out.println(&quot;Search for: &quot; + searchText);
+        //     // Add your action here
+        // });
+        // searchContainer.add(searchButton);
+        // main.add(searchContainer, BorderLayout.NORTH);
+
+<span class="nc" id="L198">        class LinePanel extends JPanel {</span>
+            @Override
+            protected void paintComponent(Graphics g) {
+<span class="nc" id="L201">                super.paintComponent(g); // Call the superclass method to ensure proper rendering</span>
+<span class="nc" id="L202">                Graphics2D g2d = (Graphics2D) g; // Cast to Graphics2D for more control</span>
+<span class="nc" id="L203">                g2d.setStroke(new BasicStroke(2)); // Set the line thickness</span>
+<span class="nc" id="L204">                g2d.setColor(Color.BLACK); // Set the line color</span>
+<span class="nc" id="L205">                int height = 10;</span>
+<span class="nc" id="L206">                int dif = 10;</span>
+<span class="nc" id="L207">                g2d.drawLine(0, height, 1000, height); </span>
+<span class="nc" id="L208">                g2d.drawLine(50, height - dif, 50, height + dif); </span>
+<span class="nc" id="L209">                g2d.drawLine(275, height - dif, 275, height + dif); </span>
+<span class="nc" id="L210">                g2d.drawLine(500, height - dif, 500, height + dif); </span>
+<span class="nc" id="L211">                g2d.drawLine(725, height - dif, 725, height + dif);</span>
+<span class="nc" id="L212">                g2d.drawLine(950, height - dif, 950, height + dif);  </span>
+<span class="nc" id="L213">            }</span>
+        }
+        // Add the custom panel to the frame
+<span class="nc" id="L216">        JPanel linePanel = new LinePanel();</span>
+<span class="nc" id="L217">        int curWeek = 20; // Example current week</span>
+<span class="nc" id="L218">        int curYear = 2025; // Example current year</span>
+<span class="nc" id="L219">        JPanel weekPanel = new JPanel(new GridLayout(1, 4));</span>
+<span class="nc" id="L220">        weekPanel.setPreferredSize(new Dimension(900, 20));</span>
+<span class="nc" id="L221">        weekPanel.setOpaque(true);</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        for (int i = curWeek; i &lt; curWeek + 4; i++) {</span>
+<span class="nc" id="L223">            JLabel weekLabel = new JLabel(&quot;Week &quot; + i);</span>
+<span class="nc" id="L224">            weekLabel.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L225">            weekLabel.setFont(weekLabel.getFont().deriveFont(20f));</span>
+<span class="nc" id="L226">            weekLabel.setOpaque(true);</span>
+<span class="nc" id="L227">            weekPanel.add(weekLabel);</span>
+        }
+<span class="nc" id="L229">        main.add(weekPanel);</span>
+<span class="nc" id="L230">        linePanel.setPreferredSize(new Dimension(1000, 20)); // Set the preferred size of the panel</span>
+<span class="nc" id="L231">        main.add(linePanel, BorderLayout.CENTER); // Add it to the frame</span>
+
+
+<span class="nc" id="L234">        ArrayList&lt;Project&gt; projects = app.getProjects();</span>
+<span class="nc" id="L235">        ArrayList&lt;Activity&gt; activities = new ArrayList&lt;Activity&gt;();</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        for (Project project : projects) {</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">            for (Activity activity : project.getActivities()) {</span>
+<span class="nc" id="L238">                activities.add(activity);</span>
+<span class="nc" id="L239">            }</span>
+<span class="nc" id="L240">        }</span>
+        // sort activities by end week
+<span class="nc" id="L242">        activities.sort((a, b) -&gt; {</span>
+<span class="nc" id="L243">            int aEndWeek = a.getWeekPlan()[1] + (a.getYearPlan()[1] - 2020)* 52;</span>
+<span class="nc" id="L244">            int bEndWeek = b.getWeekPlan()[1] + (b.getYearPlan()[1] - 2020)* 52;</span>
+
+<span class="nc" id="L246">            return Integer.compare(aEndWeek, bEndWeek);</span>
+        });
+
+        
+        // Create a timeline panel
+<span class="nc" id="L251">        JPanel timelinePanel = new JPanel();</span>
+<span class="nc" id="L252">        timelinePanel.setLayout(null); // Use absolute positioning for precise placement</span>
+<span class="nc" id="L253">        timelinePanel.setPreferredSize(new Dimension(1000, 400)); // Adjust height as needed</span>
+
+        // Add activity buttons to the timeline panel
+<span class="nc" id="L256">        int i = 0;</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">        for (Activity activity : activities) {</span>
+<span class="nc" id="L258">            System.out.println(&quot;Activity &quot; + activity.getName() + &quot; checked&quot;);</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">            if (i == 10){</span>
+<span class="nc" id="L260">                break;</span>
+            }
+<span class="nc" id="L262">            JButton btn = activityButton(activity, curWeek, curYear, i, app);</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">            if (btn != null) {</span>
+<span class="nc" id="L264">                timelinePanel.add(btn); // Add buttons to the timeline panel</span>
+<span class="nc" id="L265">                i++;</span>
+            } else {
+<span class="nc" id="L267">                System.out.println(&quot;Activity &quot; + activity.getName() + &quot; is not active&quot;);</span>
+            }
+<span class="nc" id="L269">        }</span>
+
+        // Add the timeline panel to the main panel
+<span class="nc" id="L272">        main.add(timelinePanel, BorderLayout.CENTER);</span>
+
+        // (4) Size &amp; show
+<span class="nc" id="L275">        activityOverviewFrame.setSize(1000, 700);</span>
+<span class="nc" id="L276">        activityOverviewFrame.setLocationRelativeTo(null);</span>
+<span class="nc" id="L277">        activityOverviewFrame.setVisible(true);</span>
+<span class="nc" id="L278">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

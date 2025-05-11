@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Project.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ExamProject</a> &gt; <a href="index.source.html" class="el_package">dtu.domain</a> &gt; <span class="el_source">Project.java</span></div><h1>Project.java</h1><pre class="source lang-java linenums">package dtu.domain;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord.NULL;
+
+import io.cucumber.java.en_old.Ac;
+import io.cucumber.java.hu.De;
+
+<span class="fc" id="L12">public class Project {</span>
+    private String projectNumber;
+    private String projectLeader;
+    private ArrayList&lt;Activity&gt; activities;
+    private String status;
+
+<span class="fc" id="L18">    public Project(String projectNumber) { // Lukas</span>
+        // Initialise the project number and project leader
+<span class="fc" id="L20">        this.projectNumber = projectNumber;</span>
+<span class="fc" id="L21">        this.projectLeader = null;</span>
+<span class="fc" id="L22">        this.activities = new ArrayList&lt;Activity&gt;();</span>
+<span class="fc" id="L23">        this.status = &quot;Not started&quot;;</span>
+<span class="fc" id="L24">    }</span>
+
+    public void assignProjectLeader(Developer requester, Developer newLeader) throws ErrorMessage { //Johan
+        // If there already is a leader, only they can change it:
+<span class="fc bfc" id="L28" title="All 4 branches covered.">        if (this.projectLeader != null &amp;&amp; !requester.getInitials().equals(this.projectLeader)) {</span>
+<span class="fc" id="L29">            throw new ErrorMessage(&quot;Only the current project leader can reassign the project leader&quot;);</span>
+        }
+
+        // At this point either there was no leader, or the requester *is* the leader:
+<span class="fc" id="L33">        this.projectLeader = newLeader.getInitials();</span>
+<span class="fc" id="L34">    }</span>
+
+    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws ErrorMessage {
+<span class="fc bfc" id="L37" title="All 4 branches covered.">        if (!requester.getInitials().equals(this.projectLeader) &amp;&amp; this.projectLeader != null) {</span>
+<span class="fc" id="L38">            throw new ErrorMessage(&quot;Developer is not projectleader&quot;);</span>
+        }
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (containsActivityName(name)) {</span>
+<span class="fc" id="L41">            throw new ErrorMessage(&quot;Activity title already exists&quot;);</span>
+        }
+
+<span class="fc" id="L44">        int[] weekPlanCopy = weekPlan.clone();</span>
+<span class="fc" id="L45">        int[] yearPlanCopy = yearPlan.clone();</span>
+
+<span class="fc" id="L47">        Activity newActivity = new Activity(name, this, weekPlanCopy, yearPlanCopy);</span>
+<span class="fc" id="L48">        activities.add(newActivity);</span>
+<span class="fc" id="L49">    }</span>
+
+    public void removeActivity(Developer requester, String name) throws ErrorMessage {//Johan
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">        if (!requester.getInitials().equals(this.projectLeader) &amp;&amp; this.projectLeader != null) {</span>
+<span class="fc" id="L53">            throw new ErrorMessage(&quot;Developer is not projectleader&quot;);</span>
+        }
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        else if (!containsActivityName(name)) {</span>
+<span class="fc" id="L56">            throw new ErrorMessage(&quot;Activity not found&quot;);</span>
+        }
+
+<span class="fc" id="L59">        Activity activityToRemove = getActivity(name);</span>
+<span class="fc" id="L60">        activities.remove(activityToRemove);</span>
+<span class="fc" id="L61">    }</span>
+
+    public boolean containsActivityName(String name) { //Johan
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (Activity activity : this.activities) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            if (activity.getName().equals(name)) {</span>
+<span class="fc" id="L66">                return true;</span>
+            }
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">        return false;</span>
+    }
+
+    public void addDeveloperToActivity(String activityName, Developer requester, Developer developer) throws ErrorMessage { //Mads
+<span class="fc" id="L73">        Activity activity = getActivity(activityName); </span>
+<span class="fc" id="L74">        activity.addDeveloper(developer, requester);</span>
+<span class="fc" id="L75">    }</span>
+
+    public ArrayList&lt;String&gt; getReport(Developer dev) throws AssertionError{ // Lukas
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        assert this.projectLeader.equals(dev.getInitials()) : &quot;Only the project leader can get the report&quot;;</span>
+
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (this.activities.isEmpty()) {</span>
+<span class="fc" id="L81">            ArrayList&lt;String&gt; emptyReport = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L82">            emptyReport.add(projectNumber + &quot;: No activities&quot;);</span>
+<span class="fc" id="L83">            return emptyReport;</span>
+        }
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (this.status.equals(&quot;Finished&quot;)){</span>
+<span class="fc" id="L86">            ArrayList&lt;String&gt; finishedReport = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L87">            finishedReport.add(projectNumber + &quot;: Finished&quot;);</span>
+<span class="fc" id="L88">            return finishedReport;</span>
+        }
+
+        // Get the report for the project
+<span class="fc" id="L92">        ArrayList&lt;String&gt; report = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L93">        Double totalTime = 0.;</span>
+<span class="fc" id="L94">        Double totalBudget = 0.;</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (Activity activity : activities) {</span>
+<span class="fc" id="L96">            totalTime += activity.getTimeSpent();</span>
+<span class="fc" id="L97">            totalBudget += activity.getTimeBudget();</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        report.add(projectNumber + &quot;: &quot; + status + &quot; - &quot; + totalTime + &quot;/&quot; + totalBudget);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (Activity activity : activities) {</span>
+<span class="fc" id="L101">            String status = activity.getStatus();</span>
+<span class="fc" id="L102">            report.add(activity.getName() + &quot;: &quot; + status + &quot; - &quot; + activity.getTimeSpent() + &quot;/&quot; + activity.getTimeBudget());</span>
+
+<span class="fc" id="L104">        }</span>
+
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        assert report.size() == activities.size() + 1 : &quot;Report size is incorrect&quot;;</span>
+
+<span class="fc" id="L108">        return report;</span>
+    }
+
+    //Implicit methods
+    //getters
+    public Activity getActivity(String activityName) throws ErrorMessage{
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        for (Activity activity : activities) {</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">            if (activity.getName().equals(activityName)) {</span>
+<span class="fc" id="L116">                return activity;</span>
+            }
+<span class="fc" id="L118">        }</span>
+<span class="fc" id="L119">        throw new ErrorMessage(&quot;Activity not found&quot;);</span>
+    }
+
+    public ArrayList&lt;Activity&gt; getActivities() {
+<span class="fc" id="L123">        return this.activities;</span>
+    }
+
+    public ArrayList&lt;Activity&gt; getAllActivities(){
+<span class="nc" id="L127">        return activities;</span>
+    }
+
+    public String getProjectNumber() {
+<span class="fc" id="L131">        return projectNumber;</span>
+    }
+
+    public String getProjectLeader() {
+<span class="fc" id="L135">        return projectLeader;</span>
+    }
+
+    public String getStatus() {
+<span class="fc" id="L139">        return status;</span>
+    }
+
+    //setters
+    public void setStatus (String status, Developer requester) throws Exception{ //Freja
+<span class="pc bpc" id="L144" title="1 of 4 branches missed.">        if (!this.projectLeader.equals(requester.getInitials()) &amp;&amp; this.projectLeader != null) {</span>
+<span class="fc" id="L145">            throw new ErrorMessage(&quot;not project leader, status change failed&quot;);</span>
+        }
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        if(status.equals(&quot;Finished&quot;)){</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">            for(Activity activity: this.getActivities()){</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                if(!activity.getStatus().equals(status)){</span>
+<span class="fc" id="L150">                    throw new ErrorMessage(&quot;Still ongoing activities, status change failed&quot;);</span>
+                }
+<span class="fc" id="L152">            }</span>
+        }
+<span class="fc" id="L154">        this.status = status;</span>
+<span class="fc" id="L155">    }</span>
+
+    //has
+    public boolean hasActivity(String activityName) { // Lukas
+        // Check if an activity exists by its name
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        for (Activity activity : activities) {</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">            if (activity.getName().equals(activityName)) {</span>
+<span class="nc" id="L162">                return true;</span>
+            }
+<span class="nc" id="L164">        }</span>
+<span class="nc" id="L165">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

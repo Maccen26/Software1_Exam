@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ManageProjectFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ExamProject</a> &gt; <a href="index.source.html" class="el_package">dtu.ui</a> &gt; <span class="el_source">ManageProjectFrame.java</span></div><h1>ManageProjectFrame.java</h1><pre class="source lang-java linenums">package dtu.ui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+import dtu.app.*;
+import dtu.domain.*;
+import dtu.ui.frameInFrames.*;
+
+public class ManageProjectFrame {
+    private JFrame manageProjectFrame;
+
+    private JButton activityButton(Activity activity, App app) {
+        // Create a button for the activity
+<span class="nc" id="L16">        JButton activityButton = new JButton();</span>
+<span class="nc" id="L17">        activityButton.setPreferredSize(new Dimension(300, 60));</span>
+<span class="nc" id="L18">        activityButton.setBorderPainted(false);</span>
+<span class="nc" id="L19">        activityButton.setOpaque(true);</span>
+<span class="nc" id="L20">        activityButton.setBackground(Color.LIGHT_GRAY);</span>
+    
+        // Create a panel to hold the text and status label
+<span class="nc" id="L23">        JPanel contentPanel = new JPanel(new BorderLayout());</span>
+<span class="nc" id="L24">        contentPanel.setOpaque(false); // Make the panel transparent</span>
+    
+        // Add the activity name as a label
+<span class="nc" id="L27">        JLabel nameLabel = new JLabel(activity.getName() + &quot;: &quot; +</span>
+<span class="nc" id="L28">            activity.getWeekPlan()[0] + &quot;/&quot; + activity.getYearPlan()[0] + &quot; - &quot; +</span>
+<span class="nc" id="L29">            activity.getWeekPlan()[1] + &quot;/&quot; + activity.getYearPlan()[1]);</span>
+<span class="nc" id="L30">        nameLabel.setFont(nameLabel.getFont().deriveFont(16f)); // Set font size</span>
+<span class="nc" id="L31">        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);</span>
+<span class="nc" id="L32">        contentPanel.add(nameLabel, BorderLayout.NORTH);</span>
+    
+        // Add the status label
+<span class="nc" id="L35">        JLabel statusLabel = new JLabel(activity.getStatus() + &quot; - &quot; + activity.getTimeSpent() + &quot;/&quot; + activity.getTimeBudget());;</span>
+<span class="nc" id="L36">        statusLabel.setFont(statusLabel.getFont().deriveFont(14f)); // Set font size</span>
+<span class="nc" id="L37">        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);</span>
+<span class="nc" id="L38">        contentPanel.add(statusLabel, BorderLayout.SOUTH);</span>
+    
+        // Add the content panel to the button
+<span class="nc" id="L41">        activityButton.setLayout(new BorderLayout());</span>
+<span class="nc" id="L42">        activityButton.add(contentPanel, BorderLayout.CENTER);</span>
+    
+        // Add an action listener
+<span class="nc" id="L45">        activityButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L46">            System.out.println(&quot;Activity &quot; + activity.getName() + &quot; clicked&quot;);</span>
+<span class="nc" id="L47">            ManageActivityFrame manageActivityFrame = new ManageActivityFrame(app, activity);</span>
+<span class="nc" id="L48">            manageProjectFrame.setVisible(false);</span>
+<span class="nc" id="L49">            manageProjectFrame.dispose();</span>
+<span class="nc" id="L50">        });</span>
+    
+<span class="nc" id="L52">        return activityButton;</span>
+    }
+
+<span class="nc" id="L55">    public ManageProjectFrame(App app, Project project) {</span>
+        // Create the login frame
+<span class="nc" id="L57">        manageProjectFrame = new JFrame(&quot;Login&quot;);</span>
+<span class="nc" id="L58">        manageProjectFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L59">        manageProjectFrame.setSize(1000, 700);</span>
+
+        // Header panel
+<span class="nc" id="L62">        JPanel header = new JPanel();</span>
+<span class="nc" id="L63">        header.setBackground(Color.GRAY);</span>
+<span class="nc" id="L64">        header.setPreferredSize(new Dimension(1000, 80));</span>
+<span class="nc" id="L65">        header.setLayout(new BorderLayout());</span>
+
+<span class="nc" id="L67">        JLabel dropdownLabel = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L68">        ImageIcon originalIcon = new ImageIcon(getClass().getResource(&quot;/dtu/icons/Account.png&quot;));</span>
+<span class="nc" id="L69">        Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);</span>
+<span class="nc" id="L70">        ImageIcon scaledIcon = new ImageIcon(scaledImage);</span>
+<span class="nc" id="L71">        dropdownLabel.setIcon(scaledIcon);</span>
+<span class="nc" id="L72">        header.add(dropdownLabel, BorderLayout.WEST);</span>
+
+<span class="nc" id="L74">        JPanel dropdownContainer = new JPanel();</span>
+<span class="nc" id="L75">        dropdownContainer.setLayout(new GridLayout(3, 1)); // 3 rows, 1 column</span>
+<span class="nc" id="L76">        dropdownContainer.setBounds(0, 80, 150, 75);</span>
+<span class="nc" id="L77">        dropdownContainer.setBackground(Color.LIGHT_GRAY);</span>
+<span class="nc" id="L78">        dropdownContainer.setVisible(false); // Initially hidden</span>
+<span class="nc" id="L79">        manageProjectFrame.add(dropdownContainer); // Add the container to the frame</span>
+
+        // Create the dropdown items
+<span class="nc" id="L82">        JButton activityOverviewButton = new JButton(&quot;Activities&quot;);</span>
+<span class="nc" id="L83">        activityOverviewButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L84">            System.out.println(&quot;Activities clicked&quot;);</span>
+<span class="nc" id="L85">            ActivityOverviewFrame activityOverviewFrame = new ActivityOverviewFrame(app);</span>
+<span class="nc" id="L86">            manageProjectFrame.setVisible(false);</span>
+<span class="nc" id="L87">            manageProjectFrame.dispose();</span>
+<span class="nc" id="L88">        });</span>
+<span class="nc" id="L89">        activityOverviewButton.setBounds(0, 0, 150, 25);</span>
+<span class="nc" id="L90">        dropdownContainer.add(activityOverviewButton);</span>
+
+<span class="nc" id="L92">        JButton projectOverviewButton = new JButton(&quot;Projects&quot;);</span>
+<span class="nc" id="L93">        projectOverviewButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L94">            System.out.println(&quot;Projects clicked&quot;);</span>
+<span class="nc" id="L95">            ProjectOverviewFrame manageProjectsFrame = new ProjectOverviewFrame(app);</span>
+<span class="nc" id="L96">            manageProjectFrame.setVisible(false);</span>
+<span class="nc" id="L97">            manageProjectFrame.dispose();</span>
+<span class="nc" id="L98">        });</span>
+<span class="nc" id="L99">        projectOverviewButton.setBounds(0, 50, 150, 25);</span>
+<span class="nc" id="L100">        dropdownContainer.add(projectOverviewButton);</span>
+
+<span class="nc" id="L102">        JButton logoutButton = new JButton(&quot;Logout&quot;);</span>
+<span class="nc" id="L103">        logoutButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L104">            System.out.println(&quot;Logged out&quot;);</span>
+<span class="nc" id="L105">            LoginFrame loginFrame = new LoginFrame(app);</span>
+<span class="nc" id="L106">            manageProjectFrame.setVisible(false);</span>
+<span class="nc" id="L107">            manageProjectFrame.dispose();</span>
+<span class="nc" id="L108">        });</span>
+<span class="nc" id="L109">        logoutButton.setBounds(0, 100, 150, 25);</span>
+<span class="nc" id="L110">        dropdownContainer.add(logoutButton);</span>
+
+        // Add MouseListener to the label
+<span class="nc" id="L113">        dropdownLabel.addMouseListener(new MouseAdapter() {</span>
+            @Override
+            public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L116">                dropdownContainer.setVisible(true); // Show the container on hover</span>
+<span class="nc" id="L117">            }</span>
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the dropdownContainer
+<span class="nc" id="L122">                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();</span>
+<span class="nc" id="L123">                SwingUtilities.convertPointFromScreen(mouseLocation, dropdownContainer);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">                if (!dropdownContainer.contains(mouseLocation)) {</span>
+<span class="nc" id="L125">                    dropdownContainer.setVisible(false); // Hide the container if the mouse is outside</span>
+                }
+<span class="nc" id="L127">            }</span>
+        });
+
+        // Add MouseListener to the container
+<span class="nc" id="L131">        dropdownContainer.addMouseListener(new MouseAdapter() {</span>
+            @Override
+            public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L134">                dropdownContainer.setVisible(true); // Keep the container visible on hover</span>
+<span class="nc" id="L135">            }</span>
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the dropdownLabel
+<span class="nc" id="L140">                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();</span>
+<span class="nc" id="L141">                SwingUtilities.convertPointFromScreen(mouseLocation, dropdownLabel);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">                if (!dropdownLabel.contains(mouseLocation)) {</span>
+<span class="nc" id="L143">                    dropdownContainer.setVisible(false); // Hide the container if the mouse is outside</span>
+                }
+<span class="nc" id="L145">            }</span>
+        });
+
+<span class="nc" id="L148">        JLabel title = new JLabel(&quot;Project &quot; + project.getProjectNumber());</span>
+<span class="nc" id="L149">        title.setForeground(Color.BLACK);</span>
+<span class="nc" id="L150">        title.setFont(title.getFont().deriveFont(40f));</span>
+<span class="nc" id="L151">        title.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L152">        header.add(title);</span>
+<span class="nc" id="L153">        manageProjectFrame.add(header, BorderLayout.NORTH);</span>
+
+<span class="nc" id="L155">        JLabel addLabel = new JLabel();</span>
+<span class="nc" id="L156">        originalIcon = new ImageIcon(getClass().getResource(&quot;/dtu/icons/plusSign.png&quot;));</span>
+<span class="nc" id="L157">        scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);</span>
+<span class="nc" id="L158">        scaledIcon = new ImageIcon(scaledImage);</span>
+<span class="nc" id="L159">        addLabel.setIcon(scaledIcon);</span>
+<span class="nc bnc" id="L160" title="All 4 branches missed.">        if (app.getLoggedInDeveloper().getInitials().equals(project.getProjectLeader()) || project.getProjectLeader() == null) {</span>
+<span class="nc" id="L161">            addLabel.setVisible(true);</span>
+        } else {
+<span class="nc" id="L163">            addLabel.setVisible(false);</span>
+        }
+<span class="nc" id="L165">        header.add(addLabel, BorderLayout.EAST);</span>
+
+<span class="nc" id="L167">        JPanel addDropdownContainer = new JPanel();</span>
+<span class="nc" id="L168">        addDropdownContainer.setLayout(new GridLayout(5, 1)); // 3 rows, 1 column</span>
+<span class="nc" id="L169">        addDropdownContainer.setBounds(800, 80, 200, 125);</span>
+<span class="nc" id="L170">        addDropdownContainer.setBackground(Color.LIGHT_GRAY);</span>
+<span class="nc" id="L171">        addDropdownContainer.setVisible(false); // Initially hidden</span>
+<span class="nc" id="L172">        manageProjectFrame.add(addDropdownContainer); // Add the container to the frame</span>
+
+        // Create the dropdown items
+<span class="nc" id="L175">        JButton newActivity = new JButton(&quot;New activity&quot;);</span>
+<span class="nc" id="L176">        newActivity.addActionListener(e -&gt; {</span>
+<span class="nc" id="L177">            System.out.println(&quot;New activity clicked&quot;);</span>
+<span class="nc" id="L178">            CreateActivityFrame createActivityFrame = new CreateActivityFrame(app, project);</span>
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+<span class="nc" id="L181">            createActivityFrame.addWindowListener(new WindowAdapter() {</span>
+                @Override
+                public void windowClosed(WindowEvent e) {
+<span class="nc" id="L184">                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame</span>
+<span class="nc" id="L185">                }</span>
+            });
+<span class="nc" id="L187">        });</span>
+<span class="nc" id="L188">        addDropdownContainer.add(newActivity);</span>
+
+<span class="nc" id="L190">        JButton deleteActivity = new JButton(&quot;Delete activity&quot;);</span>
+<span class="nc" id="L191">        deleteActivity.addActionListener(e -&gt; {</span>
+<span class="nc" id="L192">            System.out.println(&quot;New activity clicked&quot;);</span>
+<span class="nc" id="L193">            DeleteActivityFrame deleteActivityFrame = new DeleteActivityFrame(app, project);</span>
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+<span class="nc" id="L196">            deleteActivityFrame.addWindowListener(new WindowAdapter() {</span>
+                @Override
+                public void windowClosed(WindowEvent e) {
+<span class="nc" id="L199">                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame</span>
+<span class="nc" id="L200">                }</span>
+            });
+<span class="nc" id="L202">        });</span>
+<span class="nc" id="L203">        addDropdownContainer.add(deleteActivity);</span>
+
+<span class="nc" id="L205">        JButton assignProjectleader = new JButton(&quot;Assign projectleader&quot;);</span>
+<span class="nc" id="L206">        assignProjectleader.addActionListener(e -&gt; {</span>
+<span class="nc" id="L207">            System.out.println(&quot;Assign Projectleader clicked&quot;);</span>
+<span class="nc" id="L208">            AssignProjectleaderFrame assignProjectleaderFrame = new AssignProjectleaderFrame(app, project);</span>
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+<span class="nc" id="L211">            assignProjectleaderFrame.addWindowListener(new WindowAdapter() {</span>
+                @Override
+                public void windowClosed(WindowEvent e) {
+<span class="nc" id="L214">                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame</span>
+<span class="nc" id="L215">                }</span>
+            });
+<span class="nc" id="L217">        });</span>
+<span class="nc" id="L218">        addDropdownContainer.add(assignProjectleader);</span>
+
+<span class="nc" id="L220">        JButton setStatusButton = new JButton(&quot;Update status&quot;);</span>
+<span class="nc" id="L221">        setStatusButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L222">            System.out.println(&quot;Update status clicked&quot;);</span>
+<span class="nc" id="L223">            SetProjectStatusFrame setProjectStatusFrame = new SetProjectStatusFrame(app, project);</span>
+
+            // Add a WindowListener to detect when CreateProjectFrame is closed
+<span class="nc" id="L226">            setProjectStatusFrame.addWindowListener(new WindowAdapter() {</span>
+                @Override
+                public void windowClosed(WindowEvent e) {
+<span class="nc" id="L229">                    refreshFrame(app, project); // Refresh the ProjectOverviewFrame</span>
+<span class="nc" id="L230">                }</span>
+            });
+<span class="nc" id="L232">        });</span>
+<span class="nc" id="L233">        addDropdownContainer.add(setStatusButton);</span>
+
+<span class="nc" id="L235">        JButton generateReport = new JButton(&quot;Generate report&quot;);</span>
+<span class="nc" id="L236">        generateReport.addActionListener(e -&gt; {</span>
+<span class="nc" id="L237">            System.out.println(&quot;Generate report clicked&quot;);</span>
+<span class="nc" id="L238">            GetReportFrame getReportFrame = new GetReportFrame(app, project);</span>
+<span class="nc" id="L239">        });</span>
+<span class="nc" id="L240">        addDropdownContainer.add(generateReport);</span>
+
+        // Add MouseListener to the label
+<span class="nc" id="L243">        addLabel.addMouseListener(new MouseAdapter() {</span>
+            @Override
+            public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L246">                addDropdownContainer.setVisible(true); // Show the container on hover</span>
+<span class="nc" id="L247">            }</span>
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the addDropdownContainer
+<span class="nc" id="L252">                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();</span>
+<span class="nc" id="L253">                SwingUtilities.convertPointFromScreen(mouseLocation, addDropdownContainer);</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">                if (!addDropdownContainer.contains(mouseLocation)) {</span>
+<span class="nc" id="L255">                    addDropdownContainer.setVisible(false); // Hide the container if the mouse is outside</span>
+                }
+<span class="nc" id="L257">            }</span>
+        });
+
+        // Add MouseListener to the container
+<span class="nc" id="L261">        addDropdownContainer.addMouseListener(new MouseAdapter() {</span>
+            @Override
+            public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L264">                addDropdownContainer.setVisible(true); // Keep the container visible on hover</span>
+<span class="nc" id="L265">            }</span>
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Check if the mouse is still inside the addLabel
+<span class="nc" id="L270">                Point mouseLocation = MouseInfo.getPointerInfo().getLocation();</span>
+<span class="nc" id="L271">                SwingUtilities.convertPointFromScreen(mouseLocation, addLabel);</span>
+<span class="nc bnc" id="L272" title="All 2 branches missed.">                if (!addLabel.contains(mouseLocation)) {</span>
+<span class="nc" id="L273">                    addDropdownContainer.setVisible(false); // Hide the container if the mouse is outside</span>
+                }
+<span class="nc" id="L275">            }</span>
+        });
+
+        // Main panel
+<span class="nc" id="L279">        JPanel main = new JPanel();</span>
+<span class="nc" id="L280">        main.setLayout(new BorderLayout());</span>
+<span class="nc" id="L281">        manageProjectFrame.add(main, BorderLayout.CENTER);</span>
+
+<span class="nc" id="L283">        JLabel projectLeaderLabel = new JLabel(&quot;Project leader: &quot; + project.getProjectLeader());</span>
+<span class="nc" id="L284">        projectLeaderLabel.setFont(projectLeaderLabel.getFont().deriveFont(20f)); // Set font size</span>
+<span class="nc" id="L285">        projectLeaderLabel.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L286">        projectLeaderLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Add padding</span>
+<span class="nc" id="L287">        main.add(projectLeaderLabel, BorderLayout.NORTH);</span>
+
+        // Create a container for activities
+<span class="nc" id="L290">        JPanel activityContainer = new JPanel();</span>
+<span class="nc" id="L291">        activityContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20)); // Horizontal alignment with spacing</span>
+<span class="nc" id="L292">        activityContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));</span>
+
+<span class="nc bnc" id="L294" title="All 2 branches missed.">        for (Activity activity : project.getActivities()) {</span>
+<span class="nc" id="L295">            JButton activityButton = activityButton(activity, app);</span>
+<span class="nc" id="L296">            activityContainer.add(activityButton);</span>
+<span class="nc" id="L297">        }</span>
+<span class="nc" id="L298">        main.add(activityContainer, BorderLayout.CENTER);</span>
+
+        // Finalize frame
+<span class="nc" id="L301">        manageProjectFrame.setLocationRelativeTo(null); // Center the frame on the screen</span>
+<span class="nc" id="L302">        manageProjectFrame.setResizable(false);</span>
+<span class="nc" id="L303">        manageProjectFrame.setVisible(true);</span>
+<span class="nc" id="L304">    }</span>
+
+    private void refreshFrame(App app, Project project) {
+<span class="nc" id="L307">        manageProjectFrame.setVisible(false);</span>
+<span class="nc" id="L308">        manageProjectFrame.dispose();</span>
+<span class="nc" id="L309">        new ManageProjectFrame(app, project);</span>
+<span class="nc" id="L310">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

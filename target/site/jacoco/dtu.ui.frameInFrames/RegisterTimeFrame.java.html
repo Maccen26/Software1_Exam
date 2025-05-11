@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegisterTimeFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ExamProject</a> &gt; <a href="index.source.html" class="el_package">dtu.ui.frameInFrames</a> &gt; <span class="el_source">RegisterTimeFrame.java</span></div><h1>RegisterTimeFrame.java</h1><pre class="source lang-java linenums">package dtu.ui.frameInFrames;
+
+import javax.swing.*;
+
+import dtu.app.*;
+import dtu.domain.*;
+
+public class RegisterTimeFrame extends JFrame{
+<span class="nc" id="L9">    public RegisterTimeFrame(App app, Activity activity){</span>
+<span class="nc" id="L10">        setTitle(&quot;Register time&quot;);</span>
+<span class="nc" id="L11">        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);</span>
+<span class="nc" id="L12">        setSize(200, 300);</span>
+<span class="nc" id="L13">        setLayout(null);</span>
+<span class="nc" id="L14">        setLocationRelativeTo(null);</span>
+<span class="nc" id="L15">        setResizable(false);</span>
+
+        // Add components
+<span class="nc" id="L18">        JLabel timeLabel = new JLabel(&quot;Time:&quot;);</span>
+<span class="nc" id="L19">        timeLabel.setBounds(0, 20, 200, 25);</span>
+<span class="nc" id="L20">        timeLabel.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L21">        add(timeLabel);</span>
+
+<span class="nc" id="L23">        JTextField timeField = new JTextField();</span>
+<span class="nc" id="L24">        timeField.setBounds(60, 50, 80, 25);</span>
+<span class="nc" id="L25">        add(timeField);</span>
+
+<span class="nc" id="L27">        JButton registerButton = new JButton(&quot;Register time&quot;);</span>
+<span class="nc" id="L28">        registerButton.setBounds(25, 100, 150, 30);</span>
+<span class="nc" id="L29">        registerButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L30">            String time = timeField.getText();</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            if (time.isEmpty()) {</span>
+<span class="nc" id="L32">                JOptionPane.showMessageDialog(this, &quot;Please enter a time&quot;, &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+            } else {
+                try {
+<span class="nc" id="L35">                    activity.registerTime(Double.parseDouble(time), app.getLoggedInDeveloper());</span>
+<span class="nc" id="L36">                } catch (Exception ex) {</span>
+<span class="nc" id="L37">                    JOptionPane.showMessageDialog(this, ex.getMessage(), &quot;Error&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L38">                }</span>
+            }
+<span class="nc" id="L40">            setVisible(false);</span>
+<span class="nc" id="L41">            dispose();</span>
+<span class="nc" id="L42">            System.out.println(&quot;Tried to register time&quot;);</span>
+<span class="nc" id="L43">        });</span>
+<span class="nc" id="L44">        add(registerButton);</span>
+
+<span class="nc" id="L46">        setVisible(true);</span>
+<span class="nc" id="L47">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ui.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ExamProject</a> &gt; <a href="index.source.html" class="el_package">dtu.ui</a> &gt; <span class="el_source">Ui.java</span></div><h1>Ui.java</h1><pre class="source lang-java linenums">package dtu.ui;
+
+import javax.swing.*;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import dtu.app.*;
+import dtu.domain.*;
+
+<span class="nc" id="L11">public class Ui {</span>
+<span class="nc" id="L12">    private static App app = new App();</span>
+    
+    public static void main(String[] args) { // Lukas
+<span class="nc" id="L15">        app.createProject();</span>
+<span class="nc" id="L16">        app.createProject();</span>
+<span class="nc" id="L17">        app.createProject();</span>
+
+<span class="nc" id="L19">        ArrayList&lt;Project&gt; projects = app.getProjects();</span>
+        Developer dev;
+        try {
+<span class="nc" id="L22">            dev = app.getDeveloper(&quot;huba&quot;);</span>
+<span class="nc" id="L23">        } catch (Exception e) {</span>
+<span class="nc" id="L24">            dev = new Developer(&quot;huba&quot;);</span>
+<span class="nc" id="L25">            System.out.println(e.getMessage());</span>
+<span class="nc" id="L26">        }</span>
+
+<span class="nc" id="L28">        String[] devs = {&quot;mhh&quot;, &quot;lkm&quot;, &quot;jkv&quot;, &quot;tf&quot;, &quot;fbj&quot;};</span>
+<span class="nc" id="L29">        ArrayList&lt;Developer&gt; devsList = new ArrayList&lt;Developer&gt;();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        for (String devsName : devs) {</span>
+            try {
+<span class="nc" id="L32">                app.addDeveloper(new Developer(devsName));</span>
+<span class="nc" id="L33">                devsList.add(app.getDeveloper(devsName));</span>
+<span class="nc" id="L34">            } catch (Exception e) {</span>
+<span class="nc" id="L35">                System.out.println(e.getMessage());</span>
+<span class="nc" id="L36">            }</span>
+        }
+
+
+        try {
+<span class="nc" id="L41">            projects.get(0).assignProjectLeader(dev, dev);</span>
+<span class="nc" id="L42">            projects.get(0).addActivity(dev, &quot;Activity 1&quot;, new int[] {20, 21}, new int[] {2025, 2025});</span>
+<span class="nc" id="L43">            projects.get(0).getActivity(&quot;Activity 1&quot;).setTimeBudget(dev, 20.);</span>
+<span class="nc" id="L44">            projects.get(0).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(0));</span>
+<span class="nc" id="L45">            projects.get(0).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(1));</span>
+<span class="nc" id="L46">            projects.get(0).addActivity(dev, &quot;Activity 2&quot;, new int[] {19, 24}, new int[] {2025, 2025});</span>
+<span class="nc" id="L47">            projects.get(0).getActivity(&quot;Activity 2&quot;).setTimeBudget(dev, 50.);</span>
+<span class="nc" id="L48">            projects.get(0).getActivity(&quot;Activity 2&quot;).addDeveloper(dev, devsList.get(3));</span>
+<span class="nc" id="L49">            projects.get(0).getActivity(&quot;Activity 2&quot;).addDeveloper(dev, devsList.get(4));</span>
+<span class="nc" id="L50">            projects.get(0).getActivity(&quot;Activity 2&quot;).addDeveloper(dev, devsList.get(2));</span>
+<span class="nc" id="L51">            projects.get(0).getActivity(&quot;Activity 2&quot;).addDeveloper(dev, dev);</span>
+<span class="nc" id="L52">            projects.get(0).addActivity(dev, &quot;Activity 3&quot;, new int[] {22, 23}, new int[] {2025, 2025});</span>
+<span class="nc" id="L53">            projects.get(0).getActivity(&quot;Activity 3&quot;).setTimeBudget(dev, 10.);</span>
+<span class="nc" id="L54">            projects.get(0).getActivity(&quot;Activity 3&quot;).addDeveloper(dev, devsList.get(0));</span>
+    
+<span class="nc" id="L56">            projects.get(1).assignProjectLeader(dev, dev);</span>
+<span class="nc" id="L57">            projects.get(1).addActivity(dev, &quot;Activity 1&quot;, new int[] {18, 20}, new int[] {2025, 2025});</span>
+<span class="nc" id="L58">            projects.get(0).getActivity(&quot;Activity 1&quot;).setTimeBudget(dev, 20.);</span>
+<span class="nc" id="L59">            projects.get(1).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(4));</span>
+<span class="nc" id="L60">            projects.get(1).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(3));</span>
+<span class="nc" id="L61">            projects.get(1).addActivity(dev, &quot;Activity 2&quot;, new int[] {20, 22}, new int[] {2025, 2025});</span>
+<span class="nc" id="L62">            projects.get(0).getActivity(&quot;Activity 1&quot;).setTimeBudget(dev, 5.);</span>
+<span class="nc" id="L63">            projects.get(1).getActivity(&quot;Activity 2&quot;).addDeveloper(dev, devsList.get(2));</span>
+    
+<span class="nc" id="L65">            projects.get(2).assignProjectLeader(dev, dev);</span>
+<span class="nc" id="L66">            projects.get(2).addActivity(dev, &quot;Activity 1&quot;, new int[] {20, 21}, new int[] {2025, 2025});</span>
+<span class="nc" id="L67">            projects.get(0).getActivity(&quot;Activity 1&quot;).setTimeBudget(dev, 100.);</span>
+<span class="nc" id="L68">            projects.get(2).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(0));</span>
+<span class="nc" id="L69">            projects.get(2).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(1));</span>
+<span class="nc" id="L70">            projects.get(2).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(2));</span>
+<span class="nc" id="L71">            projects.get(2).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(3));</span>
+<span class="nc" id="L72">            projects.get(2).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, devsList.get(4));</span>
+<span class="nc" id="L73">            projects.get(2).getActivity(&quot;Activity 1&quot;).addDeveloper(dev, dev);</span>
+<span class="nc" id="L74">        } catch (ErrorMessage e){</span>
+<span class="nc" id="L75">            System.out.println(e.getMessage());</span>
+<span class="nc" id="L76">        }</span>
+
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        for (Project project : projects) {</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            for (Activity activity : project.getActivities()) {</span>
+<span class="nc" id="L80">                System.out.println(&quot;Activity: &quot; + activity.getName());</span>
+<span class="nc" id="L81">            }</span>
+<span class="nc" id="L82">        }</span>
+
+<span class="nc" id="L84">        LoginFrame loginFrame = new LoginFrame(app);</span>
+<span class="nc" id="L85">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
