@@ -50,6 +50,23 @@ public class addActivityJUnit {
     }
 
     @Test
+    public void addActivity_weekoryearnotlen2() throws Exception {
+        App app = new App();
+        app.createProject();
+        Project p = app.getProject("20251");
+
+        Developer thfa = new Developer("thfa");
+        app.addDeveloper(thfa);
+        p.assignProjectLeader(thfa, thfa);
+
+        AssertionError thrown = assertThrows(
+            AssertionError.class,
+            () -> p.addActivity(thfa, "Activity1", new int[]{1}, new int[]{2025})
+        );
+        assertEquals("Week and Year plan must have length 2", thrown.getMessage());
+    }
+
+    @Test
     public void addActivity_successfullyAdds() throws Exception {
         App app = new App();
         app.createProject();
