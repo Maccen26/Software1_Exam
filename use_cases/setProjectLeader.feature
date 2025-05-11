@@ -1,3 +1,4 @@
+#Mads HH + Johan
 Feature: Set a projectleader for a project
 Background:
     Given project "20251" and "20252" exists
@@ -15,7 +16,7 @@ Scenario: Setting a new projectleader when projectleader
     Given the App contains a developer with the initials "mahh"
     When the developer "thfa" tries to set the projectleader of project "20251" to "mahh"
     Then "mahh" is projectleader of project "20251"
-#
+
 Scenario: Setting a projectleader when projectleader already exists
     Given the developer "thfa" tries to set the projectleader of project "20251" to "thfa"
     And "thfa" is projectleader of project "20251"
