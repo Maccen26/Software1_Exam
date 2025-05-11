@@ -21,11 +21,11 @@ public class Developer {
 
     //Implicit methods
     //getters
-    public ArrayList <Activity>  getAssignedActivities() { // Johan
+    public ArrayList <Activity>  getAssignedActivities() {
         return this.assignedActivities;
     }
 
-    public String getInitials() { // Lukas
+    public String getInitials() {
         return initials;
     }
 }

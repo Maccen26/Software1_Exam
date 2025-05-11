@@ -97,7 +97,7 @@ public class CreateActivityFrame extends JFrame {
             }
             
 
-            if (project.hasActivity(activityName)) {
+            if (project.containsActivityName(activityName)) {
                 JOptionPane.showMessageDialog(this, "Activity already exists", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }

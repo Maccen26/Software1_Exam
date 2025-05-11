@@ -80,7 +80,7 @@ public class Activity {
     }
 
 
-    //Implicit methods implemented by Lukas
+    //Implicit methods
     //getters
     public ArrayList<Developer> getAssignedDeveloper() {
         return this.assignedDevelopers; 
@@ -150,7 +150,7 @@ public class Activity {
     }
 
     //has
-    public boolean hasDeveloper(Developer developer){ //Thomas
+    public boolean hasDeveloper(Developer developer){
         return this.getAssignedDevelopers().contains(developer);
     }
 

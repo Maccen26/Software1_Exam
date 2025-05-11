@@ -16,7 +16,6 @@ public class Project {
     private String status;
 
     public Project(String projectNumber) { // Lukas
-        // Initialise the project number and project leader
         this.projectNumber = projectNumber;
         this.projectLeader = null;
         this.activities = new ArrayList<Activity>();
@@ -24,16 +23,13 @@ public class Project {
     }
 
     public void assignProjectLeader(Developer requester, Developer newLeader) throws ErrorMessage { //Johan
-        // If there already is a leader, only they can change it:
         if (this.projectLeader != null && !requester.getInitials().equals(this.projectLeader)) {
             throw new ErrorMessage("Only the current project leader can reassign the project leader");
         }
-
-        // At this point either there was no leader, or the requester *is* the leader:
         this.projectLeader = newLeader.getInitials();
     }
 
-    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws AssertionError {
+    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws AssertionError { //Johan
         assert requester.getInitials().equals(this.projectLeader) || this.projectLeader == null : "Developer is not projectleader";
         assert !containsActivityName(name) : "Activity title already exists";
         assert weekPlan.length == 2 && yearPlan.length == 2: "Week and Year plan must have length 2";
@@ -89,7 +85,6 @@ public class Project {
             return finishedReport;
         }
 
-        // Get the report for the project
         ArrayList<String> report = new ArrayList<>();
         Double totalTime = 0.;
         Double totalBudget = 0.;
@@ -111,7 +106,7 @@ public class Project {
 
     //Implicit methods
     //getters
-    public Activity getActivity(String activityName) throws ErrorMessage{
+    public Activity getActivity(String activityName) throws ErrorMessage{ //Lukas
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
                 return activity;
@@ -155,14 +150,4 @@ public class Project {
         this.status = status;
     }
 
-    //has
-    public boolean hasActivity(String activityName) { // Lukas
-        // Check if an activity exists by its name
-        for (Activity activity : activities) {
-            if (activity.getName().equals(activityName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
