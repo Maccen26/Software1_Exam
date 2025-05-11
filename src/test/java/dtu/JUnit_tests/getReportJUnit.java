@@ -27,7 +27,7 @@ public class getReportJUnit {
 
         try{
             ArrayList<String> report = project.getReport(mahh);
-        } catch (Exception e) {
+        } catch (AssertionError e) {
             assertEquals("Only the project leader can get the report", e.getMessage());
         }
     }
