@@ -126,6 +126,18 @@ public class Activity {
     }
 
     public void registerTime(Double time, Developer developer) throws Exception { //Mads
+        /*
+         *    PRE-CONDITIONS: 
+         *         
+         *                  time > 0  && time mod 0.5 = 0 
+         * 
+         *    
+         *    POST-CONDITIONS: 
+         *          
+         *                  time.get(d_i) = time_old(d_i) + time
+         * 
+         *  where d_i is developer i
+         */
 
         assert time%0.5 == 0: "Time can only be logged in 0.5 hours increments"; //1
         assert time > 0: "Time cannot be negative";//2
@@ -137,6 +149,7 @@ public class Activity {
             registeredTime = 0.0; //5
         }
         timeTracker.put(developer, registeredTime + time); //6
+
     }
 
     public Double getRegisteredTime(Developer developer) { //Mads
