@@ -46,6 +46,38 @@ public class Activity {
         developer.getAssignedActivities().remove(this);
     }
 
+    public void registerTime(Double time, Developer developer) throws Exception { //Mads
+        /*
+         *    PRE-CONDITIONS: 
+         *         
+         *                  time > 0  && time mod 0.5 = 0 
+         * 
+         *    
+         *    POST-CONDITIONS: 
+         *          
+         *                  time.get(d_i) = time_old(d_i) + time
+         * 
+         *  where d_i is developer i
+         */
+
+
+        //PRE-CONDITIONS
+        assert time%0.5 == 0: "Time can only be logged in 0.5 hours increments"; //1
+        assert time > 0: "Time cannot be negative";//2
+
+
+        Double registeredTime = timeTracker.get(developer); //3
+
+        if (registeredTime == null) { //4
+            registeredTime = 0.0; //5
+        }
+        timeTracker.put(developer, registeredTime + time); //6
+
+        //POST-CONDITIONS 
+        assert timeTracker.get(developer) == (registeredTime + time) : "Post-condtions violated: Time not updated right"; 
+    }
+
+
     //Implicit methods implemented by Lukas
     //getters
     public ArrayList<Developer> getAssignedDeveloper() {
@@ -125,19 +157,6 @@ public class Activity {
         return this.getAssignedDevelopers().contains(developer);
     }
 
-    public void registerTime(Double time, Developer developer) throws Exception { //Mads
-
-        assert time%0.5 == 0: "Time can only be logged in 0.5 hours increments"; //1
-        assert time > 0: "Time cannot be negative";//2
-
-
-        Double registeredTime = timeTracker.get(developer); //3
-
-        if (registeredTime == null) { //4
-            registeredTime = 0.0; //5
-        }
-        timeTracker.put(developer, registeredTime + time); //6
-    }
 
     public Double getRegisteredTime(Developer developer) { //Mads
         Double registeredTime = timeTracker.get(developer);
@@ -158,4 +177,5 @@ public class Activity {
 
         return totalTime;
     }
+
 }

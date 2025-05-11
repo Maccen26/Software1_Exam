@@ -74,10 +74,8 @@ public class Project {
         activity.addDeveloper(developer, requester);
     }
 
-    public ArrayList<String> getReport(Developer dev) throws ErrorMessage{ // Lukas
-        if (!dev.getInitials().equals(this.projectLeader)) {
-            throw new ErrorMessage("Only the project leader can get the report");
-        }
+    public ArrayList<String> getReport(Developer dev) throws AssertionError{ // Lukas
+        assert this.projectLeader.equals(dev.getInitials()) : "Only the project leader can get the report";
 
         if (this.activities.isEmpty()) {
             ArrayList<String> emptyReport = new ArrayList<>();
@@ -104,6 +102,9 @@ public class Project {
             report.add(activity.getName() + ": " + status + " - " + activity.getTimeSpent() + "/" + activity.getTimeBudget());
 
         }
+
+        assert report.size() == activities.size() + 1 : "Report size is incorrect";
+
         return report;
     }
 
@@ -134,8 +135,12 @@ public class Project {
         return projectLeader;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     //setters
-    public void setStatus (String status, Developer requester) throws Exception{
+    public void setStatus (String status, Developer requester) throws Exception{ //Freja
         if (!this.projectLeader.equals(requester.getInitials()) && this.projectLeader != null) {
             throw new ErrorMessage("not project leader, status change failed");
         }

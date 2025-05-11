@@ -155,44 +155,45 @@ public class ActivityOverviewFrame extends JFrame {
         JPanel main = new JPanel();
         activityOverviewFrame.add(main, BorderLayout.CENTER);
 
-        JPanel searchContainer = new JPanel();
-        searchContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+        // Search functionality
+        // JPanel searchContainer = new JPanel();
+        // searchContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel searchIcon = new JLabel();
-        ImageIcon searchOriginalIcon = new ImageIcon(getClass().getResource("/dtu/icons/Search.png"));
-        Image searchScaledImage = searchOriginalIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        ImageIcon searchScaledIcon = new ImageIcon(searchScaledImage);
-        searchIcon.setIcon(searchScaledIcon);
-        searchContainer.add(searchIcon);
+        // JLabel searchIcon = new JLabel();
+        // ImageIcon searchOriginalIcon = new ImageIcon(getClass().getResource("/dtu/icons/Search.png"));
+        // Image searchScaledImage = searchOriginalIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        // ImageIcon searchScaledIcon = new ImageIcon(searchScaledImage);
+        // searchIcon.setIcon(searchScaledIcon);
+        // searchContainer.add(searchIcon);
         
-        JTextField searchField = new JTextField();
-        searchField.setPreferredSize(new Dimension(200, 30));
-        searchField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(java.awt.event.FocusEvent e) {
-                if (searchField.getText().equals("Search for activity")) {
-                    searchField.setText("");
-                    searchField.setForeground(Color.BLACK);
-                }
-            }
-            @Override
-            public void focusLost(java.awt.event.FocusEvent e) {
-                if (searchField.getText().isEmpty()) {
-                    searchField.setText("Search for activity");
-                    searchField.setForeground(Color.GRAY);
-                }
-            }
-        });
-        searchContainer.add(searchField);
+        // JTextField searchField = new JTextField();
+        // searchField.setPreferredSize(new Dimension(200, 30));
+        // searchField.addFocusListener(new FocusAdapter() {
+        //     @Override
+        //     public void focusGained(java.awt.event.FocusEvent e) {
+        //         if (searchField.getText().equals("Search for activity")) {
+        //             searchField.setText("");
+        //             searchField.setForeground(Color.BLACK);
+        //         }
+        //     }
+        //     @Override
+        //     public void focusLost(java.awt.event.FocusEvent e) {
+        //         if (searchField.getText().isEmpty()) {
+        //             searchField.setText("Search for activity");
+        //             searchField.setForeground(Color.GRAY);
+        //         }
+        //     }
+        // });
+        // searchContainer.add(searchField);
 
-        JButton searchButton = new JButton("Search");
-        searchButton.addActionListener(e -> {
-            String searchText = searchField.getText();
-            System.out.println("Search for: " + searchText);
-            // Add your action here
-        });
-        searchContainer.add(searchButton);
-        main.add(searchContainer, BorderLayout.NORTH);
+        // JButton searchButton = new JButton("Search");
+        // searchButton.addActionListener(e -> {
+        //     String searchText = searchField.getText();
+        //     System.out.println("Search for: " + searchText);
+        //     // Add your action here
+        // });
+        // searchContainer.add(searchButton);
+        // main.add(searchContainer, BorderLayout.NORTH);
 
         class LinePanel extends JPanel {
             @Override

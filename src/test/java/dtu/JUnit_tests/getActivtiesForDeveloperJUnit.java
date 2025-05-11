@@ -71,7 +71,7 @@ public getActivtiesForDeveloperJUnit() throws Exception {
     {
         Project project = app.getProject("20251"); 
         Activity activity = project.getActivity("Activity1"); 
-        //activity.setStatus("Done");
+        activity.setStatus("Done", this.developer);
         this.activityList = app.getActivitesForDeveloper("mahh"); 
         assertTrue(activityList.size() == 1); 
         assertEquals(activityList.get(0).getName(), "Activity1");

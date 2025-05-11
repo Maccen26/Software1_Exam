@@ -26,7 +26,7 @@ public class GetReportFrame extends JFrame{
         ArrayList<String> report = new ArrayList<>();
         try {
             report = project.getReport(app.getLoggedInDeveloper());
-        } catch (ErrorMessage e) {
+        } catch (AssertionError e) {
             reportLabel.setText(e.getMessage());
         }
         
