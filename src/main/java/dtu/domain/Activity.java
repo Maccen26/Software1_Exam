@@ -74,9 +74,9 @@ public class Activity {
         timeTracker.put(developer, registeredTime + time); //6
 
         //POST-CONDITIONS 
-        assert timeTracker.get(developer) == (registeredTime + time) : "Post-condtions violated"; //7
-
+        assert timeTracker.get(developer) == (registeredTime + time) : "Post-condtions violated: Time not updated right"; 
     }
+
 
     //Implicit methods implemented by Lukas
     //getters
