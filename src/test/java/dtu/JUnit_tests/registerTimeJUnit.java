@@ -11,6 +11,8 @@ import dtu.app.App;
 import dtu.domain.*;
 import io.cucumber.java.bs.A;
 
+
+
 public class registerTimeJUnit {
 
 
@@ -19,7 +21,7 @@ private Developer developer;
 private Project project; 
 private Activity activity;
 
-public registerTimeJUnit() throws Exception {
+public registerTimeJUnit() throws Exception, ErrorMessage {
     this.app = new App(); 
     this.developer = new Developer("mahh");
     this.app.addDeveloper(developer);
@@ -49,7 +51,7 @@ public registerTimeJUnit() throws Exception {
 
 }
     @Test
-    public void testA() throws Exception{
+    public void testA() throws AssertionError, Exception{
         try {
             Double time = 0.1;
 
