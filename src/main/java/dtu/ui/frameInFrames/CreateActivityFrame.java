@@ -105,7 +105,7 @@ public class CreateActivityFrame extends JFrame {
             try {
                 project.addActivity(app.getLoggedInDeveloper(), activityName, new int[] { startWeek, endWeek },
                         new int[] { startYear, endYear });
-            } catch (ErrorMessage ex) {
+            } catch (AssertionError ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
