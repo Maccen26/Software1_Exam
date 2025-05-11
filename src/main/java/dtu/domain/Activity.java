@@ -139,6 +139,8 @@ public class Activity {
          *  where d_i is developer i
          */
 
+
+        //PRE-CONDITIONS
         assert time%0.5 == 0: "Time can only be logged in 0.5 hours increments"; //1
         assert time > 0: "Time cannot be negative";//2
 
@@ -149,6 +151,9 @@ public class Activity {
             registeredTime = 0.0; //5
         }
         timeTracker.put(developer, registeredTime + time); //6
+
+        //POST-CONDITIONS 
+        assert timeTracker.get(developer) == (registeredTime + time) : "Post-condtions violated"; //7
 
     }
 
