@@ -33,19 +33,19 @@ public class Project {
         this.projectLeader = newLeader.getInitials();
     }
 
-    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws ErrorMessage {
-        if (!requester.getInitials().equals(this.projectLeader) && this.projectLeader != null) {
-            throw new ErrorMessage("Developer is not projectleader");
-        }
-        if (containsActivityName(name)) {
-            throw new ErrorMessage("Activity title already exists");
-        }
+    public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws AssertionError {
+        assert !requester.getInitials().equals(this.projectLeader) && this.projectLeader != null : "Developer is not projectleader";
+        assert containsActivityName(name) : "Activity title already exists";
 
         int[] weekPlanCopy = weekPlan.clone();
         int[] yearPlanCopy = yearPlan.clone();
 
         Activity newActivity = new Activity(name, this, weekPlanCopy, yearPlanCopy);
+        int oldSize = activities.size();
         activities.add(newActivity);
+
+        assert activities.size() == oldSize + 1 : "Activity list size incorrect";
+        assert containsActivityName(name) : "New activity not present";
     }
 
     public void removeActivity(Developer requester, String name) throws ErrorMessage {//Johan

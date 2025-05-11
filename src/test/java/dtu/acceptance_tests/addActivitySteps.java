@@ -49,7 +49,7 @@ public class addActivitySteps {
         Developer developer = app.getDeveloper(string);
         try {
             app.getProject(string3).addActivity(developer, string2, weekPlan, yearPlan);
-        } catch (ErrorMessage e) {
+        } catch (AssertionError e) {
             errorMessage = e.getMessage();
         }
     }
@@ -69,7 +69,7 @@ public class addActivitySteps {
         Developer developer = app.getDeveloper(string);
         try {
             app.getProject(string3).addActivity(developer, string2, weekPlan, yearPlan);
-        } catch (ErrorMessage e) {
+        } catch (AssertionError e) {
             errorMessage = e.getMessage();
         }
     }
