@@ -75,7 +75,7 @@ public class Project {
     }
 
     public ArrayList<String> getReport(Developer dev) throws AssertionError{ // Lukas
-        assert this.projectLeader.equals(dev.getInitials());
+        assert this.projectLeader.equals(dev.getInitials()) : "Only the project leader can get the report";
 
         if (this.activities.isEmpty()) {
             ArrayList<String> emptyReport = new ArrayList<>();
@@ -103,7 +103,7 @@ public class Project {
 
         }
 
-        assert report.size() == activities.size() + 1;
+        assert report.size() == activities.size() + 1 : "Report size is incorrect";
 
         return report;
     }
