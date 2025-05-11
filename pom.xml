@@ -9,7 +9,7 @@
 	<groupId>dtu</groupId>
 	<artifactId>ExamProject</artifactId>
 	<name>ExamProject</name>
-	<version>SNAPSHOT 0.0.1</version>
+	<version>SNAPSHOT-1.0</version>
 
 	<properties>
 		<maven.compiler.source>8</maven.compiler.source>
@@ -35,7 +35,7 @@
 						<index>true</index>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>ui.Ui</mainClass>
+							<mainClass>dtu.ui.Ui</mainClass>
 							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
 					</archive>

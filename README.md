@@ -3,32 +3,80 @@
 This file contains instructions on running the program via the UI and runnning the tests trough the terminal.
 
 
-# Running the tests
+## Running the tests
 
-You can run the tests using ``mvn clean test`` or through the IDE.
+You can run the tests using ``mvn clean test`` or through your IDE.
 
-# Running the application
+## Running the application
+### Background 
+The applications start up with several activites, developers and projects such that the user can test several functionalities 
 
-### IDE
-You can run the application through the IDE in the class Ui at the path src/main/java/dtu/ui/Ui.java. 
+The following developers is contained in the app when launching the app. 
 
-### Terminal
+1. huba 
+2. tf
+3. mhh 
+3. lkm 
+4. fbj
+5. jkv
 
-You can run the application through the terminal first executing ``mvn clean package`` and then running ``java -jar target/library_full_solution-SNAPSHOT\ 0.0.1.jar``
 
-If you want to use the pom.xml file for you program, remember to change the start class in the pom.xml file to the class in your code which contains the main method.
+The following project is contained in the app with the following project leader
+1. 20251 - project leader: huba
+2. 20252 - project leader: huba
+3. 20253 - project leader: huba
 
-# Issues
-Tests run with Maven and Eclipse. The application needs to be started through the IDE (Eclipse or IntelliJ) from class dtu.library.gui.MainScreen (the Maven pom.xml file does not include the plugin to create a runnable jar file):
-* Needs Java 8
-* Eclipselink version 2.7.0
-* Java Persistence version 2.1.0
+The following activites is present in the app for every developer. 
+1. 20251 -> Activit1, Activity2, Activity3
+2. 20252 -> Activity1, Activity2
+3. 20253 -> Activity1
 
-Does not work with later Eclipselink and Java Persistence versions, and does also not work with Java 11 or later.
 
-More information: Using JDK 17 will work, but requires the compiler setting to be set to 1.8 (the same as 8). If using a compiler setting of 11 or higher, the database tests will fail.
 
-When updating to later persistence libraries, then `persistence.xml` is not found.
+### Starting the application
+#### IDE
+You can run the application through the IDE in the class "Ui" at the path src/main/java/dtu/ui/Ui.java. 
 
-# WYSIWYG editor WindowBuilder for Swing GUI in Eclipse 
-In Eclipse, the Swing GUI can be edited using the WindowBuilder plugin from the Eclipse marketplace. Once installed, you can select a Java class with a Swing UI and open using WindowBuilder. This will add a tab to the code window, which allows you to edit the GUI.
+#### Terminal
+
+You can run the application through the terminal first executing 
+
+1. ``mvn clean package`` 
+
+and then executing 
+
+2. ``java -jar target/ExamProject-SNAPSHOT-1.0.jar``
+
+## How to navigate the UI
+
+### Login: 
+1. Login with one of the contained developers
+
+### Main Page. 
+The main page shows all of the activities. They are color coded given their project. 
+
+### Main page -> Activity Page. 
+1. Double click on one of the displayed activites
+
+### Main page -> Project overview page: 
+1. Mouse over the top left Account figure
+2. press project from the drop down menu 
+
+### Project overview page -> Project Page
+1. Press one of the projects 
+
+### Project page -> Activity Page
+1. Press one of the activites within the project
+
+## How to perform actions in the UI
+
+### Create projects
+Mouse over the "+" icon in the top right corner at the project overview page 
+
+### Project Mangagement actions 
+Go into a project from the project overview page. 
+Mouse over the "+" icon in the top right corner to see avaliable actions 
+
+### Activity Mangement actions 
+Go into a activity from either the main page or the project page. 
+Mouse over the "+" icon in the top right corner to see avaliable actions 
