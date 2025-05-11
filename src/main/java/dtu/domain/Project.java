@@ -34,8 +34,8 @@ public class Project {
     }
 
     public void addActivity(Developer requester, String name, int[] weekPlan, int[] yearPlan) throws AssertionError {
-        assert !requester.getInitials().equals(this.projectLeader) && this.projectLeader != null : "Developer is not projectleader";
-        assert containsActivityName(name) : "Activity title already exists";
+        assert requester.getInitials().equals(this.projectLeader) || this.projectLeader == null : "Developer is not projectleader";
+        assert !containsActivityName(name) : "Activity title already exists";
 
         int[] weekPlanCopy = weekPlan.clone();
         int[] yearPlanCopy = yearPlan.clone();
