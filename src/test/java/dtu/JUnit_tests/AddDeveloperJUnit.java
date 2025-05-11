@@ -7,7 +7,7 @@ import dtu.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AddDeveloperJUnit {
+public class AddDeveloperJUnit { //THOMAS - EVERY METHOD IN THIS CLASS
 
     private App     app;
     private Project project;

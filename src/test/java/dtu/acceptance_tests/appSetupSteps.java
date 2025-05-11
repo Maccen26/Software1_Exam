@@ -81,7 +81,7 @@ public class appSetupSteps { //Mads
         assertTrue(project.getProjectLeader().equals(developerName));
     }
 
-   @Given("the activity with name {string}, under project {string} with startweek {int}, endweek {int} and startyear {int}, endyear {int}") 
+   @Given("the activity with name {string}, under project {string} with startweek {int}, endweek {int} and startyear {int}, endyear {int}")  //MAds
    public void theActivityWithNameUnderProjectWithStartweekEndweekAndStartyearEndyear(String activityName, String projectNumber, Integer startweek, Integer endweeek, Integer startyear, Integer endyear) throws Exception {//MAds
        // Write code here that turns the phrase above into concrete actions
        int[] weekplan = {startweek, endweeek}; 

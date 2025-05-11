@@ -7,7 +7,7 @@ import dtu.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class setStatusJUnit {
+public class setStatusJUnit { //FREJA - - EVERY METHOD IN THIS CLASS
 
     private Activity  activity;
     private Developer thfa;   // for test with developer on activity

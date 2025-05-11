@@ -13,7 +13,7 @@ import io.cucumber.java.bs.A;
 
 
 
-public class registerTimeJUnit {
+public class registerTimeJUnit { //MADS - - EVERY METHOD IN THIS CLASS
 
 
 private App app;

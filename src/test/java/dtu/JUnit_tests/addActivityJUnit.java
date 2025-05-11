@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import dtu.app.*;
 import dtu.domain.*;
 
-public class addActivityJUnit {
+public class addActivityJUnit { //Johan- EVERY METHOD IN THIS CLASS
 
     @Test
     public void addActivity_notProjectLeader_throws() throws Exception {

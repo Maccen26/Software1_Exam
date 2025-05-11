@@ -13,7 +13,7 @@ import io.cucumber.java.en.*;
 import io.cucumber.java.hu.De;
 
 
-public class removeActivitySteps {
+public class removeActivitySteps { //JOHAN - EVERY METHOD IN THIS CLASS
 
     private App app;
     private String errorMessage;

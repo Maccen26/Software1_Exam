@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Activity {
+public class Activity { //Lukas
     private String name; 
     private Project project; 
     private ArrayList<Developer> assignedDevelopers; 
@@ -150,7 +150,7 @@ public class Activity {
     }
 
     //has
-    public boolean hasDeveloper(Developer developer){
+    public boolean hasDeveloper(Developer developer){ //Lukas
         return this.getAssignedDevelopers().contains(developer);
     }
 
@@ -165,14 +165,12 @@ public class Activity {
         return registeredTime;
     }
 
-    public Double getTimeSpent(){ // Mads
+ public Double getTimeSpent(){ // Mads
         Double totalTime = 0.0;
-
         for (Double time: timeTracker.values() ) {
             totalTime += time;
         }
-
         return totalTime;
-    }
+ }  
 
 }

@@ -12,7 +12,7 @@ import dtu.domain.*;
 import io.cucumber.java.bs.A; 
 
 
-public class getActivtiesForDeveloperJUnit { 
+public class getActivtiesForDeveloperJUnit { //MADS - EVERY METHOD IN THIS CLASS
 private App app;
 private Developer developer;
 private ArrayList<Activity> activityList;

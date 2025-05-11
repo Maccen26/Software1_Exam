@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import dtu.app.*;
 import dtu.domain.*;
 
-public class getReportJUnit {
+public class getReportJUnit { //LUKAS - - EVERY METHOD IN THIS CLASS
     @Test
     public void testA() throws Exception {
         App app = new App();

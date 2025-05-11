@@ -33,7 +33,7 @@ public class App {
         this.developers.add(developer);
     }
 
-    public void addDeveloperToActivity(String projectNumber, String activityName, String requesterInitails, String developerInitials) throws Exception { //Mads + Johan + Thomas
+    public void addDeveloperToActivity(String projectNumber, String activityName, String requesterInitails, String developerInitials) throws Exception { //Johan
         Project project = getProject(projectNumber); 
         Developer developer = getDeveloper(developerInitials);
         Developer requester = getDeveloper(requesterInitails);
@@ -65,7 +65,7 @@ public class App {
         projectNumber++;
     }
 
-    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception { //Mads + Thomas
+    public void addActivity(String projectNumber, String activityName, int[] yearplan, int[] weekplan) throws Exception { //Thomas
         getProject(projectNumber).addActivity(this.loggedInDeveloper, activityName, weekplan, yearplan);
     }
 

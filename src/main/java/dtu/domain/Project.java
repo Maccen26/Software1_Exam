@@ -9,7 +9,7 @@ import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord.NU
 import io.cucumber.java.en_old.Ac;
 import io.cucumber.java.hu.De;
 
-public class Project {
+public class Project { //Lukas
     private String projectNumber;
     private String projectLeader;
     private ArrayList<Activity> activities;

@@ -66,12 +66,12 @@ public class activityOverviewSteps { //Mads
         //Do nothing because no activty is assigned
 
     }
-    @When("{string} get a overview")
+    @When("{string} get a overview") //Mads
     public void getAOverview(String string) throws Exception {
         // Write code here that turns the phrase above into concrete actions
         this.activityList = this.app.getActivitesForDeveloper(string);
     }
-    @Then("no activites is shown")
+    @Then("no activites is shown") //Mads
     public void noActivitesIsShown() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(0, this.activityList.size());

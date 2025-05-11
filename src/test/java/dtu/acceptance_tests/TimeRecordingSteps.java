@@ -14,7 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en_old.Ac;
 
-public class TimeRecordingSteps {
+public class TimeRecordingSteps { //MADS - EVERY METHOD IN THIS CLASS
 
     private App app;
     private Developer developer;
