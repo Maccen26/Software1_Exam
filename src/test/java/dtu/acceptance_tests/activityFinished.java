@@ -81,7 +81,7 @@ public class activityFinished {
         Developer developer = app.getDeveloper(dev);
         try{
             project.getActivity(activity).setStatus(status, developer);
-        } catch (ErrorMessage e) {
+        } catch (AssertionError e) {
             errorMessage = (e.getMessage());
         }
     }
@@ -92,10 +92,10 @@ public class activityFinished {
     }
 
     @Then("status for {string} not changed from {string}")
-    public void statusForNotChangedFrom(String string, String string2) {
+    public void statusForNotChangedFrom(String string, String string2) throws ErrorMessage{
         try{
             assertTrue(project.getActivity(string).getStatus().equals(string2));
-        } catch (ErrorMessage e){
+        } catch (AssertionError e){
             errorMessage = (e.getMessage());
         }
     }
@@ -105,7 +105,7 @@ public class activityFinished {
         Developer developer = app.getDeveloper(dev);
         try{
             project.getActivity(activity).setStatus(statusTo, developer);
-        }  catch (ErrorMessage e){
+        }  catch (AssertionError e){
             errorMessage = (e.getMessage());
         }
     }

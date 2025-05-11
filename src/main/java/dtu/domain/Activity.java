@@ -1,5 +1,7 @@
 package dtu.domain;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -140,16 +142,11 @@ public class Activity {
         this.yearPlan = yearPlan;
     }
 
-    public void setStatus(String status, Developer requester) throws ErrorMessage{ //Freja 
-        if(hasDeveloper(requester)){
-            if(getStatus().equals("Not started") && status.equals("Finished")){
-                throw new ErrorMessage("activity pending, status change failed");
-            }
-            this.status = status;
-        } 
-        else {
-            throw new ErrorMessage("not assigned to activity, status change failed");
-        }
+    public void setStatus(String status, Developer requester) throws AssertionError{ //Freja 
+        assert hasDeveloper(requester) : "not assigned to activity, status change failed";
+        assert !(getStatus().equals("Not started") && status.equals("Finished")) : "activity pending, status change failed";
+        this.status = status;
+        assert getStatus().equals(status);
     }
 
     //has
