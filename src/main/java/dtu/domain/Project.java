@@ -102,6 +102,9 @@ public class Project {
             report.add(activity.getName() + ": " + status + " - " + activity.getTimeSpent() + "/" + activity.getTimeBudget());
 
         }
+
+        assert report.size() == activities.size() + 1;
+
         return report;
     }
 
