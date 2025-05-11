@@ -1,3 +1,4 @@
+#Johan
 Feature: Delete Activities in a Project
 Background:
     Given the App contains a project with the project number "20251"

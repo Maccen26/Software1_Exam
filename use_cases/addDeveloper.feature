@@ -1,3 +1,4 @@
+#Thomas
 Feature: Add developer to an activity
   Description: A developer is added to an activity on a project by a projectleader 
   by providing the specific developer name and activity they will be working on. 

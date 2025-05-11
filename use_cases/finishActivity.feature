@@ -1,3 +1,4 @@
+#Freja
 Feature: Finish activity
     Background: 
         Given a project "20251"

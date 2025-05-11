@@ -1,3 +1,4 @@
+#Thomas
 Feature: Remove a developer from an activity
 	Description: A developer is removed from an activity on a project by a projectleader 
 	by providing the specific developer name and activity they are being removed from. 

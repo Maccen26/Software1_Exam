@@ -1,4 +1,4 @@
-#Mads HH + Johan
+#Johan
 Feature: Set a projectleader for a project
 Background:
     Given project "20251" and "20252" exists
