@@ -12,7 +12,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class addDeveloperToActivitySteps {
+public class addDeveloperToActivitySteps { //THOMAS -- EVERY METHOD IN THIS CLASS
 
     private App app; 
     private String errorMessage;
