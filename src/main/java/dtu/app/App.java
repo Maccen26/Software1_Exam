@@ -23,23 +23,6 @@ public class App {
         // Add test developers 
         Developer huba = new Developer("huba");
         developers.add(huba);
-        //Developer thfa = new Developer("thfa");
-        //developers.add(thfa);
-        //Developer mahh = new Developer("mahh");
-        //developers.add(mahh);
-//
-        //// Add test projects
-        //Project project0 = new Project("20250");
-        //projects.add(project0);
-        //
-        //// Add test activities
-        //try{
-        //    project0.assignProjectLeader(thfa, thfa);
-        //    project0.addActivity(thfa, "Activity1", new int[]{1, 2}, new int[]{2025, 2025});
-        //}
-        //catch (ErrorMessage e){
-        //    System.out.println(e.getMessage());
-        //}
 
         // Set current project number
         this.projectNumber = 1;
@@ -62,9 +45,6 @@ public class App {
         if (!hasDeveloper(developer.getInitials())) {
             throw new ErrorMessage("Developer does not exist");
         }
-        // if (this.loggedInDeveloper != null) {
-        //     throw new ErrorMessage("Another developer is already logged in");
-        // }
         this.loggedInDeveloper = developer;
     }
 
@@ -96,7 +76,6 @@ public class App {
             }
         }
         return null;
-       // throw new Exception("Project not contained in app");
     }
 
     public ArrayList<Project> getProjects() { // Lukas
